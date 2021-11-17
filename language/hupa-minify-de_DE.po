@@ -1,0 +1,51 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2021-11-17 12:23+0100\n"
+"PO-Revision-Date: 2021-11-17 12:24+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"X-Poedit-Basepath: ../inc\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e;esc_html;esc_html__;esc_att;esc_attr__;"
+"esc_attr_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: license/activate-hupa-minify-page.php:66
+msgid "Client ID"
+msgstr ""
+
+#: license/activate-hupa-minify-page.php:74
+msgid "Client secret"
+msgstr ""
+
+#: license/register-hupa-plugin.php:58 license/register-hupa-plugin.php:59
+msgid "Minify"
+msgstr ""
+
+#: update-checker/yahnis-elsts/plugin-update-checker/Puc/v4p11/Plugin/Ui.php:54
+msgid "View details"
+msgstr "Details anzeigen"
+
+#: update-checker/yahnis-elsts/plugin-update-checker/Puc/v4p11/Plugin/Ui.php:77
+#, php-format
+msgid "More information about %s"
+msgstr "Mehr Informationen zu %s"
+
+#: update-checker/yahnis-elsts/plugin-update-checker/Puc/v4p11/Plugin/Ui.php:128
+msgid "Check for updates"
+msgstr ""
+
+#: update-checker/yahnis-elsts/plugin-update-checker/Puc/v4p11/Plugin/Ui.php:224
+#, php-format
+msgid "Unknown update checker status \"%s\""
+msgstr "Unbekannter Status für Aktualisierungscheck \"%s\""
+
+#: update-checker/yahnis-elsts/plugin-update-checker/Puc/v4p11/Vcs/PluginUpdateChecker.php:98
+msgid "There is no changelog available."
+msgstr "Es steht kein Änderungsprotokoll zur Verfügung."
