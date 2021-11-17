@@ -4,7 +4,7 @@
 
 === HUPA - Minify ===
 Contributors: jwiecker
-Tags: bootstrap, formular
+Tags: minify, hupa minify
 Requires at least: 5.8
 Tested up to: 5.8
 Stable tag: 1.0.0
