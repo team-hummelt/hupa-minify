@@ -29,6 +29,7 @@ const HUPA_MINIFY_MIN_PHP_VERSION = '8.0';
 const HUPA_MINIFY_MIN_WP_VERSION = '5.7';
 const HUPA_MINIFY_QUERY_VAR = 'minify';
 const HUPA_MINIFY_QUERY_VALUE = 'min';
+const HUPA_MINIFY_SETTINGS_ID = 1;
 
 //PLUGIN VERSION
 $plugin_data = get_file_data(dirname(__FILE__) . '/hupa-minify.php', array('Version' => 'Version'), false);
@@ -44,6 +45,24 @@ const HUPA_MINIFY_INC = HUPA_MINIFY_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'inc' . D
 //PLUGIN ASSETS URL
 define('HUPA_MINIFY_ASSETS_URL', plugins_url('hupa-minify') . '/assets/');
 
+//PLUGIN ABSOLUT PATH
+require_once(ABSPATH . 'wp-admin/includes/file.php');
+$root_path = get_home_path();
+$path = rtrim( $root_path, DIRECTORY_SEPARATOR );
+define( "HUPA_MINIFY_ROOT_PATH", $path);
+$cacheFolder = $root_path . 'minify-cache';
+
+define( "HUPA_MINIFY_CACHE_PATH", sys_get_temp_dir());
+$opcache = false;
+$memcache = false;
+if(ini_get("opcache.enable")){
+	$opcache = true;
+}
+if(ini_get_all("memcache")){
+	$memcache = true;
+}
+define( "HUPA_MINIFY_OPCACHE", $opcache);
+define( "HUPA_MINIFY_MEMCACHE", $memcache);
 
 /**
  * REGISTER PLUGIN
@@ -85,4 +104,3 @@ if(get_option('hupa_minify_product_install_authorize')) {
 	);
 	$hupaMinifyUpdateChecker->getVcsApi()->enableReleaseAssets();
 }
-

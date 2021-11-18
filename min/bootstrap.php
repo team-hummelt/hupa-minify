@@ -3,6 +3,8 @@
  * Sets up autoloading and returns the Minify\App
  */
 
+use Minify\App;
+
 call_user_func(function () {
     if (is_dir(__DIR__ . '/../../../vendor')) {
         // Used as a composer library
@@ -22,4 +24,4 @@ call_user_func(function () {
     require $file;
 });
 
-return new \Minify\App(__DIR__);
+return new App(__DIR__);

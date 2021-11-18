@@ -5,9 +5,7 @@
  *
  * Change to true to expose this info.
  */
-$enabled = false;
-
-///////////////////////
+$enabled = true;
 
 if (!$enabled) {
     die('Set $enabled to true to see server info.');

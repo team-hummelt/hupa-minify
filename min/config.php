@@ -58,16 +58,15 @@ $min_allowDebugFlag = false;
  * For best performance, specify your temp directory here. Otherwise Minify
  * will have to load extra code to guess. Some examples below:
  */
-//$min_cachePath = 'c:\\WINDOWS\\Temp';
-//$min_cachePath = '/tmp';
-//$min_cachePath = preg_replace('/^\\d+;/', '', session_save_path());
+$min_cachePath = HUPA_MINIFY_CACHE_PATH;
 
 
 /**
  * To use APC/Memcache/ZendPlatform for cache storage, require the class and
  * set $min_cachePath to an instance. Example below:
  */
-//$min_cachePath = new Minify_Cache_APC();
+
+$min_cachePath = new Minify_Cache_APC();
 
 
 /**
@@ -80,11 +79,7 @@ $min_allowDebugFlag = false;
  * If /min/ is directly inside your document root, just uncomment the
  * second line. The third line might work on some Apache servers.
  */
-$min_documentRoot = '';
-//$min_documentRoot = dirname(dirname(__DIR__));
-//$min_documentRoot = substr(__FILE__, 0, -15);
-//$min_documentRoot = $_SERVER['SUBDOMAIN_DOCUMENT_ROOT'];
-
+$min_documentRoot = HUPA_MINIFY_ROOT_PATH;
 
 /**
  * Cache file locking. Set to false if filesystem is NFS. On at least one

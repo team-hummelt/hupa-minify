@@ -1,7 +1,9 @@
 <?php
 
 // allows putting /static anywhere as long as you put a boostrap.php in it
-if (is_file(__DIR__ . '/bootstrap.php')) {
+use Minify\App;
+
+if (is_file( __DIR__ . '/bootstrap.php')) {
     $bootstrap_file = __DIR__ . '/bootstrap.php';
 } else {
     $bootstrap_file = __DIR__ . '/../bootstrap.php';
@@ -20,7 +22,7 @@ $send_301 = function ($url) {
 };
 
 $app = (require $bootstrap_file);
-/* @var \Minify\App $app */
+/* @var App $app */
 
 if (!$app->config->enableStatic) {
     die('Minify static serving is not enabled. Set $min_enableStatic = true; in config.php');

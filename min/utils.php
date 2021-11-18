@@ -35,8 +35,7 @@ require __DIR__ . '/bootstrap.php';
  *   'groupsConfigFile' : specify if different
  * @return string
  */
-function Minify_getUri($keyOrFiles, $opts = array())
-{
+function Minify_getUri($keyOrFiles, $opts = array()): string {
     return Minify_HTML_Helper::getUri($keyOrFiles, $opts);
 }
 

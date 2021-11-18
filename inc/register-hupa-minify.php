@@ -159,7 +159,7 @@ final class RegisterHupaMinifyPlugin
 		$wp->add_query_var(HUPA_MINIFY_QUERY_VAR);
 		// Check DB
 		require 'optionen/filter/database/hupa-minify-database.php';
-		do_action('minify_plugin_update_dbCheck', false);
+		do_action('minify_plugin_update_dbCheck');
 	}
 
 	/**
@@ -170,7 +170,15 @@ final class RegisterHupaMinifyPlugin
 	function hupa_minify_callback_trigger_check(): void
 	{
 		if (get_query_var(HUPA_MINIFY_QUERY_VAR) == HUPA_MINIFY_QUERY_VALUE) {
-			//require 'optionen/Mailer/get-bs-formular-email.php';
+			require HUPA_MINIFY_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'min/index.php';
+			exit();
+		}
+		if (get_query_var(HUPA_MINIFY_QUERY_VAR) == 'info') {
+			require HUPA_MINIFY_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'min/server-info.php';
+			exit();
+		}
+		if (get_query_var(HUPA_MINIFY_QUERY_VAR) == 'server') {
+			require 'admin-pages/server-info.php';
 			exit();
 		}
 	}
@@ -229,6 +237,7 @@ final class RegisterHupaMinifyPlugin
 
 		wp_enqueue_script('hupa-minify-bs', HUPA_MINIFY_ASSETS_URL . 'js/bs/bootstrap.bundle.min.js', array(),HUPA_MINIFY_PLUGIN_VERSION, true);
 		wp_enqueue_script('jquery');
+		wp_enqueue_script('hupa-minify-options', HUPA_MINIFY_ASSETS_URL . 'js/hupa-minify.js', array(),HUPA_MINIFY_PLUGIN_VERSION, true);
 	}
 
 }//endClass
@@ -236,3 +245,6 @@ final class RegisterHupaMinifyPlugin
 global $register_hupa_minify;
 $register_hupa_minify = RegisterHupaMinifyPlugin::hupa_min_instance();
 $register_hupa_minify->init_hupa_minify();
+
+
+

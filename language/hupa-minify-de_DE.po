@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-17 12:23+0100\n"
-"PO-Revision-Date: 2021-11-17 12:24+0100\n"
+"POT-Creation-Date: 2021-11-17 14:45+0100\n"
+"PO-Revision-Date: 2021-11-17 14:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -16,6 +16,33 @@ msgstr ""
 "esc_attr_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
+#: admin-pages/hupa-minify-start.php:17 admin-pages/hupa-minify-start.php:21
+#: license/register-hupa-plugin.php:58 license/register-hupa-plugin.php:59
+#: register-hupa-minify.php:90 register-hupa-minify.php:91
+msgid "Minify"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:22 admin-pages/hupa-minify-start.php:27
+#: admin-pages/hupa-minify-start.php:33
+msgid "Options"
+msgstr "Optionen"
+
+#: admin-pages/hupa-minify-start.php:36 admin-pages/hupa-minify-start.php:42
+msgid "Create | Edit"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:53
+msgid "Inbox"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:66
+msgid "SMTP Settings"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:115
+msgid "hupa-minify"
+msgstr ""
+
 #: license/activate-hupa-minify-page.php:66
 msgid "Client ID"
 msgstr ""
@@ -24,8 +51,12 @@ msgstr ""
 msgid "Client secret"
 msgstr ""
 
-#: license/register-hupa-plugin.php:58 license/register-hupa-plugin.php:59
-msgid "Minify"
+#: register-hupa-minify.php:212
+#, php-format
+msgid ""
+"This plugin has been disabled because it requires a PHP version greater than "
+"%s and a WordPress version greater than %s. Your PHP version can be updated "
+"by your hosting provider."
 msgstr ""
 
 #: update-checker/yahnis-elsts/plugin-update-checker/Puc/v4p11/Plugin/Ui.php:54
