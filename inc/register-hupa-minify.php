@@ -157,9 +157,10 @@ final class RegisterHupaMinifyPlugin
 		//ADD Trigger
 		global $wp;
 		$wp->add_query_var(HUPA_MINIFY_QUERY_VAR);
-		// Check DB
-		require 'optionen/filter/database/hupa-minify-database.php';
-		do_action('minify_plugin_update_dbCheck');
+
+		//SET DEFAULT SETTINGS
+		require 'optionen/actions/hupa-minify-options.php';
+		do_action('minify_plugin_set_defaults', 'check_settings');
 	}
 
 	/**
@@ -173,12 +174,26 @@ final class RegisterHupaMinifyPlugin
 			require HUPA_MINIFY_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'min/index.php';
 			exit();
 		}
+
+		if (get_query_var(HUPA_MINIFY_QUERY_VAR) == 'script') {
+			require HUPA_MINIFY_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'min/index.php';
+			exit();
+		}
+		if (get_query_var(HUPA_MINIFY_QUERY_VAR) == 'style') {
+			require HUPA_MINIFY_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'min/index.php';
+			exit();
+		}
+
 		if (get_query_var(HUPA_MINIFY_QUERY_VAR) == 'info') {
 			require HUPA_MINIFY_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'min/server-info.php';
 			exit();
 		}
 		if (get_query_var(HUPA_MINIFY_QUERY_VAR) == 'server') {
 			require 'admin-pages/server-info.php';
+			exit();
+		}
+		if (get_query_var(HUPA_MINIFY_QUERY_VAR) == 'static') {
+			require HUPA_MINIFY_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'min/static.php';
 			exit();
 		}
 	}
@@ -242,7 +257,6 @@ final class RegisterHupaMinifyPlugin
 
 }//endClass
 
-global $register_hupa_minify;
 $register_hupa_minify = RegisterHupaMinifyPlugin::hupa_min_instance();
 $register_hupa_minify->init_hupa_minify();
 

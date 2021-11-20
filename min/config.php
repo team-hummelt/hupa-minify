@@ -58,7 +58,7 @@ $min_allowDebugFlag = false;
  * For best performance, specify your temp directory here. Otherwise Minify
  * will have to load extra code to guess. Some examples below:
  */
-$min_cachePath = HUPA_MINIFY_CACHE_PATH;
+$min_cachePath = '/tmp';
 
 
 /**
@@ -66,8 +66,10 @@ $min_cachePath = HUPA_MINIFY_CACHE_PATH;
  * set $min_cachePath to an instance. Example below:
  */
 
-$min_cachePath = new Minify_Cache_APC();
-
+//$min_cachePath = new Minify_Cache_APC();
+$memcache = new Memcache;
+$memcache->connect('localhost', 11211);
+$min_cachePath = new Minify_Cache_Memcache($memcache);
 
 /**
  * Leave an empty string to use PHP's $_SERVER['DOCUMENT_ROOT'].
@@ -96,7 +98,7 @@ $min_cacheFileLocking = true;
  * move all @imports to the top of the output. Note that moving @imports could
  * affect CSS values (which is why this option is disabled by default).
  */
-$min_serveOptions['bubbleCssImports'] = false;
+$min_serveOptions['bubbleCssImports'] = true;
 
 
 /**

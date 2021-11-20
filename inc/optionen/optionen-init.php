@@ -7,10 +7,7 @@
  */
 defined( 'ABSPATH' ) or die();
 
-
-require  'actions/actions.php';
-require  'filter/hupa-minify-options.php';
-
+require  'filter/hupa-minify-wp-loaded-minify.php';
 
 
 

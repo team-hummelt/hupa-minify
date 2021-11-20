@@ -7,9 +7,10 @@
  * @package Minify
  */
 
+
 use Minify\App;
 
 $app = (require __DIR__ . '/bootstrap.php');
 /* @var App $app */
-
 $app->runServer();
+

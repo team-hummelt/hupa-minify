@@ -1,19 +1,39 @@
 <?php
+defined('ABSPATH') or die();
+
 /**
- * Groups configuration for default Minify implementation
- * @package Minify
+ * Hupa Minify Plugin
+ * @package Hummelt & Partner
+ * Copyright 2021, Jens Wiecker
+ * https://www.hummelt-werbeagentur.de/
  */
 
-/**
- * You may wish to use the Minify URI Builder app to suggest
- * changes. http://yourdomain/min/builder/
- *
- * See https://github.com/mrclay/minify/blob/master/docs/CustomServer.wiki.md for other ideas
- **/
+
+$method = filter_input(INPUT_GET, 'g', FILTER_SANITIZE_STRING);
+
+$cssArr = [];
+$scrArr = [];
+switch ($method){
+    case 'css':
+        $path = json_decode(get_option('minify_style_css'));
+        foreach ($path as $tmp){
+            $cssArr[] = $tmp->css;
+        }
+        break;
+    case 'js':
+        $path = json_decode(get_option('minify_script_js'));
+        foreach ($path as $tmp){
+            $scrArr[] = $tmp->js;
+        }
+        break;
+}
 
 return array(
-//    'testJs' => array('//minify/quick-test.js'),
-//    'testCss' => array('//minify/quick-test.css'),
-//    'js' => array('//js/file1.js', '//js/file2.js'),
-//    'css' => array('//css/file1.css', '//css/file2.css'),
+    'js'=> $scrArr,
+    'css'=> $cssArr,
 );
+
+
+
+
+

@@ -19,7 +19,6 @@ function hupa_minify_jal_install() {
         type varchar(12) NOT NULL,
         aktiv tinyint(1) NOT NULL DEFAULT 1,
         path varchar(255) NOT NULL,
-        source varchar(255) NOT NULL,
         src_id varchar(255) NOT NULL,
         version varchar(128) NULL DEFAULT 'unbekannt',
         min_group varchar(64) NOT NULL,

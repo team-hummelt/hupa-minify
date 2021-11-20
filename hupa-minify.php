@@ -53,14 +53,18 @@ define( "HUPA_MINIFY_ROOT_PATH", $path);
 $cacheFolder = $root_path . 'minify-cache';
 
 define( "HUPA_MINIFY_CACHE_PATH", sys_get_temp_dir());
+
 $opcache = false;
 $memcache = false;
+
 if(ini_get("opcache.enable")){
 	$opcache = true;
 }
+
 if(ini_get_all("memcache")){
-	$memcache = true;
+$memcache = true;
 }
+
 define( "HUPA_MINIFY_OPCACHE", $opcache);
 define( "HUPA_MINIFY_MEMCACHE", $memcache);
 
@@ -96,6 +100,7 @@ if(get_option('hupa_minify_product_install_authorize')) {
 	require 'inc/register-hupa-minify.php';
 	require 'inc/optionen/optionen-init.php';
 	require 'inc/enqueue.php';
+	require 'min/vendor/autoload.php';
 	require 'inc/update-checker/autoload.php';
 	$hupaMinifyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 		'https://github.com/team-hummelt/hupa-minify/',
