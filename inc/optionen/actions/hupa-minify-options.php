@@ -41,15 +41,19 @@ function hupa_minify_set_settings() {
 	update_option( 'minify_jquery_core_aktiv', $default->jquery_core_aktiv );
 	update_option( 'minify_jquery_core_footer', $default->jquery_core_footer );
 	update_option( 'minify_wp_embed_aktiv', $default->wp_embed_aktiv );
-	update_option( 'minify_groups_aktiv', $default->groups_aktiv );
+	update_option( 'minify_css_groups_aktiv', $default->css_groups_aktiv );
+	update_option( 'minify_js_groups_aktiv', $default->js_groups_aktiv );
 	update_option( 'minify_cache_type', $default->cache_type );
 	update_option( 'minify_settings_select', $default->settings_select );
 	update_option( 'minify_css_bubble_import', $default->css_bubble_import );
 	update_option( 'minify_wp_version', $default->wp_version );
 	update_option( 'minify_wp_block_css', $default->wp_block_css );
 	update_option( 'minify_wp_emoji', $default->wp_emoji );
+	update_option( 'minify_static_aktiv', $default->static_aktiv );
 	update_option( 'minify_settings_entwicklung', $default->settings_entwicklung );
 	update_option( 'minify_settings_production', $default->settings_production );
+	update_option( 'minify_memcache_host', $default->memcache_host );
+	update_option( 'minify_memcache_port', $default->memcache_port );
 }
 
 function hupa_minify_default_settings(): object {
@@ -60,27 +64,31 @@ function hupa_minify_default_settings(): object {
 	$diff ? $subFolder = implode( '/', $diff ) : $subFolder = '';
 
 	$settings = [
-		'aktiv'                => 1,
+		'aktiv'                => 0,
 		'sub_folder'           => $subFolder,
 		'css_aktiv'            => 0,
 		'js_aktiv'             => 0,
 		'html_aktiv'           => 0,
-		'jquery_core_aktiv'    => 1,
-		'jquery_core_footer'   => 1,
-		'wp_embed_aktiv'       => 1,
-		'groups_aktiv'         => 1,
+		'jquery_core_aktiv'    => 0,
+		'jquery_core_footer'   => 0,
+		'wp_embed_aktiv'       => 0,
+		'css_groups_aktiv'     => 1,
+		'js_groups_aktiv'      => 1,
 		'cache_type'           => 0,
 		'settings_select'      => 2,
 		'css_bubble_import'    => 0,
-		'wp_version'           => 1,
-		'wp_block_css'         => 1,
-		'wp_emoji'             => 1,
+		'wp_version'           => 0,
+		'wp_block_css'         => 0,
+		'wp_emoji'             => 0,
+		'static_aktiv'         => 0,
+		'memcache_host'         => 'localhost',
+		'memcache_port'         => 11211,
 		'settings_entwicklung' => json_encode(
 			[
 				'min_allowDebugFlag' => true,
 				'min_errorLogger'    => true,
-				'min_cachePath'      => 'C:\\WINDOWS\\Temp',
-				'max-Age'            => 0,
+				'min_cachePath'      => sys_get_temp_dir(),
+				'cache_max_age'      => 0,
 				'cache_aktiv'        => 0,
 				'debug_aktiv'        => 1,
 				'verkettung'         => 0
@@ -90,8 +98,8 @@ function hupa_minify_default_settings(): object {
 			[
 				'min_allowDebugFlag' => false,
 				'min_errorLogger'    => false,
-				'min_cachePath'      => '/tmp',
-				'max-Age'            => 86400,
+				'min_cachePath'      => sys_get_temp_dir(),
+				'cache_max_age'      => 86400,
 				'cache_aktiv'        => 1,
 				'debug_aktiv'        => 0,
 				'verkettung'         => 0

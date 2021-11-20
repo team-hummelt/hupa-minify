@@ -25,6 +25,8 @@ final class HupaMinifyWpLoaded {
 
 	public function init_hupa_minify_wp_loaded() {
 		add_action('after_setup_theme', array($this, 'hupa_minify_get_file_data'));
+		add_filter('array_to_object', array($this, 'hupaArrayToObject'));
+
 	}
 
 	public function hupa_minify_get_file_data() {
@@ -96,6 +98,18 @@ final class HupaMinifyWpLoaded {
 	public function delete_jquery_wp_core() {
 		wp_deregister_script('jquery');
 		wp_register_script('jquery', false);
+	}
+
+	/**
+	 * @param $array
+	 *
+	 * @return object
+	 */
+	final public function hupaArrayToObject($array): object
+	{
+		foreach ($array as $key => $value)
+			if (is_array($value)) $array[$key] = self::hupaArrayToObject($value);
+		return (object)$array;
 	}
 }
 

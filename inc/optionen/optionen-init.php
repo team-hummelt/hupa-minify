@@ -8,6 +8,8 @@
 defined( 'ABSPATH' ) or die();
 
 require  'filter/hupa-minify-wp-loaded-minify.php';
+require  'actions/hupa-minify-html-compression.php';
+require  'actions/actions.php';
 
 
 

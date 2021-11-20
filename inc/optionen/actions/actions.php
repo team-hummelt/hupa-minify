@@ -1,4 +1,5 @@
 <?php
+namespace Hupa\Minify;
 /**
  * Hupa Minify Plugin
  * @package Hummelt & Partner
@@ -7,92 +8,55 @@
  */
 defined( 'ABSPATH' ) or die();
 
-add_filter( 'get_hupa_minify_data', function () {
+if ( ! class_exists( 'MinifyThemeWPOptionen' ) ) {
+	add_action( 'after_setup_theme', array( 'Hupa\\Minify\\MinifyThemeWPOptionen', 'init' ), 0 );
 
-	$args    = func_get_args();
-	$argsNum = func_num_args();
+	class MinifyThemeWPOptionen {
+		private static $instance;
 
-	global $wp_scripts;
-	global $wp_styles;
-
-	if ( ! $wp_scripts instanceof WP_Scripts ) {
-		$wp_scripts = new WP_Scripts();
-	}
-
-	if ( ! $wp_styles instanceof WP_Styles ) {
-		$wp_styles = new WP_Styles();
-	}
-	$scrArr      = [];
-	$styleArr      = [];
-	$modificated = '';
-
-
-	foreach ( $wp_scripts->queue as $src ) {
-		$srcFile = $wp_scripts->query( $src )->src;
-		if ( ! $srcFile ) {
-			continue;
+		/**
+		 * @return static
+		 */
+		public static function init(): self {
+			if ( is_null( self::$instance ) ) {
+				self::$instance = new self();
+			}
+			return self::$instance;
 		}
-		$parse_url   = wp_parse_url( $srcFile );
-		$path        = trim( $parse_url['path'], '/' );
-		$filePath    = HUPA_MINIFY_ROOT_PATH . DIRECTORY_SEPARATOR . $path;
-		$modificated = date( 'YmdHi', filemtime( $filePath ) );
-		$scrArr[] = '//' . $path;
-		//wp_deregister_script( $src );
-	}
 
-	$js['js'] = $scrArr;
-	//update_option('minify_script_js', $js['js']);
-	//wp_enqueue_script( 'minify-global-script', site_url() . '?minify=min&g=js&v=' . $modificated . '', array(), null, true );
+		/**
+		 *MinifyThemeWPOptionen constructor.
+		 */
+		public function __construct() {
+			//JOB HTML OPTIMIZE
+			if ( get_option( 'minify_html_aktiv' ) ) {
+				add_action( 'get_header', 'Minify\\Compress\\minify_wp_html_compression_start' );
+			}
+			//JOB REMOVE Wordpress Information
+			if ( get_option( 'minify_wp_version' ) ) {
+				remove_action( 'wp_head', 'wp_generator' );
+			}
+			//JOB REMOVE WP EMOJI
+			if ( get_option( 'minify_wp_emoji' ) ) {
+				remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+				remove_action( 'wp_print_styles', 'print_emoji_styles' );
+				remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+				remove_action( 'admin_print_styles', 'print_emoji_styles' );
+			}
 
-
-	foreach ( $wp_styles->queue as $src ) {
-		$srcFile = $wp_styles->query( $src )->src;
-		if ( ! $srcFile ) {
-			continue;
+			//JOB REMOVE Gutenberg Css In FrontEnd
+			if ( get_option( 'minify_wp_block_css' ) ) {
+				add_action( 'wp_enqueue_scripts', array( $this, 'minify_wp_remove_wp_block_library_css' ), 100 );
+			}
 		}
-		//$wp_styles->query( $src )->add_data( 'group', 'hupa-style' );
-		$parse_url   = wp_parse_url( $srcFile );
-		$path        = trim( $parse_url['path'], '/' );
-		$filePath    = HUPA_MINIFY_ROOT_PATH . DIRECTORY_SEPARATOR . $path;
 
-		$modificated = date( 'YmdHi', filemtime( $filePath ) );
-			$style_item = [
-				'path' => '//'.$path,
-				'id' => $src
-			];
-			//$styleArr[] = '//'.$path;
-		$styleArr[] = $style_item;
+		public function minify_wp_remove_wp_block_library_css(): void {
+			wp_dequeue_style( 'wp-block-library' );
+			wp_dequeue_style( 'wp-block-library-theme' );
+			wp_dequeue_style( 'wc-block-style' ); // Remove WooCommerce block CSS
+		}
 	}
-
-
-	//$css['css'] = $styleArr;
-	$styleData = json_encode($styleArr);
-	//update_option('minify_style_css', $styleData);
-	//wp_enqueue_style( 'minify-global-style', site_url() . '?minify=min&g=css&v=' . $modificated . '', array(), null );
-	//return $wp_styles->queue;
-}, 10, 3 );
-
-
-
-
-add_action( 'wp_head', 'hupa_minify_get_head_data' );
-function hupa_minify_get_head_data() {
-	$scriptsStyle = apply_filters( 'get_hupa_minify_data', 'scripts' );
-	global $wp_styles;
-	if ( ! $wp_styles instanceof WP_Styles ) {
-		$wp_styles = new WP_Styles();
-	}
-
-
-	//print_r($scriptsStyle);
-
 }
-
-
-
-
-//print_r( get_option('minify_groups_style_css'));
-//print_r( get_option('minify_groups_script_js'));
 
 
 

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-20 02:02+0100\n"
-"PO-Revision-Date: 2021-11-20 02:05+0100\n"
+"POT-Creation-Date: 2021-11-20 12:12+0100\n"
+"PO-Revision-Date: 2021-11-20 12:21+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -31,32 +31,116 @@ msgstr "Optionen"
 msgid "Create | Edit"
 msgstr ""
 
-#: admin-pages/hupa-minify-start.php:53
-msgid "HUPA Minify"
-msgstr ""
+#: admin-pages/hupa-minify-start.php:53 admin-pages/hupa-minify-start.php:68
+msgid "Minify settings"
+msgstr "Minify Settings"
 
-#: admin-pages/hupa-minify-start.php:60
+#: admin-pages/hupa-minify-start.php:62
+msgid "active"
+msgstr "aktiv"
+
+#: admin-pages/hupa-minify-start.php:78
+msgid "CSS active"
+msgstr "CSS aktiv"
+
+#: admin-pages/hupa-minify-start.php:87
+msgid "JS active"
+msgstr "JS aktiv"
+
+#: admin-pages/hupa-minify-start.php:95
+msgid "HTML active"
+msgstr "HTML aktiv"
+
+#: admin-pages/hupa-minify-start.php:99
+msgid "Groups"
+msgstr "Gruppen"
+
+#: admin-pages/hupa-minify-start.php:106
+msgid "CSS Groups"
+msgstr "CSS Gruppen"
+
+#: admin-pages/hupa-minify-start.php:114
+msgid "JS Groups"
+msgstr "JS Gruppen"
+
+#: admin-pages/hupa-minify-start.php:118
+msgid ""
+"If the group is active, all files are compressed and output in one file."
+msgstr ""
+"Bei aktiver Gruppe, werden alle Dateien komprimiert und in einer Datei "
+"ausgegeben."
+
+#: admin-pages/hupa-minify-start.php:123
+msgid "Javascript Group Options"
+msgstr "Javascript Gruppen Optionen"
+
+#: admin-pages/hupa-minify-start.php:131
+msgid "WP jQuery Core"
+msgstr "WP jQuery Core"
+
+#: admin-pages/hupa-minify-start.php:139
+msgid "WP Embed JS"
+msgstr "WP Embed JS"
+
+#: admin-pages/hupa-minify-start.php:144
+msgid ""
+"If this option is active, \"Minify\" will include the WordPress Javascript "
+"files."
+msgstr ""
+"Bei aktiver Option, wird \"Minify\" die WordPress Javascript Dateien mit "
+"einbeziehen."
+
+#: admin-pages/hupa-minify-start.php:151
+msgid "Minify Output"
+msgstr "Minify Ausgabe"
+
+#: admin-pages/hupa-minify-start.php:155
+msgid "Subfolder of the installation"
+msgstr "Unterordner der Installation"
+
+#: admin-pages/hupa-minify-start.php:162
+msgid "active settings"
+msgstr "aktive Settings"
+
+#: admin-pages/hupa-minify-start.php:165
+msgid "Development"
+msgstr "Entwicklung"
+
+#: admin-pages/hupa-minify-start.php:169
+msgid "Production"
+msgstr "Produktion"
+
+#: admin-pages/hupa-minify-start.php:177
+msgid "Settings Development"
+msgstr "Settings Entwicklung"
+
+#: admin-pages/hupa-minify-start.php:183
+msgid "Production settings"
+msgstr "Settings Produktion"
+
+#: admin-pages/hupa-minify-start.php:191
+msgid "Other options"
+msgstr "weitere Optionen"
+
+#: admin-pages/hupa-minify-start.php:197
 msgid "Remove WordPress Version"
 msgstr "WordPress Version entfernen"
 
-#: admin-pages/hupa-minify-start.php:68
-msgid "Remove version"
-msgstr "Version entfernen"
+#: admin-pages/hupa-minify-start.php:205 admin-pages/hupa-minify-start.php:223
+#: admin-pages/hupa-minify-start.php:241
+msgid "remove"
+msgstr "entfernen"
 
-#: admin-pages/hupa-minify-start.php:71
+#: admin-pages/hupa-minify-start.php:208
 msgid "If active, the WordPress version is <b>hidden</b> in the FrontEnd."
 msgstr ""
 "Wenn aktiv, wird die WordPress-Version im Frontend <b>ausgeblendet</b>."
 
-#: admin-pages/hupa-minify-start.php:78
+#: admin-pages/hupa-minify-start.php:215
 msgid "Remove emoji"
 msgstr "Emoji entfernen"
 
-#: admin-pages/hupa-minify-start.php:86 admin-pages/hupa-minify-start.php:104
-msgid "remove"
-msgstr "entfernen"
-
-#: admin-pages/hupa-minify-start.php:89
+#: admin-pages/hupa-minify-start.php:226
 msgid ""
 "If this option is enabled the emoji source code will be <b>removed</b> from "
 "the front end."
@@ -64,11 +148,11 @@ msgstr ""
 "Ist diese Option aktiviert, wird der Emoji-Quellcode aus dem Frontend "
 "<b>entfernt</b>."
 
-#: admin-pages/hupa-minify-start.php:96
+#: admin-pages/hupa-minify-start.php:233
 msgid "Remove WP block CSS"
 msgstr "WP-Block-CSS entfernen"
 
-#: admin-pages/hupa-minify-start.php:107
+#: admin-pages/hupa-minify-start.php:244
 msgid ""
 "If this option is activated, the CSS Gutenberg editor source code and "
 "WooCommerce CSS code is removed from the front end."
@@ -76,11 +160,11 @@ msgstr ""
 "Ist diese Option aktiv, wird der <b>CSS Gutenberg-Editor-Quellcode</b> und "
 "der <b>WooCommerce-CSS-Code</b> aus dem Frontend entfernt."
 
-#: admin-pages/hupa-minify-start.php:122
+#: admin-pages/hupa-minify-start.php:258
 msgid "SMTP Settings"
 msgstr ""
 
-#: admin-pages/hupa-minify-start.php:171
+#: admin-pages/hupa-minify-start.php:307
 msgid "hupa-minify"
 msgstr ""
 
@@ -124,3 +208,15 @@ msgstr "Unbekannter Status für Aktualisierungscheck \"%s\""
 #: update-checker/yahnis-elsts/plugin-update-checker/Puc/v4p11/Vcs/PluginUpdateChecker.php:98
 msgid "There is no changelog available."
 msgstr "Es steht kein Änderungsprotokoll zur Verfügung."
+
+#~ msgid "Minify active"
+#~ msgstr "Minify aktiv"
+
+#~ msgid "Remove version"
+#~ msgstr "Version entfernen"
+
+#~ msgid "CSS Groups active"
+#~ msgstr "CSS-Gruppen aktiv"
+
+#~ msgid "JS Groups active"
+#~ msgstr "JS Gruppen aktiv"

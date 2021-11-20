@@ -143,8 +143,84 @@ background-color: #fdfdfd!important;
   box-sizing: border-box;
 }
 
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1070;
+  display: block;
+  max-width: 276px;
+  font-family: var(--bs-font-sans-serif);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-break: normal;
+  word-spacing: normal;
+  white-space: normal;
+  line-break: auto;
+  font-size: .875rem;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: .3rem;
+}
+
+.popover-header {
+  z-index: 99999;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-size: 1rem;
+  background-color: $wp-blue;
+  color: #fff;
+  border-bottom: 1px solid rgba(0,0,0,.2);
+  border-top-left-radius: calc(0.3rem - 1px);
+  border-top-right-radius: calc(0.3rem - 1px);
+}
+
+.popover-body {
+  z-index: 9999;
+  padding: 1rem 1rem;
+  background-color: #f8f8f8;
+    color: #212529;
+}
+
+.bs-popover-auto[data-popper-placement^=right]>.popover-arrow, .bs-popover-end>.popover-arrow {
+  left: calc(-.5rem - 1px);
+  width: .5rem;
+  height: 1rem;
+}
+
+.popover .popover-arrow {
+  position: absolute;
+  display: block;
+  width: 1rem;
+  height: .5rem;
+}
+
+.bs-popover-auto[data-popper-placement^=right]>.popover-arrow::before, .bs-popover-end>.popover-arrow::before {
+  left: 0;
+  border-width: .5rem .5rem .5rem 0;
+  border-right-color: rgba(0,0,0,.25);
+}
+.bs-popover-auto[data-popper-placement^=right]>.popover-arrow::after, .bs-popover-end>.popover-arrow::after {
+  left: 1px;
+  border-width: .5rem .5rem .5rem 0;
+  border-right-color: #fff;
+}
+
 //WRAPPER
 .wp-bs-starter-wrapper {
+
+
+
 
   input[type=radio]:checked::before {
     content: "";
@@ -440,6 +516,9 @@ background-color: #fdfdfd!important;
     cursor: pointer;
   }
 
+  .cursor-help {
+    cursor: help;
+  }
   #TableImports.table {
     font-size: .95rem;
     color: rgba(10, 83, 190, 0);
