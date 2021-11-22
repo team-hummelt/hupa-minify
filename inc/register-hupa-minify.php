@@ -251,7 +251,7 @@ final class RegisterHupaMinifyPlugin
 		wp_enqueue_style('hupa-minify-admin-dashboard-style', HUPA_MINIFY_ASSETS_URL . 'css/admin-dashboard-style.css', array(), HUPA_MINIFY_PLUGIN_VERSION, false);
 
 		wp_enqueue_script('hupa-minify-bs', HUPA_MINIFY_ASSETS_URL . 'js/bs/bootstrap.bundle.min.js', array(),HUPA_MINIFY_PLUGIN_VERSION, true);
-		wp_enqueue_script('jquery');
+
 		wp_enqueue_script('hupa-minify-options', HUPA_MINIFY_ASSETS_URL . 'js/hupa-minify.js', array(),HUPA_MINIFY_PLUGIN_VERSION, true);
 	}
 

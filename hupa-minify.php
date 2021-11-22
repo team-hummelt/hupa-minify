@@ -45,6 +45,7 @@ const HUPA_MINIFY_INC = HUPA_MINIFY_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'inc' . D
 //PLUGIN ASSETS URL
 define('HUPA_MINIFY_ASSETS_URL', plugins_url('hupa-minify') . '/assets/');
 
+const MINIFY_SERVER_ROOT = HUPA_MINIFY_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'min' . DIRECTORY_SEPARATOR;
 //PLUGIN ABSOLUT PATH
 require_once(ABSPATH . 'wp-admin/includes/file.php');
 $root_path = get_home_path();

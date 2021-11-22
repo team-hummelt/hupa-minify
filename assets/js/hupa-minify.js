@@ -26,7 +26,7 @@ function show_ajax_spinner(data) {
     });
 }
 
-jQuery(function ($) {
+jQuery(document).ready(function ($) {
 
     /**================================================
      ========== TOGGLE FORMULAR COLLAPSE BTN  ==========
@@ -78,7 +78,7 @@ jQuery(function ($) {
         }
     }
 
-    $(document).on('click', '#CheckMinActive', function () {
+   /* $(document).on('click', '#CheckMinActive', function () {
         let field = $('.minifyFieldset');
         if ($(this).prop('checked')) {
             field.prop('disabled', false);
@@ -98,46 +98,14 @@ jQuery(function ($) {
         } else {
             wpCore.prop('disabled', true);
         }
-    });
+    });*/
 
-    $(document).on('click', '.groupActive', function () {
-        let groupId = $(this).attr('data-id');
-        if ($(this).prop('checked')) {
-            $('#' + groupId).prop('disabled', false);
-        } else {
-            $('#' + groupId).prop('disabled', true);
-        }
-
-        if (groupId === 'CheckJSGroupsActive') {
-            let jsGroupCheck = $('#CheckJSGroupsActive');
-            let jsFieldCore = $('.wpCoreField');
-            if ($(this).prop('checked') && jsGroupCheck.prop('checked')) {
-
-                jsFieldCore.prop('disabled', false);
-            } else {
-                jsFieldCore.prop('disabled', true);
-            }
-        }
-    });
-
-
-    $(document).on('click', '#CheckJSGroupsActive', function () {
-        let wpJsCore = $('.wpCoreField');
-        if ($(this).prop('checked')) {
-            wpJsCore.prop('disabled', false);
-        } else {
-            wpJsCore.prop('disabled', true);
-        }
-    });
 
 
     $(document).on('click', '.form-check-input, .btn', function () {
         $(this).trigger('blur')
     });
 
-    $(document).on('dblclick', '.clickPathFolder', function () {
-        $(this).next().prop('disabled', false);
-    });
 
     $(document).on('change', '#inputSelectCache', function () {
         $(this).trigger('blur');
@@ -156,7 +124,7 @@ jQuery(function ($) {
      *++++++++++++++++++++++++++++++++++++++
      */
     let InputMinifyFormTimeout;
-    $('#send-ajax-minify-settings').on('input propertychange change', function () {
+    $('.send-ajax-minify-settings').on('input propertychange change', function () {
         $('.ajax-status-spinner').html('<i class="fa fa-spinner fa-spin"></i>&nbsp; Saving...');
         const form_data = $(this).serializeObject();
         clearTimeout(InputMinifyFormTimeout);
@@ -167,7 +135,6 @@ jQuery(function ($) {
 
     function set_settings_form_input(form_data) {
         $.post(minify_ajax_obj.ajax_url, {
-                method: 'update_minify_settings',
                 'action': 'HupaMinifyHandle',
                 '_ajax_nonce': minify_ajax_obj.nonce,
                 data: form_data
@@ -186,8 +153,6 @@ jQuery(function ($) {
                 }
             });
     }
-
-
 
     function warning_message(msg) {
         let x = document.getElementById("snackbar-warning");

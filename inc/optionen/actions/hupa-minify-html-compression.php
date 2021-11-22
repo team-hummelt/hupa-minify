@@ -16,12 +16,11 @@ defined('ABSPATH') or die();
 final class MINIFY_WP_HTML_Compression
 {
 	private static $minify_optimize_instance;
-	protected bool $minify_compress_css = true;
-	protected bool $minify_compress_js = true;
+	protected bool $minify_compress_css;
+	protected bool $minify_compress_js;
 	protected bool $minify_info_comment = true;
-	protected bool $minify_remove_comments = true;
+	protected bool $minify_remove_comments;
 	protected $html;
-
 
 	/**
 	 * @param $html
@@ -41,6 +40,10 @@ final class MINIFY_WP_HTML_Compression
 	 */
 	public function __construct($html)
 	{
+		$this->minify_compress_css = (bool) get_option('minify_html_inline_css');
+		$this->minify_compress_js = (bool) get_option('minify_html_inline_js');
+		$this->minify_remove_comments = (bool) get_option('minify_html_comments');
+
 		if (!empty($html)) {
 			$this->minify_parseHTML($html);
 		}

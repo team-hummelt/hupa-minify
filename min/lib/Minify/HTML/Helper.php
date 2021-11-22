@@ -216,7 +216,7 @@ class Minify_HTML_Helper
      * @param string $minRoot root-relative URI of the "min" application
      * @return string
      */
-    protected static function _getShortestUri($paths, $minRoot = '/min/')
+    protected static function _getShortestUri($paths, $minRoot = '/')
     {
         $pos = 0;
         $base = '';

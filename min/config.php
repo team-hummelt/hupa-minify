@@ -6,100 +6,65 @@
  * @package Minify
  */
 
-
-/**
- * Enable the static serving feature
- */
-$min_enableStatic = false;
+//$min_enableBuilder = false;
+//$min_serveOptions['rewriteCssUris'] = false;
 
 
-/**
- * Allow use of the Minify URI Builder app. Only set this to true while you need it.
- */
-$min_enableBuilder = false;
+$min_enableStatic = (bool) get_option('minify_static_aktiv');
 
-
-/**
- * Concatenate but do not minify the files. This can be used for testing.
- */
-$min_concatOnly = false;
-
-
-/**
- * If non-empty, the Builder will be protected with HTTP Digest auth.
- * The username is "admin".
- */
 $min_builderPassword = 'admin';
+$minDevelop = json_decode( get_option( 'minify_settings_entwicklung' ) );
+$minProduct = json_decode( get_option( 'minify_settings_production' ) );
 
+switch (get_option('minify_settings_select')){
+    case '1':
+        $min_allowDebugFlag = (bool) $minDevelop->debug_aktiv;
+        $min_serveOptions['maxAge'] = (int) $minDevelop->cache_max_age;
+        $min_enableBuilder = true;
+        $min_errorLogger = (bool) $minDevelop->debug_aktiv;
+        $min_concatOnly = (bool) $minDevelop->verkettung;
+        $min_cachePath = $minDevelop->min_cachePath;
+        break;
+    case '2':
+        $min_allowDebugFlag = (bool) $minProduct->debug_aktiv;
+        $min_serveOptions['maxAge'] = (int) $minProduct->cache_max_age;
+        $min_enableBuilder = false;
+        $min_errorLogger = (bool) $minProduct->debug_aktiv;
+        $min_concatOnly = (bool) $minProduct->verkettung;
+        $min_cachePath = $minProduct->min_cachePath;
+        break;
+}
 
-/**
- * Set to true to log messages to FirePHP (Firefox Firebug addon) and PHP's error_log
- * Set to false for no error logging (Minify may be slightly faster).
- */
-$min_errorLogger = false;
+switch (get_option('minify_cache_type')){
+    case '2':
+        $min_cachePath = new Minify_Cache_APC();
+        break;
+    case '3':
+        $memcache = new Memcache;
+        $memcache->connect(get_option('minify_memcache_host'), (int) get_option('minify_memcache_port'));
+        $min_cachePath = new Minify_Cache_Memcache($memcache);
+        break;
+    case '4':
+        $min_cachePath = new Minify_Cache_ZendPlatform();
+        break;
+    case '5':
+        $min_cachePath = new Minify_Cache_XCache();
+        break;
+    case '6':
+        $min_cachePath = new Minify_Cache_WinCache();
+        break;
+}
 
-
-/**
- * To allow debug mode output, you must set this option to true.
- *
- * Once true, you can send the cookie minDebug to request debug mode output. The
- * cookie value should match the URIs you'd like to debug. E.g. to debug
- * /min/f=file1.js send the cookie minDebug=file1.js
- * You can manually enable debugging by appending "&debug" to a URI.
- * E.g. /min/?f=script1.js,script2.js&debug
- *
- * In 'debug' mode, Minify combines files with no minification and adds comments
- * to indicate line #s of the original files.
- */
-$min_allowDebugFlag = false;
-
-
-/**
- * For best performance, specify your temp directory here. Otherwise Minify
- * will have to load extra code to guess. Some examples below:
- */
-$min_cachePath = '/tmp';
-
-
-/**
- * To use APC/Memcache/ZendPlatform for cache storage, require the class and
- * set $min_cachePath to an instance. Example below:
- */
-
-//$min_cachePath = new Minify_Cache_APC();
-$memcache = new Memcache;
-$memcache->connect('localhost', 11211);
-$min_cachePath = new Minify_Cache_Memcache($memcache);
-
-/**
- * Leave an empty string to use PHP's $_SERVER['DOCUMENT_ROOT'].
- *
- * On some servers, this value may be misconfigured or missing. If so, set this
- * to your full document root path with no trailing slash.
- * E.g. '/home/accountname/public_html' or 'c:\\xampp\\htdocs'
- *
- * If /min/ is directly inside your document root, just uncomment the
- * second line. The third line might work on some Apache servers.
- */
 $min_documentRoot = HUPA_MINIFY_ROOT_PATH;
+$min_serveOptions['bubbleCssImports'] = (bool) get_option('minify_css_bubble_import');
+$min_serveOptions['minApp']['groupsOnly'] = true;
+
 
 /**
  * Cache file locking. Set to false if filesystem is NFS. On at least one
  * NFS system flock-ing attempts stalled PHP for 30 seconds!
  */
 $min_cacheFileLocking = true;
-
-
-/**
- * Combining multiple CSS files can place @import declarations after rules, which
- * is invalid. Minify will attempt to detect when this happens and place a
- * warning comment at the top of the CSS output. To resolve this you can either
- * move the @imports within your CSS files, or enable this option, which will
- * move all @imports to the top of the output. Note that moving @imports could
- * affect CSS values (which is why this option is disabled by default).
- */
-$min_serveOptions['bubbleCssImports'] = true;
-
 
 /**
  * Cache-Control: max-age value sent to browser (in seconds). After this period,
@@ -110,7 +75,7 @@ $min_serveOptions['bubbleCssImports'] = true;
  * Note: Despite this setting, if you include a number at the end of the
  * querystring, maxAge will be set to one year. E.g. /min/f=hello.css&123456
  */
-$min_serveOptions['maxAge'] = 1800;
+
 
 
 /**
@@ -140,7 +105,7 @@ $min_serveOptions['maxAge'] = 1800;
  * Set to true to disable the "f" GET parameter for specifying files.
  * Only the "g" parameter will be considered.
  */
-$min_serveOptions['minApp']['groupsOnly'] = false;
+
 
 
 /**
