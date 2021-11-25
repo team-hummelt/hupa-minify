@@ -41,6 +41,7 @@ function hupa_minify_set_settings() {
 	update_option( 'minify_jquery_core_aktiv', $default->jquery_core_aktiv );
 	update_option( 'minify_css_groups_aktiv', $default->css_groups_aktiv );
 	update_option( 'minify_js_groups_aktiv', $default->js_groups_aktiv );
+	update_option( 'minify_wp_embed_aktiv', $default->wp_embed_aktiv );
 	update_option( 'minify_cache_type', $default->cache_type );
 	update_option( 'minify_settings_select', $default->settings_select );
 	update_option( 'minify_css_bubble_import', $default->css_bubble_import );
@@ -81,6 +82,7 @@ function hupa_minify_default_settings(): object {
 		'js_aktiv'          => 0,
 		'html_aktiv'        => 0,
 		'jquery_core_aktiv' => 0,
+		'wp_embed_aktiv'    => 0,
 		'css_groups_aktiv'  => 1,
 		'js_groups_aktiv'   => 1,
 		'cache_type'        => 1,
@@ -98,8 +100,8 @@ function hupa_minify_default_settings(): object {
 		'short_link'  => 0,
 
 		'html_inline_css' => 1,
-		'html_inline_js' => 1,
-		'html_comment' => 1,
+		'html_inline_js'  => 1,
+		'html_comment'    => 1,
 
 		'wp_version'           => 0,
 		'wp_block_css'         => 0,

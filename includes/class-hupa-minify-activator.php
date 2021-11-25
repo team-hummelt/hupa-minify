@@ -29,7 +29,17 @@ class Hupa_Minify_Activator {
 		$infoTxt = 'aktiviert am ' . date('d.m.Y H:i:s')."\r\n";
 		file_put_contents(HUPA_MINIFY_PLUGIN_DIR.'/hupa-minify.txt',$infoTxt,  FILE_APPEND | LOCK_EX);
 		set_transient('show_lizenz_info', true, 5);
+		//self::hupa_minify_min_uri_output();
+		//flush_rewrite_rules();
+	}
+
+
+	public static function hupa_minify_min_uri_output() {
+
+	}
+
+	public static function hupa_minify_uri_trigger_check() {
+
 	}
 }
-
 

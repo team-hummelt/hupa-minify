@@ -21,6 +21,7 @@ delete_option( 'minify_css_aktiv');
 delete_option( 'minify_js_aktiv');
 delete_option( 'minify_html_aktiv');
 delete_option( 'minify_jquery_core_aktiv');
+delete_option('minify_wp_embed_aktiv');
 delete_option( 'minify_jquery_core_footer');
 
 delete_option( 'minify_html_inline_css');
@@ -52,4 +53,18 @@ delete_option('minify_shortlink_aktiv');
 delete_option( 'minify_wp_version');
 delete_option( 'minify_wp_block_css');
 delete_option( 'minify_wp_emoji');
+
+//SCSS
+delete_option( 'minify_scss_source');
+delete_option( 'minify_scss_destination');
+delete_option( 'minify_scss_formatter');
+delete_option( 'scss_stylesheet_aktiv');
+delete_option( 'scss_map_aktiv');
+delete_option('line_comments_aktiv');
+delete_option('minify_scss_compiler_aktiv');
+delete_option('minify_scss_map_option');
+
+// SERVER STATUS
+delete_option('server_status_aktiv');
+
 

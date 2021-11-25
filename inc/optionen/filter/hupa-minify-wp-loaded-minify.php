@@ -33,11 +33,17 @@ final class HupaMinifyWpLoaded {
 
 	public function init_hupa_minify_wp_loaded() {
 
+		if ( get_option( 'scss_stylesheet_aktiv' ) && MINIFY_SCSS_COMPILER_AKTIV ) {
+			add_action( 'wp_loaded', array( $this, 'hupa_minify_set_scss_compiler_data' ) );
+		}
 		add_action( 'wp_loaded', array( $this, 'hupa_minify_get_header_css_data' ) );
 		add_action( 'wp_loaded', array( $this, 'hupa_minify_get_footer_data' ) );
 		add_action( 'init', array( $this, 'minify_delete_header_scripts' ) );
 		add_filter( 'array_to_object', array( $this, 'hupaArrayToObject' ) );
-		//add_action( 'wp_loaded', array( $this, 'hupa_minify_get_file_data' ) );
+	}
+
+	public function hupa_minify_set_scss_compiler_data() {
+		add_action( 'wp_enqueue_scripts', array( $this, 'hupa_minify_set_header_scss_compiler_file_data' ), 998, 2 );
 	}
 
 	public function hupa_minify_get_footer_data() {
@@ -46,6 +52,72 @@ final class HupaMinifyWpLoaded {
 
 	public function hupa_minify_get_header_css_data() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'hupa_minify_get_header_css_file_data' ), 999, 2 );
+	}
+
+	// JOB SET COMPILER SCSS
+	public function hupa_minify_set_header_scss_compiler_file_data() {
+		$dir         = HUPA_MINIFY_THEME_ROOT . get_option( 'minify_scss_destination' );
+		$fileArr     = [];
+		$isStyle     = [];
+		global $wp_styles;
+
+		if ( is_dir( $dir ) ) {
+			if ( ! $wp_styles instanceof WP_Styles ) {
+				$wp_styles = new WP_Styles();
+			}
+
+			$src = array_diff( scandir( $dir ), array( '..', '.' ) );
+			foreach ( $src as $tmp ) {
+				$file = $dir . $tmp;
+				if ( is_file( $file ) ) {
+					$path_info = pathinfo( $file );
+					if ( $path_info['extension'] !== 'css' ) {
+						continue;
+					}
+					preg_match( $this->options['regExPath'], $path_info['dirname'], $matches );
+					if ( ! $matches ) {
+						continue;
+					}
+					$path      = $matches[0];
+					$file_item = [
+						'baseName' => $path_info['basename'],
+						'fileName' => $path_info['filename'],
+						'path'     => $path . DIRECTORY_SEPARATOR,
+					];
+					$fileArr[] = $file_item;
+				}
+			}
+		}
+		if ( $fileArr ) {
+			foreach ( $wp_styles->queue as $style ) {
+				$source    = $wp_styles->query( $style )->src;
+				$isStyle[] = substr( $source, strrpos( $source, '/' ) + 1 );
+			}
+			foreach ( $fileArr as $tmp ) {
+				if ( in_array( $tmp['baseName'], $isStyle ) ) {
+					continue;
+				}
+				$file     = $tmp['path'] . $tmp['baseName'];
+
+				if ( get_option( 'minify_css_aktiv' ) ) {
+					$fileTime = '';
+				} else {
+					$fileTime = '?ver=' . filemtime( $file );
+				}
+
+				$fileId   = 'minify-css-' . str_replace( '.', '-', $tmp['fileName'] );
+				preg_match( $this->options['regExMin'], $tmp['path'] . $tmp['baseName'] ) ? $min = true : $min = false;
+				$min ? $g = 'singleMinCss' : $g = 'singleCss';
+				if ( $wp_styles->query( $fileId )->handle ) {
+					$wp_styles->remove( $fileId );
+				}
+				if ( get_option( 'minify_css_aktiv' ) ) {
+					wp_enqueue_style( $fileId, site_url() . '?minify=min&g='.$g.'&p=' . $file . $fileTime , array(), null, null );
+				} else {
+					wp_enqueue_style( $fileId, site_url() . '/' . $file . $fileTime , array(), null, null );
+				}
+			}
+		}
 	}
 
 	//JOB HEADER CSS
@@ -71,7 +143,6 @@ final class HupaMinifyWpLoaded {
 				$wp_scripts = new WP_Scripts();
 			}
 
-			//print_r($wp_scripts->done);
 			foreach ( $wp_styles->queue as $style ) {
 				$source = $wp_styles->query( $style )->src;
 				if ( $source ) {
@@ -98,11 +169,12 @@ final class HupaMinifyWpLoaded {
 					}
 				}
 			}
-
-			$v = '&v=' . ( $_SERVER['REQUEST_TIME'] - $_SERVER['REQUEST_TIME'] % 86400 );
-			wp_enqueue_style( 'minify-global-style', site_url() . '?minify=min&g=css' . $v . $debug, array(), null, null );
-			$styleData = json_encode( $styleArr );
-			update_option( 'minify_style_header_css', $styleData );
+			if ( get_option( 'minify_css_groups_aktiv' ) ) {
+				$v = '&v=' . ( $_SERVER['REQUEST_TIME'] - $_SERVER['REQUEST_TIME'] % 86400 );
+				wp_enqueue_style( 'minify-global-style', site_url() . '?minify=min&g=css' . $v . $debug, array(), null, null );
+				$styleData = json_encode( $styleArr );
+				update_option( 'minify_style_header_css', $styleData );
+			}
 		endif;
 	}
 
@@ -137,10 +209,8 @@ final class HupaMinifyWpLoaded {
 					if ( ! $matches ) {
 						continue;
 					}
+
 					$path = $matches[0];
-					if ( ! get_option( 'minify_embed_aktiv' ) && preg_match( $this->options['regInc'], $path ) ) {
-						continue;
-					}
 					preg_match( $this->options['regExMin'], $path ) ? $min = true : $min = false;
 					$file     = HUPA_MINIFY_ROOT_PATH . DIRECTORY_SEPARATOR . $path;
 					$fileTime = '&v=' . filemtime( $file );
@@ -148,8 +218,7 @@ final class HupaMinifyWpLoaded {
 
 					if ( get_option( 'minify_js_groups_aktiv' ) ) {
 						$script_item = [
-							'js'  => '//' . $path,
-							'min' => $min
+							'js' => '//' . $path
 						];
 						$scriptArr[] = $script_item;
 						$wp_scripts->remove( $src );
@@ -159,110 +228,21 @@ final class HupaMinifyWpLoaded {
 					}
 				}
 			}
-			$v = '&v=' . ( $_SERVER['REQUEST_TIME'] - $_SERVER['REQUEST_TIME'] % 86400 );
-			wp_enqueue_script( 'minify-global-script', site_url() . '?minify=min&g=js' . $v . $debug, array(), null, true );
-			$scriptFooterData = json_encode( $scriptArr );
-			update_option( 'minify_script_footer_js', $scriptFooterData );
-		endif;
-	}
 
-	public function hupa_minify_get_head_file_data() {
-
-		$minDevelop  = json_decode( get_option( 'minify_settings_entwicklung' ) );
-		$minProduct  = json_decode( get_option( 'minify_settings_production' ) );
-		$debug_aktiv = match ( get_option( 'minify_settings_select' ) ) {
-			'1' => (bool) $minDevelop->debug_aktiv,
-			'2' => (bool) $minProduct->debug_aktiv,
-			default => false,
-		};
-
-		$debug_aktiv ? $debug = '&debug' : $debug = '';
-
-		global $wp_scripts;
-		global $wp_styles;
-		if ( ! $wp_scripts instanceof WP_Scripts ) {
-			$wp_scripts = new WP_Scripts();
-		}
-
-		if ( ! $wp_styles instanceof WP_Styles ) {
-			$wp_styles = new WP_Styles();
-		}
-		//print_r($wp_scripts->registered['wp-embed']);
-
-		//JOB HEADER CSS
-
-		if ( get_option( 'minify_css_aktiv' ) ):
-			$modificated = '';
-			$styleArr    = [];
-
-			foreach ( $wp_styles->queue as $style ) {
-
-				$srcFile = $wp_styles->query( $style )->src;
-				if ( ! $srcFile ) {
-					continue;
-				}
-				$wpParse     = wp_parse_url( $srcFile );
-				$modificated = date( 'YmdHi', filemtime( HUPA_MINIFY_ROOT_PATH . $wpParse['path'] ) );
-				$path        = trim( $wpParse['path'], '/' );
-
-
-				if ( get_option( 'minify_css_groups_aktiv' ) ) {
-					$style_item = [
-						'css' => '//' . $path,
+			if ( get_option( 'minify_js_groups_aktiv' ) ) {
+				if ( get_option( 'minify_wp_embed_aktiv' ) ) {
+					$embed_item  = [
+						'js' => '//' . trim( $wp_scripts->registered['wp-embed']->src, DIRECTORY_SEPARATOR )
 					];
-					$styleArr[] = $style_item;
-					wp_deregister_style( $style );
-					wp_dequeue_style( $style );
-				} else {
-					//wp_enqueue_style( 'minify-style-'.$this->getHupaGenerateRandomId(8,0,8), site_url() . '?minify=min&g=css&l=no-group-header-css&p=' . $path . $debug, array(), null );
-					//wp_enqueue_style(  'minify-style-'.$this->getHupaGenerateRandomId(8,0,8), site_url() . '?minify=min&f=' . $path . $debug, array(), null );
-
+					$scriptArr[] = $embed_item;
+					$wp_scripts->remove( $wp_scripts->registered['wp-embed']->handle );
 				}
+				$v = '&v=' . ( $_SERVER['REQUEST_TIME'] - $_SERVER['REQUEST_TIME'] % 86400 );
+				wp_enqueue_script( 'minify-global-script', site_url() . '?minify=min&g=js' . $v . $debug, array(), null, true );
+				$scriptFooterData = json_encode( $scriptArr );
+				update_option( 'minify_script_footer_js', $scriptFooterData );
 			}
-
-			if ( get_option( 'minify_css_groups_aktiv' ) ) {
-				wp_enqueue_style( 'minify-global-style', site_url() . '?minify=min&g=css&l=header-css&v=' . $modificated . $debug, array(), null );
-			}
-			$styleHeaderData = json_encode( $styleArr );
-			update_option( 'minify_style_header_css', $styleHeaderData );
 		endif;
-
-		//JOB FOOTER SCRIPT DATEN
-
-
-		//print_r($wp_scripts->registered['jquery-core']);
-		//print_r($wp_scripts->registered['jquery-migrate']);
-		//print_r($wp_scripts->registered['wp-embed']);
-
-		/*	foreach ( $wp_scripts->queue as $script ) {
-				$srcFile = $wp_scripts->query( $script )->src;
-				if ( ! $srcFile ) {
-					continue;
-				}
-				$handle = $wp_scripts->query( $script )->handle;
-
-				if(in_array($handle,$wp_scripts->do_head_items())){
-					continue;
-				}
-
-				$modificated = date( 'YmdHi', filemtime( HUPA_MINIFY_ROOT_PATH . $path ) );
-				$path = trim( $path, '/' );
-				$script_item = [
-						'js' => '//' . $path,
-					];
-					$scriptArr[] = $script_item;
-					//wp_deregister_script( $script );
-					wp_deregister_script( $script );
-					wp_dequeue_script( $script );
-
-			}
-
-			wp_enqueue_script( 'minify-global-script', site_url() . '?minify=min&g=js&l=footer-js' .  $debug, array(), null, true );
-				//wp_enqueue_script('minify-global-script');
-			$scriptFooterData = json_encode( $scriptArr );
-			update_option( 'minify_script_footer_js', $scriptFooterData );
-	*/
-
 	}
 
 	public function minify_delete_header_scripts() {

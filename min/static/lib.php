@@ -12,6 +12,7 @@ namespace Minify\StaticService;
  */
 function build_uri($static_uri, $query, $type)
 {
+
     $static_uri = rtrim($static_uri, '/');
     $query = ltrim($query, '?');
 

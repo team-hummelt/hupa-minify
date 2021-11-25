@@ -176,21 +176,37 @@ $sP = json_decode( get_option( 'minify_settings_production' ) );
                                             <div class="form-check form-switch mb-3 mb-lg-0 me-3">
                                                 <input class="form-check-input wpJsCore" name="wp_core_aktiv"
                                                        type="checkbox"
-                                                       id="CheckJQCoreGroupsActive"
-													<?= ! get_option( 'minify_jquery_core_aktiv' ) ?: 'checked ' ?> disabled>
-                                                <label class="form-check-label" for="CheckJQCoreGroupsActive">
+                                                       id="CheckJQCoreActive"
+													<?= ! get_option( 'minify_jquery_core_aktiv' ) ?: 'checked ' ?>
+                                                       disabled>
+                                                <label class="form-check-label" for="CheckJQCoreActive">
 													<?= __( 'WP jQuery Core', 'hupa-minify' ) ?> <sup
                                                             class="text-danger strong-font-weight">2</sup></label>
                                             </div>
+
+                                            <div class="form-check form-switch mb-3 mb-lg-0 me-3">
+                                                <input class="form-check-input wpJsCore" name="wp_embed_aktiv"
+                                                       type="checkbox"
+                                                       id="CheckWPEmbedActive"
+			                                        <?= ! get_option( 'minify_wp_embed_aktiv' ) ?: 'checked ' ?>>
+                                                <label class="form-check-label" for="CheckWPEmbedActive">
+			                                        <?= __( 'WP Embed Dateien', 'hupa-minify' ) ?> <sup
+                                                            class="text-danger strong-font-weight">3</sup></label>
+                                            </div>
+
                                         </div>
                                         <hr>
                                         <div class="form-text  pt-1">
                                             <b class="text-danger strong-font-weight">( 1 )</b>
 											<?= __( 'If the group is active, all files are compressed and output in one file.', 'hupa-minify' ) ?>
                                         </div>
-                                        <div class="form-text pb-2">
+                                        <div class="form-text pt-1">
                                             <b class="text-danger strong-font-weight">( 2 )</b>
 											<?= __( 'If this option is active, "Minify" will include the WordPress Javascript files.', 'hupa-minify' ) ?>
+                                        </div>
+                                        <div class="form-text pt-1 pb-2">
+                                            <b class="text-danger strong-font-weight">( 3 )</b>
+		                                    Ist diese Option aktiv, wird versucht die automatisch generierten WordPress JS-Dateien mit einzubeziehen.
                                         </div>
                                     </div>
 
@@ -251,7 +267,7 @@ $sP = json_decode( get_option( 'minify_settings_production' ) );
                                             <input class="form-check-input wpJsCore" name="static_aktiv"
                                                    type="checkbox"
                                                    id="CheckStaticActive"
-												<?= ! get_option( 'minify_static_aktiv' ) ?: 'checked ' ?> >
+												<?= ! get_option( 'minify_static_aktiv' ) ?: 'checked ' ?> disabled>
                                             <label class="form-check-label" for="CheckStaticActive">
 												<?= __( 'Statische Server-Funktion', 'hupa-minify' ) ?> <sup
                                                         class="text-danger strong-font-weight">1</sup> </label>
@@ -259,7 +275,7 @@ $sP = json_decode( get_option( 'minify_settings_production' ) );
                                         <div class="form-text">
                                             <i class="text-danger fa fa-exclamation"></i>
                                             <i>Statische Server-Funktion <span
-                                                        class="text-danger"> nicht verfügbar</span></i>.
+                                                        class="text-danger"> nicht verfügbar!</span></i>.
                                         </div>
                                         <hr>
 
@@ -316,10 +332,19 @@ $sP = json_decode( get_option( 'minify_settings_production' ) );
                                             viel bessere Leistung.
                                         </div>
                                         <hr>
-                                        <div class="collapse  <?= get_option( 'minify_cache_type' ) == 2 ? ' show' : '' ?>"
+                                        <div class="collapse  <?= get_option( 'minify_cache_type' ) == 3 ? ' show' : '' ?>"
                                              id="memCacheOptions">
+											<?php
+											if ( HUPA_MINIFY_MEMCACHE ) {
+												$memStat = '<span style="color:#79b500"> Memcache installiert</span>';
+											} else {
+												$memStat = '<span class="text-danger"> Memcache nicht installiert!</span>';
+											}
+											?>
                                             <div class="card card-body bg-light mb-2 shadow-sm">
-                                                <div class="card-title strong-font-weight"><?= __( 'Memcache Settings', 'hupa-minify' ) ?></div>
+                                                <div class="card-title strong-font-weight"><?= __( 'Memcache Settings', 'hupa-minify' ) ?>
+                                                    <small class="fw-normal small d-block"> <?= $memStat ?></small>
+                                                </div>
                                                 <hr>
                                                 <div class="row">
                                                     <div class="col-xl-6 col-lg-6 col-12 pe-2 mb-3">
@@ -339,7 +364,6 @@ $sP = json_decode( get_option( 'minify_settings_production' ) );
                                                     </div>
                                                 </div>
                                             </div>
-                                            <hr>
                                         </div>
                                     </div>
                                 </div><!--Server Settings Ende-->
@@ -504,7 +528,8 @@ $sP = json_decode( get_option( 'minify_settings_production' ) );
                             </div>
                             <div class="form-text mb-1">
                                 <b class="strong-font-weight text-danger">( 2 )</b>
-                                Verketten Sie die Dateien, aber minimieren Sie sie nicht. Dies kann zu Testzwecken verwendet werden.
+                                Verketten Sie die Dateien, aber minimieren Sie sie nicht. Dies kann zu Testzwecken
+                                verwendet werden.
                             </div>
                             <div class="form-text mb-1">
                                 <b class="strong-font-weight text-danger">( 3 )</b>
@@ -741,58 +766,8 @@ $sP = json_decode( get_option( 'minify_settings_production' ) );
             <small class="card-body-bottom" style="right: 1.5rem">Minify Version: <i
                         class="hupa-color">v<?= HUPA_MINIFY_PLUGIN_VERSION ?></i></small>
         </div>
+
     </div>
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="formDeleteModal" tabindex="-1" aria-labelledby="formDeleteModal"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-hupa">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light border" data-bs-dismiss="modal"><i
-                                class="text-danger fa fa-times"></i>&nbsp; Abbrechen
-                    </button>
-                    <button type="button" data-bs-dismiss="modal"
-                            class="btn-delete-form btn btn-danger">
-                        <i class="fa fa-trash-o"></i>&nbsp; löschen
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!--Modal-->
-    <div class="modal fade" id="btnIconModal" tabindex="-1" aria-labelledby="btnIconModal"
-         aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-fullscreen-xl-down modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header bg-hupa">
-                    <h5 class="modal-title"
-                        id="exampleModalLabel"><?= __( 'hupa-minify', 'hupa-minify' ); ?></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="icon-grid"></div>
-                    <div id="email-template"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light border" data-bs-dismiss="modal"><i
-                                class="text-danger fa fa-times"></i>&nbsp; Schließen
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <div id="snackbar-success"></div>

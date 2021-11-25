@@ -1,7 +1,9 @@
 <?php
 
+use Minify\App;
+
 $app = (require __DIR__ . '/../bootstrap.php');
-/* @var \Minify\App $app */
+/* @var App $app */
 
 $config = $app->config;
 

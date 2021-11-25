@@ -6,7 +6,7 @@
  * @package Minify
  */
 
-//$min_enableBuilder = false;
+//$min_enableBuilder = true;
 //$min_serveOptions['rewriteCssUris'] = false;
 
 

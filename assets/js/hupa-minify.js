@@ -78,28 +78,27 @@ jQuery(document).ready(function ($) {
         }
     }
 
-   /* $(document).on('click', '#CheckMinActive', function () {
-        let field = $('.minifyFieldset');
-        if ($(this).prop('checked')) {
-            field.prop('disabled', false);
-        } else {
-            field.prop('disabled', true);
-        }
+    /* $(document).on('click', '#CheckMinActive', function () {
+         let field = $('.minifyFieldset');
+         if ($(this).prop('checked')) {
+             field.prop('disabled', false);
+         } else {
+             field.prop('disabled', true);
+         }
 
-        let wpCore = $('.wpCoreField');
-        let jsGroup = $('#CheckJSGroupsActive');
-        let jsActive = $('#CheckJSActive');
-        if ($(this).prop('checked') && jsActive.prop('checked')) {
-            if (jsGroup.prop('checked')) {
-                wpCore.prop('disabled', false);
-            } else {
-                wpCore.prop('disabled', true);
-            }
-        } else {
-            wpCore.prop('disabled', true);
-        }
-    });*/
-
+         let wpCore = $('.wpCoreField');
+         let jsGroup = $('#CheckJSGroupsActive');
+         let jsActive = $('#CheckJSActive');
+         if ($(this).prop('checked') && jsActive.prop('checked')) {
+             if (jsGroup.prop('checked')) {
+                 wpCore.prop('disabled', false);
+             } else {
+                 wpCore.prop('disabled', true);
+             }
+         } else {
+             wpCore.prop('disabled', true);
+         }
+     });*/
 
 
     $(document).on('click', '.form-check-input, .btn', function () {
@@ -110,7 +109,9 @@ jQuery(document).ready(function ($) {
     $(document).on('change', '#inputSelectCache', function () {
         $(this).trigger('blur');
         let parentCollapse = $(this).attr('data-bs-target');
-        if($(this).val() === '2') {
+
+        if ($(this).val() === '3') {
+            console.log(parentCollapse)
             $(parentCollapse).addClass('show');
         } else {
             $(parentCollapse).removeClass('show');
@@ -118,6 +119,22 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    $(document).on('click', '.activate-server-status', function () {
+        if ($(this).prop('checked')) {
+            $.post(minify_ajax_obj.ajax_url, {
+                    'action': 'HupaMinifyHandle',
+                    '_ajax_nonce': minify_ajax_obj.nonce,
+                    'method': 'activate_server_status',
+                },
+                function (data) {
+                    if (data.status) {
+                        window.location.reload(true);
+                    } else {
+                        warning_message(data.msg);
+                    }
+                });
+        }
+    });
 
     /**+++++++++++++++++++++++++++++++++++++
      *+++++++ Change LOG Settings ++++++++++
@@ -144,7 +161,7 @@ jQuery(document).ready(function ($) {
                     show_ajax_spinner(data);
                     return false;
                 }
-                if(data.msg) {
+                if (data.msg) {
                     if (data.status) {
                         success_message(data.msg);
                     } else {
@@ -153,6 +170,25 @@ jQuery(document).ready(function ($) {
                 }
             });
     }
+
+    $(document).on('click', '.btn-select-folder', function () {
+        let target = $(this).attr('data-target');
+        let source = $(this).attr('data-source');
+        $(target).val(source);
+        if (source) {
+            $(target).prop('disabled', false);
+        } else {
+            $(target).prop('disabled', true);
+        }
+        let form = $(target).parents('form');
+        let formData = form.serializeObject();
+
+        $('.show-form-input').toggleClass('d-none');
+        clearTimeout(InputMinifyFormTimeout);
+        InputMinifyFormTimeout = setTimeout(function () {
+            set_settings_form_input(formData);
+        }, 1000);
+    });
 
     function warning_message(msg) {
         let x = document.getElementById("snackbar-warning");

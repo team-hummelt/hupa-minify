@@ -56,7 +56,7 @@ $src1         = new Minify_Source( array(
 switch ( $method ) {
     case 'js':
     case 'singleJs':
-         //$min_serveOptions['maxAge'] = 86400 * 7;
+        //$min_serveOptions['maxAge'] = 86400 * 7;
         break;
     case 'css':
         //$min_serveOptions['contentTypeCharset'] = 'iso-8859-1';
@@ -90,13 +90,18 @@ switch ( $method ) {
         ) );
         break;
     case 'singleCss':
-        $cssArr[]  = $file;
+        $cssArr[] = $file;
         break;
     case 'css':
-        $path = json_decode(get_option('minify_style_header_css'));
-        foreach ($path as $tmp) {
+        $path = json_decode( get_option( 'minify_style_header_css' ) );
+        foreach ( $path as $tmp ) {
             $cssArr[] = $tmp->css;
         }
+        break;
+    case'scss':
+        /*  $singleMinCss = new Minify_ScssCssSource($file);
+          $scss = new Minify_ScssCssSource();*/
+        $cssArr[] = $file;
         break;
 }
 
@@ -107,6 +112,7 @@ return array(
     'singleCss'    => $cssArr,
     'js'           => $scrArr,
     'css'          => $cssArr,
+    'scss'         => $cssArr
 );
 
 

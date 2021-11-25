@@ -30,6 +30,7 @@ const HUPA_MINIFY_MIN_WP_VERSION = '5.7';
 const HUPA_MINIFY_QUERY_VAR = 'minify';
 const HUPA_MINIFY_QUERY_VALUE = 'min';
 const HUPA_MINIFY_SETTINGS_ID = 1;
+const MINIFY_SCSS_COMPILER_AKTIV = true;
 
 //PLUGIN VERSION
 $plugin_data = get_file_data(dirname(__FILE__) . '/hupa-minify.php', array('Version' => 'Version'), false);
@@ -42,8 +43,12 @@ define('HUPA_MINIFY_SLUG_PATH', plugin_basename(__FILE__));
 define('HUPA_MINIFY_PLUGIN_URL', plugins_url('hupa-minify'));
 //PLUGIN INC DIR
 const HUPA_MINIFY_INC = HUPA_MINIFY_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR;
+
+
 //PLUGIN ASSETS URL
 define('HUPA_MINIFY_ASSETS_URL', plugins_url('hupa-minify') . '/assets/');
+//THEME ROOT
+define( "HUPA_MINIFY_THEME_ROOT", wp_get_theme()->get_theme_root());
 
 const MINIFY_SERVER_ROOT = HUPA_MINIFY_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'min' . DIRECTORY_SEPARATOR;
 //PLUGIN ABSOLUT PATH
@@ -52,7 +57,6 @@ $root_path = get_home_path();
 $path = rtrim( $root_path, DIRECTORY_SEPARATOR );
 define( "HUPA_MINIFY_ROOT_PATH", $path);
 $cacheFolder = $root_path . 'minify-cache';
-
 define( "HUPA_MINIFY_CACHE_PATH", sys_get_temp_dir());
 
 $opcache = false;
@@ -93,7 +97,7 @@ function deactivate_hupa_minify() {
 	Hupa_Minify_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_hupa_minify' );
+register_activation_hook( __FILE__, 'activate_hupa_minify');
 register_deactivation_hook( __FILE__, 'deactivate_hupa_minify' );
 
 if(get_option('hupa_minify_product_install_authorize')) {
@@ -101,7 +105,11 @@ if(get_option('hupa_minify_product_install_authorize')) {
 	require 'inc/register-hupa-minify.php';
 	require 'inc/optionen/optionen-init.php';
 	require 'inc/enqueue.php';
+	require 'inc/scss-server/scss-server.php';
 	require 'min/vendor/autoload.php';
+	if(get_option('server_status_aktiv')) {
+		//require 'server-status/class-server-status.php';
+	}
 	require 'inc/update-checker/autoload.php';
 	$hupaMinifyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 		'https://github.com/team-hummelt/hupa-minify/',

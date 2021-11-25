@@ -26,5 +26,6 @@ class Hupa_Minify_Deactivator {
 		delete_option("hupa_minify_access_token");
 		$infoTxt = 'deaktiviert am ' . date('d.m.Y H:i:s')."\r\n";
 		file_put_contents(HUPA_MINIFY_PLUGIN_DIR.'/hupa-minify.txt', $infoTxt,  FILE_APPEND | LOCK_EX);
+		flush_rewrite_rules();
 	}
 }
