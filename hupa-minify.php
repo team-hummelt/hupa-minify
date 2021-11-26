@@ -11,7 +11,7 @@
  * Plugin Name:       Hupa Minify
  * Plugin URI:        https://www.hummelt-werbeagentur.de/leistungen/
  * Description:       Minify ist ein HTTP-Server für JS- und CSS-Assets. Es komprimiert und kombiniert Dateien und stellt sie mit entsprechenden Headern bereit, die bedingtes GET oder langes Expires ermöglichen.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Jens Wiecker
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
