@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) or die();
             <i class="icon-hupa-white d-block mt-2" style="font-size: 2rem"></i>&nbsp;
 			<?= __( 'PHP Information', 'hupa-minify' ) ?> </h5>
         <div class="d-flex align-items-center mb-4">
-            <h5 class="card-title bg-light w-100 p-3 shadow" style="height: 5rem"><i
+            <h5 class="card-title bg-light w-100 p-3" style="height: 5rem"><i
                         class="hupa-color fa fa-arrow-circle-right"></i>
                 <span id="currentSideTitle"><?= __( 'Server Stats', 'hupa-minify' ) ?>&nbsp;- <?= __( 'PHP Information', 'hupa-minify' ) ?></span>
                 <small class="small fw-normal mt-2 d-block"><?= __( 'This page will show you the in-depth information about the PHP installation on your server.', 'hupa-minify' ) ?></small>

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-26 03:17+0100\n"
-"PO-Revision-Date: 2021-11-26 03:19+0100\n"
+"POT-Creation-Date: 2021-11-26 13:57+0100\n"
+"PO-Revision-Date: 2021-11-27 00:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: admin-pages/hupa-minify-scss.php:15
 msgid "Minify SCSS"
-msgstr ""
+msgstr "Minify SCSS"
 
 #: admin-pages/hupa-minify-scss.php:19 admin-pages/hupa-minify-start.php:20
 #: admin-pages/hupa-minify-start.php:24 license/register-hupa-plugin.php:58
@@ -37,17 +37,13 @@ msgid "SCSS Settings"
 msgstr ""
 
 #: admin-pages/hupa-minify-scss.php:34 admin-pages/hupa-minify-scss.php:40
-#: admin-pages/hupa-minify-server-info.php:36
-#: admin-pages/hupa-minify-server-info.php:42
 #: admin-pages/hupa-minify-start.php:39 admin-pages/hupa-minify-start.php:45
 msgid "Ausgabe"
 msgstr ""
 
 #: admin-pages/hupa-minify-scss.php:52
-#, fuzzy
-#| msgid "Minify settings"
 msgid "Minify SCSS Compiler Settings"
-msgstr "Minify Settings"
+msgstr "Minify SCSS Compiler Settings"
 
 #: admin-pages/hupa-minify-scss.php:68
 msgid "SCSS / SASS Location"
@@ -59,34 +55,406 @@ msgstr ""
 msgid "CSS Location"
 msgstr "CSS aktiv"
 
-#: admin-pages/hupa-minify-server-info.php:17
-#: admin-pages/hupa-minify-server-info.php:27
+#: admin-pages/hupa-minify-server-info.php:18
 msgid "Server Status"
 msgstr "Server Status"
 
-#: admin-pages/hupa-minify-server-info.php:21
+#: admin-pages/hupa-minify-server-info.php:22
 msgid "Server"
 msgstr ""
 
-#: admin-pages/hupa-minify-server-info.php:22
+#: admin-pages/hupa-minify-server-info.php:23
 msgid "Status"
 msgstr ""
 
-#: admin-pages/hupa-minify-server-info.php:33
-msgid "Server status"
+#: admin-pages/hupa-minify-server-info.php:98
+#: admin-pages/minify-server-options-page.php:48
+msgid "Set the realtime script refresh interval (in ms) [1sec = 1000ms]"
+msgstr ""
+"Legen Sie das Aktualisierungsintervall für das Echtzeitskript fest (in ms) "
+"[1sec = 1000ms]."
+
+#: admin-pages/hupa-minify-server-info.php:116
+#: admin-pages/minify-server-options-page.php:66
+msgid ""
+"Memcached Server Host (Only if you have Memcached installed in your server)"
+msgstr ""
+"Memcached Server Host (nur wenn Sie Memcached auf Ihrem Server installiert "
+"haben)"
+
+#: admin-pages/hupa-minify-server-info.php:121
+#: admin-pages/minify-server-options-page.php:71
+msgid "Do you want to use the IP-API Pro key?"
+msgstr "Möchten Sie den IP-API Pro-Schlüssel verwenden?"
+
+#: admin-pages/hupa-minify-server-info.php:132
+#: admin-pages/minify-server-options-page.php:82
+#, php-format
+msgid ""
+"By default, this extension uses %1$sIP-API.com%2$s free API, which allows "
+"%3$s150 requests/min%4$s. However, for busy websites this can be very little "
+"and result in %3$s503 Error%4$s if you try to do more than %3$s150 req/min"
+"%4$s. To solve this problem, you can use the %5$sPaid version of IP-API%6$s "
+"and specify your paid key below, which will allow you a %7$sUnlimited%8$s "
+"number of requests."
+msgstr ""
+"Standardmäßig verwendet diese Erweiterung die kostenlose API von %1$sIP-API."
+"com%2$s, die %3$s150 Anfragen/min%4$s erlaubt. Bei stark frequentierten "
+"Websites kann dies jedoch sehr wenig sein und zu %3$s503 Error%4$s führen, "
+"wenn Sie versuchen, mehr als %3$s150 req/min%4$s durchzuführen. Um dieses "
+"Problem zu lösen, können Sie die %5$sPaid Version von IP-API%6$s verwenden "
+"und Ihren bezahlten Schlüssel unten angeben, der Ihnen eine %7$sUnlimited"
+"%8$s Anzahl von Anfragen ermöglicht."
+
+#: admin-pages/hupa-minify-server-info.php:151
+#: admin-pages/minify-server-options-page.php:101
+msgid "Provide your IP-API Pro key"
+msgstr "Geben Sie Ihren IP-API Pro-Schlüssel an"
+
+#: admin-pages/hupa-minify-server-info.php:159
+#: admin-pages/minify-server-options-page.php:109
+msgid "Realtime Status Bar Background Color"
+msgstr "Hintergrundfarbe der Echtzeit-Statusleiste"
+
+#: admin-pages/hupa-minify-server-info.php:164
+#: admin-pages/minify-server-options-page.php:114
+msgid "Status OK"
+msgstr "Status OK"
+
+#: admin-pages/hupa-minify-server-info.php:170
+#: admin-pages/minify-server-options-page.php:120
+msgid "Critical Status"
+msgstr "kritischer Status"
+
+#: admin-pages/hupa-minify-server-info.php:176
+#: admin-pages/minify-server-options-page.php:126
+msgid "Very Critical Status"
+msgstr "Hochkritischer Status"
+
+#: admin-pages/hupa-minify-server-info.php:183
+#: admin-pages/minify-server-options-page.php:133
+msgid "Footer Text Color"
+msgstr "Textfarbe der Fußzeile"
+
+#: admin-pages/hupa-minify-server-memcache-info.php:18
+#, fuzzy
+#| msgid "active settings"
+msgid "Memcache"
+msgstr "aktive Settings"
+
+#: admin-pages/hupa-minify-server-memcache-info.php:22
+msgid "Memcached Information"
+msgstr "Memcache-Informationen"
+
+#: admin-pages/hupa-minify-server-memcache-info.php:24
+msgid ""
+"This page will show you the in-depth information about your memcache server"
+msgstr ""
+"Auf dieser Seite finden Sie ausführliche Informationen über Ihren Memcache-"
+"Server"
+
+#: admin-pages/hupa-minify-server-memcache-info.php:51
+#: admin-pages/hupa-minify-server-memcache-info.php:58
+#: admin-pages/hupa-minify-server-sql-info.php:33
+#: admin-pages/hupa-minify-server-sql-info.php:39
+#: admin-pages/hupa-minify-server-sql-info.php:76
+#: admin-pages/hupa-minify-server-sql-info.php:82
+msgid "Variable Name"
 msgstr ""
 
-#: admin-pages/hupa-minify-server-php-info.php:15
-#: admin-pages/hupa-minify-server-php-info.php:20 register-hupa-minify.php:149
+#: admin-pages/hupa-minify-server-memcache-info.php:52
+#: admin-pages/hupa-minify-server-memcache-info.php:59
+#: admin-pages/hupa-minify-server-sql-info.php:34
+#: admin-pages/hupa-minify-server-sql-info.php:40
+#: admin-pages/hupa-minify-server-sql-info.php:77
+#: admin-pages/hupa-minify-server-sql-info.php:83
+msgid "Value"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:53
+#: admin-pages/hupa-minify-server-memcache-info.php:60
+msgid "Description"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:65
+msgid "pid"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:67
+msgid "Process ID"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:70
+msgid "uptime"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:72
+msgid "Number of days since the process was started"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:75
+#, fuzzy
+#| msgid "Remove version"
+msgid "version"
+msgstr "Version entfernen"
+
+#: admin-pages/hupa-minify-server-memcache-info.php:77
+#, fuzzy
+#| msgid "active settings"
+msgid "Memcached Version"
+msgstr "aktive Settings"
+
+#: admin-pages/hupa-minify-server-memcache-info.php:80
+msgid "usage_user"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:82
+msgid "Number of seconds the cpu has devoted to the process as the user"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:85
+msgid "usage_system"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:87
+msgid "Number of seconds the cpu has devoted to the process as the system"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:90
+msgid "curr_items"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:92
+msgid "Total number of items currently in memcached"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:95
+msgid "total_items"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:97
+msgid "Total number of items that have passed through memcached"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:100
+msgid "bytes"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:102
+msgid "Memory size currently used by <code>curr_items</code>"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:105
+msgid "limit_maxbytes"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:107
+msgid "Maximum memory size allocated to memcached"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:110
+msgid "curr_connections"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:112
+msgid "Total number of open connections to memcached"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:115
+msgid "total_connections"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:117
+msgid "Total number of connections opened since memcached started running"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:120
+msgid "connection_structures"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:122
+msgid "Number of connection structures allocated by the server"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:125
+msgid "cmd_get"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:127
+msgid "Total GET commands issued to the server"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:130
+msgid "cmd_set"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:132
+msgid "Total SET commands issued to the server"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:135
+msgid "cmd_flush"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:137
+msgid "Total FLUSH commands issued to the server"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:140
+msgid "get_hits"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:142
+msgid ""
+"Total number of times a GET command was <strong>able</strong> to retrieve "
+"and return data"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:145
+msgid "get_misses"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:147
+msgid ""
+"Total number of times a GET command was <strong>unable</strong> to retrieve "
+"and return data"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:150
+msgid "delete_hits"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:152
+msgid ""
+"Total number of times a DELETE command was <strong>able</strong> to delete "
+"data"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:155
+msgid "delete_misses"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:157
+msgid ""
+"Total number of times a DELETE command was <strong>unable</strong> to delete "
+"data"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:160
+msgid "incr_hits"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:162
+msgid ""
+"Total number of times a INCR command was <strong>able</strong> to increment "
+"a value"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:165
+msgid "incr_misses"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:167
+msgid ""
+"Total number of times a INCR command was <strong>unable</strong> to "
+"increment a value"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:170
+msgid "decr_hits"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:172
+msgid ""
+"Total number of times a DECR command was <strong>able</strong> to decrement "
+"a value"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:175
+msgid "decr_misses"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:177
+msgid ""
+"Total number of times a DECR command was <strong>unable</strong> to "
+"decrement a value"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:180
+msgid "cas_hits"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:182
+msgid ""
+"Total number of times a CAS command was <strong>able</strong> to compare and "
+"swap data"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:185
+msgid "cas_misses"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:187
+msgid ""
+"Total number of times a CAS command was <strong>unable</strong> to compare "
+"and swap data"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:190
+msgid "cas_badval"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:192
+msgid ""
+"The \"cas\" command is some kind of Memcached's way to avoid locking. \"cas"
+"\" calls with bad identifier are counted in this stats key"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:195
+msgid "bytes_read"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:197
+msgid "Total number of bytes input into the server"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:200
+msgid "bytes_written"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:202
+msgid "Total number of bytes written by the server"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:205
+#, fuzzy
+#| msgid "Options"
+msgid "evictions"
+msgstr "Optionen"
+
+#: admin-pages/hupa-minify-server-memcache-info.php:207
+msgid "Number of valid items removed from cache to free memory for new items"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:210
+msgid "reclaimed"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-memcache-info.php:212
+msgid "Number of items reclaimed"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-php-info.php:14
+#: admin-pages/hupa-minify-server-php-info.php:18 register-hupa-minify.php:149
 msgid "PHP Information"
 msgstr "PHP-Informationen"
 
-#: admin-pages/hupa-minify-server-php-info.php:20 register-hupa-minify.php:128
+#: admin-pages/hupa-minify-server-php-info.php:18 register-hupa-minify.php:128
 #: register-hupa-minify.php:129 register-hupa-minify.php:181
 msgid "Server Stats"
 msgstr "Server-Statistik"
 
-#: admin-pages/hupa-minify-server-php-info.php:21
+#: admin-pages/hupa-minify-server-php-info.php:19
 msgid ""
 "This page will show you the in-depth information about the PHP installation "
 "on your server."
@@ -94,16 +462,68 @@ msgstr ""
 "Auf dieser Seite finden Sie ausführliche Informationen über die PHP-"
 "Installation auf Ihrem Server."
 
+#: admin-pages/hupa-minify-server-sql-info.php:17
+msgid "Database"
+msgstr "Datenbank"
+
+#: admin-pages/hupa-minify-server-sql-info.php:21 register-hupa-minify.php:159
+msgid "Database Information"
+msgstr "Datenbank-Informationen"
+
+#: admin-pages/hupa-minify-server-sql-info.php:23
+msgid "This page will show you the in-depth information about your database"
+msgstr "This page will show you the in-depth information about your database"
+
+#: admin-pages/hupa-minify-server-sql-info.php:29
+msgid "Basic Database Information"
+msgstr "Allgemeine Datenbankinformationen"
+
+#: admin-pages/hupa-minify-server-sql-info.php:45
+#: dashboard-widget/wp-dashboard-widget.php:80
+msgid "Database Software"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-sql-info.php:49
+#: dashboard-widget/wp-dashboard-widget.php:82
+msgid "Database Version"
+msgstr "Datenbank-Version"
+
+#: admin-pages/hupa-minify-server-sql-info.php:53
+#: dashboard-widget/wp-dashboard-widget.php:84
+msgid "Maximum No. of Connections"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-sql-info.php:57
+#: dashboard-widget/wp-dashboard-widget.php:86
+msgid "Maximum Packet Size"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-sql-info.php:61
+#: dashboard-widget/wp-dashboard-widget.php:88
+msgid "Database Disk Usage"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-sql-info.php:65
+#: dashboard-widget/wp-dashboard-widget.php:90
+msgid "Index Disk Usage"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-sql-info.php:72
+msgid "Advanced Database Information"
+msgstr "Erweiterte Datenbankinformationen"
+
+#: admin-pages/hupa-minify-server-sql-info.php:102
+msgid "Something went wrong!"
+msgstr ""
+
 #: admin-pages/hupa-minify-start.php:25 admin-pages/hupa-minify-start.php:30
 #: admin-pages/hupa-minify-start.php:36 register-hupa-minify.php:212
-#, fuzzy
-#| msgid "Minify settings"
 msgid "Settings"
-msgstr "Minify Settings"
+msgstr "Einstellungen"
 
 #: admin-pages/hupa-minify-start.php:48 admin-pages/hupa-minify-start.php:54
 msgid "WordPress"
-msgstr ""
+msgstr "WordPress"
 
 #: admin-pages/hupa-minify-start.php:68
 msgid "Minify settings"
@@ -123,7 +543,7 @@ msgstr "HTML aktiv"
 
 #: admin-pages/hupa-minify-start.php:112
 msgid "CSS Settings"
-msgstr ""
+msgstr "CSS-Einstellungen"
 
 #: admin-pages/hupa-minify-start.php:120
 msgid "CSS Groups"
@@ -141,10 +561,8 @@ msgstr ""
 "ausgegeben."
 
 #: admin-pages/hupa-minify-start.php:163
-#, fuzzy
-#| msgid "Javascript Group Options"
 msgid "Javascript Settings"
-msgstr "Javascript Gruppen Optionen"
+msgstr "JavaScript Einstellungen"
 
 #: admin-pages/hupa-minify-start.php:172
 msgid "JS Groups"
@@ -187,10 +605,8 @@ msgid "HTML Kommentare entfernen"
 msgstr ""
 
 #: admin-pages/hupa-minify-start.php:264
-#, fuzzy
-#| msgid "active settings"
 msgid "Server Settings"
-msgstr "aktive Settings"
+msgstr "Server Einstellungen"
 
 #: admin-pages/hupa-minify-start.php:272
 msgid "Statische Server-Funktion"
@@ -247,10 +663,8 @@ msgid "Verkettung"
 msgstr ""
 
 #: admin-pages/hupa-minify-start.php:439 admin-pages/hupa-minify-start.php:495
-#, fuzzy
-#| msgid "CSS active"
 msgid "Cache active"
-msgstr "CSS aktiv"
+msgstr "Cache aktiv"
 
 #: admin-pages/hupa-minify-start.php:444 admin-pages/hupa-minify-start.php:500
 msgid "Cache Path"
@@ -262,7 +676,7 @@ msgstr ""
 
 #: admin-pages/hupa-minify-start.php:463
 msgid "Production settings"
-msgstr "Settings Produktion"
+msgstr "Produktion Settings"
 
 #: admin-pages/hupa-minify-start.php:552
 msgid "Minify WordPress"
@@ -335,65 +749,6 @@ msgstr "Ändern der Server-Status Einstellungen"
 #: admin-pages/minify-server-options-page.php:21
 msgid "Server Stats Settings"
 msgstr "Server-Statistiken Einstellungen"
-
-#: admin-pages/minify-server-options-page.php:48
-msgid "Set the realtime script refresh interval (in ms) [1sec = 1000ms]"
-msgstr ""
-"Legen Sie das Aktualisierungsintervall für das Echtzeitskript fest (in ms) "
-"[1sec = 1000ms]."
-
-#: admin-pages/minify-server-options-page.php:66
-msgid ""
-"Memcached Server Host (Only if you have Memcached installed in your server)"
-msgstr ""
-"Memcached Server Host (nur wenn Sie Memcached auf Ihrem Server installiert "
-"haben)"
-
-#: admin-pages/minify-server-options-page.php:71
-msgid "Do you want to use the IP-API Pro key?"
-msgstr "Möchten Sie den IP-API Pro-Schlüssel verwenden?"
-
-#: admin-pages/minify-server-options-page.php:82
-#, php-format
-msgid ""
-"By default, this extension uses %1$sIP-API.com%2$s free API, which allows "
-"%3$s150 requests/min%4$s. However, for busy websites this can be very little "
-"and result in %3$s503 Error%4$s if you try to do more than %3$s150 req/min"
-"%4$s. To solve this problem, you can use the %5$sPaid version of IP-API%6$s "
-"and specify your paid key below, which will allow you a %7$sUnlimited%8$s "
-"number of requests."
-msgstr ""
-"Standardmäßig verwendet diese Erweiterung die kostenlose API von %1$sIP-API."
-"com%2$s, die %3$s150 Anfragen/min%4$s erlaubt. Bei stark frequentierten "
-"Websites kann dies jedoch sehr wenig sein und zu %3$s503 Error%4$s führen, "
-"wenn Sie versuchen, mehr als %3$s150 req/min%4$s durchzuführen. Um dieses "
-"Problem zu lösen, können Sie die %5$sPaid Version von IP-API%6$s verwenden "
-"und Ihren bezahlten Schlüssel unten angeben, der Ihnen eine %7$sUnlimited"
-"%8$s Anzahl von Anfragen ermöglicht."
-
-#: admin-pages/minify-server-options-page.php:101
-msgid "Provide your IP-API Pro key"
-msgstr "Geben Sie Ihren IP-API Pro-Schlüssel an"
-
-#: admin-pages/minify-server-options-page.php:109
-msgid "Realtime Status Bar Background Color"
-msgstr "Hintergrundfarbe der Echtzeit-Statusleiste"
-
-#: admin-pages/minify-server-options-page.php:114
-msgid "Status OK"
-msgstr "Status OK"
-
-#: admin-pages/minify-server-options-page.php:120
-msgid "Critical Status"
-msgstr "kritischer Status"
-
-#: admin-pages/minify-server-options-page.php:126
-msgid "Very Critical Status"
-msgstr "Hochkritischer Status"
-
-#: admin-pages/minify-server-options-page.php:133
-msgid "Footer Text Color"
-msgstr "Textfarbe der Fußzeile"
 
 #: dashboard-widget/wp-dashboard-widget.php:19
 #, fuzzy
@@ -477,37 +832,11 @@ msgstr ""
 
 #: dashboard-widget/wp-dashboard-widget.php:75
 msgid "Check More Memcached Info"
-msgstr ""
-
-#: dashboard-widget/wp-dashboard-widget.php:80
-msgid "Database Software"
-msgstr ""
-
-#: dashboard-widget/wp-dashboard-widget.php:82
-#, fuzzy
-#| msgid "Database Information"
-msgid "Database Version"
-msgstr "Datenbank-Informationen"
-
-#: dashboard-widget/wp-dashboard-widget.php:84
-msgid "Maximum No. of Connections"
-msgstr ""
-
-#: dashboard-widget/wp-dashboard-widget.php:86
-msgid "Maximum Packet Size"
-msgstr ""
-
-#: dashboard-widget/wp-dashboard-widget.php:88
-msgid "Database Disk Usage"
-msgstr ""
-
-#: dashboard-widget/wp-dashboard-widget.php:90
-msgid "Index Disk Usage"
-msgstr ""
+msgstr "Mehr Cache-Infos anzeigen"
 
 #: dashboard-widget/wp-dashboard-widget.php:95
 msgid "Check More Database Info"
-msgstr ""
+msgstr "Mehr SQL-Infos anzeigen"
 
 #: dashboard-widget/wp-dashboard-widget.php:99
 #, fuzzy
@@ -545,7 +874,7 @@ msgstr ""
 
 #: dashboard-widget/wp-dashboard-widget.php:115
 msgid "Check More PHP Info"
-msgstr ""
+msgstr "Mehr PHP-Infos anzeigen"
 
 #: dashboard-widget/wp-dashboard-widget.php:119
 #, fuzzy
@@ -568,6 +897,14 @@ msgid ""
 "\t\t\t\tplease ask your host to enable <code>shell_exec()</code> function "
 "and give it executable permission."
 msgstr ""
+"Hallo, bitte beachten Sie, dass die PHP \n"
+"\t\t\t\t<code>shell_exec()</code> Funktion entweder nicht in Ihrer Hosting-"
+"Umgebung aktiviert ist oder keine Ausführungserlaubnis erhalten hat, \n"
+"\t\t\t\tDaher werden Sie die folgenden Ergebnisse oben nicht sehen: CPU/Core-"
+"Anzahl, Echtzeit-CPU-Auslastung, Server-Betriebszeit, RAM-Details, Echtzeit-"
+"RAM-Auslastung. Um diese Details zu sehen, \n"
+"\t\t\t\tbitten Sie Ihren Host, die Funktion <code>shell_exec()</code> zu "
+"aktivieren und ihr Ausführungsrechte zu erteilen."
 
 #: license/activate-hupa-minify-page.php:66
 msgid "Client ID"
@@ -600,10 +937,6 @@ msgstr "Server-Statistiken - PHP-Informationen"
 #: register-hupa-minify.php:158
 msgid "Server Stats - Database Information"
 msgstr "Server-Statistiken - Datenbankinformationen"
-
-#: register-hupa-minify.php:159
-msgid "Database Information"
-msgstr "Datenbank-Informationen"
 
 #: register-hupa-minify.php:169
 msgid "Server Stats - Memcache Information"
@@ -646,6 +979,9 @@ msgstr "Unbekannter Status für Aktualisierungscheck \"%s\""
 msgid "There is no changelog available."
 msgstr "Es steht kein Änderungsprotokoll zur Verfügung."
 
+#~ msgid "Server status"
+#~ msgstr "Server Status"
+
 #~ msgid ""
 #~ "Insert a valid background colour of the real-time status bar - For OK "
 #~ "status."
@@ -673,9 +1009,6 @@ msgstr "Es steht kein Änderungsprotokoll zur Verfügung."
 #~ msgid "Super Critical Status"
 #~ msgstr "Hochkritischer Status"
 
-#~ msgid "Options"
-#~ msgstr "Optionen"
-
 #~ msgid "active"
 #~ msgstr "aktiv"
 
@@ -691,9 +1024,6 @@ msgstr "Es steht kein Änderungsprotokoll zur Verfügung."
 #~ msgid "If active, the WordPress version is <b>hidden</b> in the FrontEnd."
 #~ msgstr ""
 #~ "Wenn aktiv, wird die WordPress-Version im Frontend <b>ausgeblendet</b>."
-
-#~ msgid "Remove version"
-#~ msgstr "Version entfernen"
 
 #~ msgid "CSS Groups active"
 #~ msgstr "CSS-Gruppen aktiv"

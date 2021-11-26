@@ -47,12 +47,17 @@ if ( ! function_exists( 'hupa_minify_admin_style' ) ) {
 	    wp_enqueue_script( 'minify-script-flipclock' );
 
 	    $title_nonce = wp_create_nonce( 'hupa_minify_admin_handle' );
-
+	    $live_active = 0;
+		if(get_option('echtzeit_statistik_aktiv') && get_option('server_status_aktiv')){
+			$live_active = 1;
+		}
 	    wp_register_script( 'hupa-minify-ajax', '', [], '', true );
 	    wp_enqueue_script( 'hupa-minify-ajax' );
 	    wp_localize_script( 'hupa-minify-ajax', 'minify_ajax_obj', array(
 		    'ajax_url' => admin_url( 'admin-ajax.php' ),
 		    'nonce'    => $title_nonce,
+		    'live_statistic' => $live_active,
+		    'hupa_starter_theme' => HUPA_STARTER_THEME_AKTIV
 	    ) );
     }
 }

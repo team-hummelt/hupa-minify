@@ -36,19 +36,20 @@ switch ( $method ) {
 		filter_var( $data->status_aktiv, FILTER_SANITIZE_STRING ) ? $status_aktiv = 1 : $status_aktiv = 0;
 		filter_var( $data->use_ipapi_pro, FILTER_SANITIZE_STRING ) ? $use_ipapi_pro = 1 : $use_ipapi_pro = 0;
 
+		filter_var( $data->echtzeit_aktiv, FILTER_SANITIZE_STRING ) ? $echtzeit_aktiv = 1 : $echtzeit_aktiv = 0;
+		filter_var( $data->server_footer_aktiv, FILTER_SANITIZE_STRING ) ? $server_footer_aktiv = 1 : $server_footer_aktiv = 0;
+		filter_var( $data->server_dashboard_aktiv, FILTER_SANITIZE_STRING ) ? $server_dashboard_aktiv = 1 : $server_dashboard_aktiv = 0;
+
+		filter_var( $data->php_menu_aktiv, FILTER_SANITIZE_STRING ) ? $php_menu_aktiv = 1 : $php_menu_aktiv = 0;
+		filter_var( $data->sql_menu_aktiv, FILTER_SANITIZE_STRING ) ? $sql_menu_aktiv = 1 : $sql_menu_aktiv = 0;
+		filter_var( $data->memcache_menu_aktiv, FILTER_SANITIZE_STRING ) ? $memcache_menu_aktiv = 1 : $memcache_menu_aktiv = 0;
+
 		$script_interval ? $script_interval = strip_tags( stripslashes( $script_interval ) ) : $script_interval = 200;
 		$good_status_color ? $good_status_color = strip_tags( stripslashes( $good_status_color ) ) : $good_status_color = '#37BF91';
 		$critical_status_color ? $critical_status_color = strip_tags( stripslashes( $critical_status_color ) ) : $critical_status_color = '#d35400';
 		$super_critical_status_color ? $super_critical_status_color = strip_tags( stripslashes( $super_critical_status_color ) ) : $super_critical_status_color = '#e74c3c';
 		$footer_text_color ? $footer_text_color = strip_tags( stripslashes( $footer_text_color ) ) : $footer_text_color = '#8e44ad';
 
-		update_option( 'server_status_aktiv', $status_aktiv );
-		if ( ! $status_aktiv ) {
-			$responseJson->status = true;
-			$responseJson->msg    = date( 'H:i:s', current_time( 'timestamp' ) );
-
-			return $responseJson;
-		}
 
 		if ( ! $hupa_server_class->minify_check_color( $good_status_color ) ) {
 			$good_status_color = '#37BF91';
@@ -62,6 +63,14 @@ switch ( $method ) {
 		if ( ! $hupa_server_class->minify_check_color( $footer_text_color ) ) {
 			$footer_text_color = '#8e44ad';
 		}
+
+		update_option( 'echtzeit_statistik_aktiv', $echtzeit_aktiv );
+		update_option( 'server_footer_aktiv', $server_footer_aktiv );
+		update_option( 'server_dashboard_aktiv', $server_dashboard_aktiv );
+
+		update_option( 'php_menu_aktiv', $php_menu_aktiv );
+		update_option( 'sql_menu_aktiv', $sql_menu_aktiv );
+		update_option( 'memcache_menu_aktiv', $memcache_menu_aktiv );
 
 		$settings_server_status = json_encode(
 			[
@@ -80,6 +89,7 @@ switch ( $method ) {
 		update_option( 'settings_server_status', $settings_server_status );
 
 		$responseJson->status = true;
+		$responseJson->status_aktiv = (bool) $status_aktiv;
 		$responseJson->msg    = date( 'H:i:s', current_time( 'timestamp' ) );
 		break;
 
@@ -126,8 +136,7 @@ switch ( $method ) {
 		break;
 
 	case'minify_cache_purge':
-		global $wpdb; /* this is how you get access to the database */
-		/* You cache purge logic should go here. */
+		global $wpdb;
 		delete_option('wpss_db_advanced_info');
 		delete_site_option('wpss_db_advanced_info');
 
@@ -161,5 +170,14 @@ switch ( $method ) {
 		delete_site_transient('wpss_php_max_post_size');
 
 		$responseJson->msg = "Der Server-Statistik-Cache wurde erfolgreich geleert!";
+		break;
+	case'load_footer_layout':
+		if(!get_option( 'server_footer_aktiv' )){
+			$responseJson->status = false;
+			return $responseJson;
+		}
+		$html = $hupa_server_class->minify_footer_template();
+		$responseJson->html = $html;
+		$responseJson->status = true;
 		break;
 }

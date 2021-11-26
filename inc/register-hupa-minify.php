@@ -60,8 +60,7 @@ final class RegisterHupaMinifyPlugin {
 		add_action( 'admin_menu', array( $this, 'register_hupa_minify_menu' ) );
 		//JOB WARNING ADD Plugin Settings Link
 		add_filter( 'plugin_action_links_' . HUPA_MINIFY_SLUG_PATH, array( $this, 'minify_plugin_add_action_link' ) );
-		//JOB WARNING ADD Plugin DASHBOARD WIDGET
-		add_action('wp_dashboard_setup', array($this, 'minify_server_status_add_dashboard'));
+
 		// SITE GET Trigger
 		add_action( 'template_redirect', array( $this, 'hupa_minify_callback_trigger_check' ) );
 
@@ -124,6 +123,7 @@ final class RegisterHupaMinifyPlugin {
 		 * =========== SERVER STATUS MENU ===========
 		 * ==========================================
 		 */
+		if(get_option('status_menu_aktiv')):
 		add_menu_page(
 			__( 'Server Stats', 'hupa-minify' ),
 			__( 'Server Stats', 'hupa-minify' ),
@@ -136,34 +136,39 @@ final class RegisterHupaMinifyPlugin {
 		$hook_suffix = add_submenu_page(
 			'minify_server_stats',
 			__( 'Server Stats - General Settings', 'hupa-minify' ),
-			__( 'General Settings', 'hupa-minify' ),
+			__( 'Settings', 'hupa-minify' ),
 			'manage_options',
 			'minify_server_stats',
 			array( $this, 'admin_hupa_minify_server_info_page' ) );
 
 		add_action( 'load-' . $hook_suffix, array( $this, 'hupa_minify_load_ajax_admin_options_script' ) );
 
-		$hook_suffix = add_submenu_page(
-			'minify_server_stats',
-			__( 'Server Stats - PHP Information', 'hupa-minify' ),
-			__( 'PHP Information', 'hupa-minify' ),
-			'manage_options',
-			'minify-server-php',
-			array( $this, 'admin_hupa_minify_server_php_details' ) );
+		if(get_option('server_status_aktiv') && get_option('minify_server_linux')):
+		if(get_option('php_menu_aktiv')) {
+			$hook_suffix = add_submenu_page(
+				'minify_server_stats',
+				__( 'Server Stats - PHP Information', 'hupa-minify' ),
+				__( 'PHP Information', 'hupa-minify' ),
+				'manage_options',
+				'minify-server-php',
+				array( $this, 'admin_hupa_minify_server_php_details' ) );
 
-		add_action( 'load-' . $hook_suffix, array( $this, 'hupa_minify_load_ajax_admin_options_script' ) );
+			add_action( 'load-' . $hook_suffix, array( $this, 'hupa_minify_load_ajax_admin_options_script' ) );
+		}
 
-		$hook_suffix = add_submenu_page(
-			'minify_server_stats',
-			__( 'Server Stats - Database Information', 'hupa-minify' ),
-			__( 'Database Information', 'hupa-minify' ),
-			'manage_options',
-			'minify-server-sql',
-			array( $this, 'admin_hupa_minify_server_sql_details' ) );
+			if(get_option('sql_menu_aktiv')) {
+				$hook_suffix = add_submenu_page(
+					'minify_server_stats',
+					__( 'Server Stats - Database Information', 'hupa-minify' ),
+					__( 'Database Information', 'hupa-minify' ),
+					'manage_options',
+					'minify-server-sql',
+					array( $this, 'admin_hupa_minify_server_sql_details' ) );
 
-		add_action( 'load-' . $hook_suffix, array( $this, 'hupa_minify_load_ajax_admin_options_script' ) );
+				add_action( 'load-' . $hook_suffix, array( $this, 'hupa_minify_load_ajax_admin_options_script' ) );
+			}
 
-		if ( class_exists( 'Memcache' ) ) {
+		if ( class_exists( 'Memcache' ) && get_option('memcache_menu_aktiv')) {
 			$hook_suffix = add_submenu_page(
 				'minify_server_stats',
 				__( 'Server Stats - Memcache Information', 'hupa-minify' ),
@@ -173,18 +178,22 @@ final class RegisterHupaMinifyPlugin {
 				array( $this, 'admin_hupa_minify_server_memcache_details' ) );
 
 			add_action( 'load-' . $hook_suffix, array( $this, 'hupa_minify_load_ajax_admin_options_script' ) );
+
 		}
-
+		endif;
+		endif;
 		/** OPTIONS PAGE */
-		$hook_suffix = add_options_page(
-			__( 'Change the Server Stats Settings', 'hupa-minify' ),
-			__( 'Server Stats', 'hupa-minify' ),
-			'manage_options',
-			'minify-server-options',
-			array( $this, 'minify_server_options_page' )
-		);
+		if(get_option('server_status_aktiv') ) {
+			$hook_suffix = add_options_page(
+				__( 'Change the Server Stats Settings', 'hupa-minify' ),
+				__( 'Server Stats', 'hupa-minify' ),
+				'manage_options',
+				'minify-server-options',
+				array( $this, 'minify_server_options_page' )
+			);
 
-		add_action( 'load-' . $hook_suffix, array( $this, 'hupa_minify_load_ajax_admin_options_script' ) );
+			add_action( 'load-' . $hook_suffix, array( $this, 'hupa_minify_load_ajax_admin_options_script' ) );
+		}
 	}
 
 	/**
@@ -254,11 +263,6 @@ final class RegisterHupaMinifyPlugin {
 		require 'admin-pages/minify-server-options-page.php';
 	}
 
-	//DASHBOARD WIDGET
-	public function minify_server_status_add_dashboard() {
-		require 'dashboard-widget/wp-dashboard-widget.php';
-	}
-
 	/**
 	 * ===================================================
 	 * =========== ADMIN PAGES Localize Script ===========
@@ -266,7 +270,6 @@ final class RegisterHupaMinifyPlugin {
 	 */
 	public function hupa_minify_load_ajax_admin_options_script(): void {
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_hupa_minify_admin_style' ) );
-
 	}
 
 	/**

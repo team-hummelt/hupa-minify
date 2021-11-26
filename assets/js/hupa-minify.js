@@ -120,11 +120,18 @@ jQuery(document).ready(function ($) {
     });
 
     $(document).on('click', '.activate-server-status', function () {
+
+        let activate;
         if ($(this).prop('checked')) {
+            activate = 1;
+        } else {
+            activate = 0;
+        }
             $.post(minify_ajax_obj.ajax_url, {
                     'action': 'HupaMinifyHandle',
                     '_ajax_nonce': minify_ajax_obj.nonce,
                     'method': 'activate_server_status',
+                    'activate': activate,
                 },
                 function (data) {
                     if (data.status) {
@@ -133,16 +140,35 @@ jQuery(document).ready(function ($) {
                         warning_message(data.msg);
                     }
                 });
-        }
+
     });
-    $(document).on('click', '.change-server-status', function () {
-        let optionFieldset = $('.fieldset-server-option');
+    $(document).on('click', '#SwitchEchtZeitAktiv', function () {
+        let optionFooter = $('#SwitchFooterAktiv');
         if($(this).prop('checked')){
-            optionFieldset.prop('disabled',false);
+            optionFooter.prop('disabled',false);
         } else {
-            optionFieldset.prop('disabled', true);
+            optionFooter.prop('disabled', true);
+            optionFooter.prop('checked',false);
         }
     })
+
+    $(document).on('dblclick', '.btn-reset-double', function () {
+        let resetBtn = $('#btnResetMinify');
+        resetBtn.removeClass('d-none');
+    });
+
+    $(document).on('click', '#btnResetMinify', function () {
+        $.post(minify_ajax_obj.ajax_url, {
+                'action': 'HupaMinifyHandle',
+                '_ajax_nonce': minify_ajax_obj.nonce,
+                'method': 'reset_minify_settings',
+            },
+            function (data) {
+                if (data.status) {
+                    window.location.reload(true);
+                }
+            });
+    });
 
 
     /**+++++++++++++++++++++++++++++++++++++

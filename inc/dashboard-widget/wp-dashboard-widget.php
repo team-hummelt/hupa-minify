@@ -10,9 +10,9 @@ defined( 'ABSPATH' ) or die();
 global $hupa_server_class;
 
 wp_add_dashboard_widget( 'wp_memory_dashboard', 'Server Übersicht', 'minify_status_dashboard_output' );
-
 function minify_status_dashboard_output() {
 	global $hupa_server_class;
+
 	if ( current_user_can( 'manage_options' ) ) : ?>
 
         <ul>
@@ -48,7 +48,7 @@ function minify_status_dashboard_output() {
                         id="realtime_ram_usage"></span></li>
 		<?php endif; ?>
         <ul>
-		<?php if ( $hupa_server_class->isShellEnabled() ) : ?>
+		<?php if ( $hupa_server_class->isShellEnabled() && get_option('echtzeit_statistik_aktiv')) : ?>
             <div class="progressbar">
                 <div style="border:1px solid #DDDDDD; background-color:#F9F9F9;	border-color: rgb(223, 223, 223); box-shadow: 0px 1px 0px rgb(255, 255, 255) inset; border-radius: 3px;">
                     <div id="ram-usage-upper-div"
@@ -67,8 +67,9 @@ function minify_status_dashboard_output() {
                     </div>
                 </div>
             </div>
+
 		<?php endif; ?>
-			<?php if ( class_exists( 'Memcache' ) ) : ?>
+			<?php if ( class_exists( 'Memcache' ) && get_option( 'memcache_menu_aktiv' ) ) : ?>
                 <div class="wpss_show_buttons content-center">
                     <a href="<?php echo get_admin_url(); ?>admin.php?page=minify-server-memcache"
                        title="Checkout Memcached Info"
@@ -90,10 +91,12 @@ function minify_status_dashboard_output() {
                 <li><strong><?php _e( 'Index Disk Usage', 'hupa-minify' ); ?></strong> :
                     <span><?php echo $hupa_server_class->minify_index_disk_usage(); ?></span></li>
             </ul>
+            <?php if(get_option( 'sql_menu_aktiv' )):  ?>
             <div class="wpss_show_buttons content-center">
                 <a href="<?php echo get_admin_url(); ?>admin.php?page=minify-server-sql" title="Checkout More Database Info"
                    class="wpss_btn button button-small"><?php _e( 'Check More Database Info', 'hupa-minify' ); ?></a>
             </div>
+            <?php endif; ?>
             <hr/>
             <ul>
                 <li><strong><?php _e('PHP Version', 'hupa-minify'); ?></strong> : <span><?php echo PHP_VERSION; ?></span></li>
@@ -104,6 +107,7 @@ function minify_status_dashboard_output() {
                 <li><strong><?php _e('PHP Memory Limit', 'hupa-minify'); ?></strong> : <span><?php echo $hupa_server_class->minify_check_limit(); ?></span></li>
                 <li><strong><?php _e('Real Time PHP Memory Usage', 'hupa-minify'); ?></strong> : <span id="mem_usage_mb"></span></li>
             </ul>
+            <?php if(get_option('echtzeit_statistik_aktiv')): ?>
             <div class="progressbar">
                 <div style="border:1px solid #DDDDDD; background-color:#F9F9F9;	border-color: rgb(223, 223, 223); box-shadow: 0px 1px 0px rgb(255, 255, 255) inset; border-radius: 3px;">
                     <div id="memory-load-upper-div" style="padding: 0px; border-width:0px; color:#FFFFFF;text-align:right; border-color: rgb(223, 223, 223); box-shadow: 0px 1px 0px rgb(255, 255, 255) inset; border-radius: 3px; margin-top: -1px;">
@@ -111,15 +115,20 @@ function minify_status_dashboard_output() {
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
+            <?php if(get_option( 'sql_menu_aktiv' ) ):  ?>
             <div class="wpss_show_buttons content-center">
                 <a href="<?php echo get_admin_url(); ?>admin.php?page=minify-server-php" title="Checkout More PHP Info" class="wpss_btn button button-small"><?php _e('Check More PHP Info', 'hupa-minify'); ?></a>
             </div>
-    			<?php if ($hupa_server_class->isShellEnabled()) : ?>
+            <?php endif; ?>
+    			<?php if ($hupa_server_class->isShellEnabled() ) : ?>
+    			<?php if( get_option('echtzeit_statistik_aktiv')): ?>
 			<hr style="margin-top: 15px; margin-bottom: 0px;" />
 			<span style="line-height: 2.5em; margin-left: auto; margin-right: auto; display: table;"><strong><?php _e('Server Uptime', 'hupa-minify') ?></strong></span>
 			<div style="margin-top: 20px;">
 				<div class="uptime" style="font-size: 20px;"></div>
 			</div>
+			<?php endif; ?>
 	    <?php else : ?>
 				<hr style="margin-top: 15px; margin-bottom: 15px;" />
 				<p style="text-align: justify;"><strong><?php _e('Special Note', 'hupa-minify'); ?>:</strong> <?php _e('Hi, please note that PHP 

@@ -33,13 +33,20 @@ final class RegisterHupaServerStatus {
 		if(!$this->isShellEnabled()){
 			update_option('server_status_aktiv', false);
 		}
-		if(get_option('server_status_aktiv')) {
+		if(get_option('server_status_aktiv') ) {
 			add_action('init', array($this, 'minify_check_limit'));
-			add_filter('admin_footer_text', array($this, 'minify_add_footer'));
-
+			if(get_option('server_footer_aktiv') && !HUPA_STARTER_THEME_AKTIV){
+				add_filter('admin_footer_text', array($this, 'minify_add_footer'));
+			}
 			add_action('admin_bar_menu', array($this, 'add_server_stat_admin_bar_menu_item'), 100);
-
+			//JOB WARNING ADD Plugin DASHBOARD WIDGET
+			add_action('wp_dashboard_setup', array($this, 'minify_server_status_add_dashboard'));
 		}
+	}
+
+	//DASHBOARD WIDGET
+	public function minify_server_status_add_dashboard() {
+		require HUPA_MINIFY_INC . 'dashboard-widget/wp-dashboard-widget.php';
 	}
 
 	public function isShellEnabled(): bool {
@@ -80,6 +87,26 @@ final class RegisterHupaServerStatus {
 		endif;
 	}
 
+	public function minify_footer_template(){
+		$content = '';
+		if (current_user_can('manage_options')) :
+			$stat = json_decode(get_option('settings_server_status'));
+			//check if the content is empty or not
+
+			if ($this->isShellEnabled()) {
+				$content .=  '<strong style="color: ' . $stat->footer_text_color . ';">' . __('PHP Memory', 'hupa-minify') . ' : <span id="mem_usage_mb_footer"></span>'
+				            . ' ' . __('of', 'hupa-minify') . ' ' . $this->minify_check_limit() . ' (<span id="memory-usage-pos-footer"></span> '
+				            . __('used', 'hupa-minify') . ')</strong> | <strong style="color: ' . $stat->footer_text_color . ';">' . __('RAM', 'hupa-minify') . ' : <span id="ram_usage_footer"></span> ' . __('of', 'hupa-minify') . ' ' . (is_numeric($this->minify_check_total_ram()) ? $this->minify_format_filesize_kB($this->minify_check_total_ram()) : $this->minify_check_total_ram()) . ' (<span id="ram-usage-pos-footer"></span> ' . __('used', 'hupa-minify') . ')</strong> | <strong style="color: ' . $stat->footer_text_color . ';">' . __('CPU Load', 'hupa-minify')
+				            . ': <span id="cpu_load_footer"></span></strong>';
+			} else {
+				$content .= '<strong style="color: ' . $stat->footer_text_color . ';">' . __('Memory', 'hupa-minify') . ' : <span id="mem_usage_mb_footer"></span>'
+				            . ' ' . __('of', 'hupa-minify') . ' ' . $this->minify_check_limit() . ' (<span id="memory-usage-pos-footer"></span> '
+				            . __('used', 'hupa-minify') . ')</strong>';
+			}
+			return $content;
+		endif;
+	}
+
 	public function add_server_stat_admin_bar_menu_item($admin_bar) {
 		if( defined( 'WPSERVERSTATS_ADMINBAR_DISABLE' ) ) {
 			if( constant( 'WPSERVERSTATS_ADMINBAR_DISABLE' ) ) {
@@ -88,7 +115,7 @@ final class RegisterHupaServerStatus {
 				$admin_bar->add_menu(
 					array(
 						'id' => 'wpss-cache-purge',
-						'title' => 'Purge Cache - WP Server Stats',
+						'title' => 'Cache leeren',
 						'href' => '#'
 					)
 				);
@@ -97,7 +124,7 @@ final class RegisterHupaServerStatus {
 			$admin_bar->add_menu(
 				array(
 					'id' => 'wpss-cache-purge',
-					'title' => 'Purge Cache - WP Server Stats',
+					'title' => 'Cache leeren',
 					'href' => '#'
 				)
 			);
@@ -272,11 +299,20 @@ final class RegisterHupaServerStatus {
 	public function minify_database_software()
 	{
 		$db_software = get_transient('wpss_db_software');
+		$software = '';
 		if ($db_software === false) {
 			global $wpdb;
-			$db_software_query = $wpdb->get_row("SHOW VARIABLES LIKE 'version_comment'");
-			$db_software_dump = $db_software_query->Value;
-			if (!empty($db_software_dump)) {
+			$db_software_dump = $wpdb->get_var("SELECT VERSION() AS version from DUAL");
+			if (preg_match('/\d+(?:\.\d+)+/', $db_software_dump, $matches)) {
+				$software = str_replace([$matches[0],'-','/','_'], '',$db_software_dump);
+			} else {
+				$db_software_query = $wpdb->get_row("SHOW VARIABLES LIKE 'version_comment'");
+				$db_software_dump = $db_software_query->Value;
+			}
+
+			if (!empty($software)) {
+				set_transient('wpss_db_software', $software, WEEK_IN_SECONDS);
+			} elseif (!empty($db_software_dump)){
 				$db_soft_array = explode(" ", trim($db_software_dump));
 				$db_software = $db_soft_array[0];
 				set_transient('wpss_db_software', $db_software, WEEK_IN_SECONDS);
@@ -401,8 +437,7 @@ final class RegisterHupaServerStatus {
 		$stat = json_decode(get_option('settings_server_status'));
 		$ipapi_pro_key = trim($stat->ipapi_pro_key);
 		//get the server ip
-		//$ip = $this->minify_check_server_ip();
-        $ip = '217.87.180.174';
+		$ip = $this->minify_check_server_ip();
 		$server_location = get_transient('wpss_server_location');
 
 		if ($server_location === false) {

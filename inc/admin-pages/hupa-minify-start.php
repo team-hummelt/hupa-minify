@@ -53,6 +53,8 @@ $sP = json_decode( get_option( 'minify_settings_production' ) );
                                 class="fa fa-wordpress"></i>&nbsp;
 						<?= __( 'WordPress', 'hupa-minify' ) ?>
                     </button>
+
+                    <button id="btnResetMinify" class="d-none ms-auto btn btn-danger btn-sm"><i class="fa fa-random"></i> Reset</button>
                 </div>
 
                 <hr>
@@ -65,7 +67,7 @@ $sP = json_decode( get_option( 'minify_settings_production' ) );
                                 <input type="hidden" name="method" value="update_minify_settings">
                                 <div class="d-flex align-items-center">
                                     <h5 class="card-title d-flex">
-                                        <i class="hupa-color d-block mt-1 icon-hupa-white"></i>&nbsp;<?= __( 'Minify settings', 'hupa-minify' ) ?>
+                                        <i class="btn-reset-double hupa-color d-block mt-1 icon-hupa-white"></i>&nbsp;<?= __( 'Minify settings', 'hupa-minify' ) ?>
                                     </h5>
                                     <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
                                 </div>

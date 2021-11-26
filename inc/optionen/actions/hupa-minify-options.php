@@ -66,8 +66,25 @@ function hupa_minify_set_settings() {
 	update_option( 'minify_wp_version', $default->wp_version );
 	update_option( 'minify_wp_block_css', $default->wp_block_css );
 	update_option( 'minify_wp_emoji', $default->wp_emoji );
+
 	update_option( 'settings_server_status', $default->settings_server_status );
-	update_option('server_status_aktiv', $default->server_status_aktiv);
+	update_option( 'server_status_aktiv', $default->server_status_aktiv );
+	update_option( 'server_footer_aktiv', $default->server_footer_aktiv );
+	update_option( 'server_dashboard_aktiv', $default->server_dashboard_aktiv );
+	update_option( 'echtzeit_statistik_aktiv', $default->echtzeit_aktiv );
+
+
+	update_option( 'php_menu_aktiv', $default->php_menu_aktiv );
+	update_option( 'sql_menu_aktiv', $default->sql_menu_aktiv );
+	update_option( 'memcache_menu_aktiv', $default->memcache_menu_aktiv );
+
+	update_option( 'minify_scss_source', $default->minify_scss_source );
+	update_option( 'minify_scss_destination', $default->minify_scss_destination );
+	update_option( 'minify_scss_formatter', $default->minify_scss_formatter );
+	update_option( 'scss_stylesheet_aktiv', $default->scss_stylesheet_aktiv );
+	update_option( 'scss_map_aktiv', $default->scss_map_aktiv );
+	update_option( 'line_comments_aktiv', $default->line_comments_aktiv );
+	update_option( 'minify_scss_map_option', $default->minify_scss_map_option );
 }
 
 function hupa_minify_default_settings(): object {
@@ -105,10 +122,26 @@ function hupa_minify_default_settings(): object {
 		'html_inline_js'  => 1,
 		'html_comment'    => 1,
 
-		'wp_version'             => 0,
-		'wp_block_css'           => 0,
-		'wp_emoji'               => 0,
-		'server_status_aktiv'    => 0,
+		'wp_version'              => 0,
+		'wp_block_css'            => 0,
+		'wp_emoji'                => 0,
+		'server_status_aktiv'     => 1,
+		'echtzeit_aktiv'          => 1,
+		'server_footer_aktiv'     => 1,
+		'server_dashboard_aktiv'  => 1,
+		'php_menu_aktiv'          => 1,
+		'sql_menu_aktiv'          => 1,
+		'memcache_menu_aktiv'     => 1,
+
+		//SCSS
+		'minify_scss_source'      => '',
+		'minify_scss_destination' => '',
+		'minify_scss_formatter'   => 'expanded',
+		'scss_stylesheet_aktiv'   => 0,
+		'scss_map_aktiv'          => 0,
+		'line_comments_aktiv'     => 0,
+		'minify_scss_map_option'  => 'map_file',
+
 		'settings_entwicklung'   => json_encode(
 			[
 				'min_cachePath' => HUPA_MINIFY_CACHE_PATH,

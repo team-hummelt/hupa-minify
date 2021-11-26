@@ -5,7 +5,7 @@
 * Tags: minify, hupa minify
 * Requires at least: 5.8
 * Tested up to: 5.8
-* Stable tag: 1.0.0
+* Stable tag: 1.0.1
 * Requires PHP: 8.0
 * License: GPLv2 or later
 * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -28,6 +28,8 @@ SCSS Compiler ist eine CSS-Präprozessorsprache, die viele Funktionen wie Variab
 Überwachen Sie Ihre WordPress-Website auf die richtige Art und Weise mit den wichtigsten Server-Statistiken wie Datenbankdetails, Speichernutzung, PHP-Details, CPU-Last, Server-Uptime & mehr.
 
 ### Changelog
+= 1.0.1 =
+* HUPA SCSS Compiler hinzugefügt.
 
 = 1.0.0 =
 * HUPA minify release. Included basic plugin features.

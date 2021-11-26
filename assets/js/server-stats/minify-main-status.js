@@ -44,6 +44,18 @@
      ======================================
      */
     $(function () {
+
+        if(minify_ajax_obj.hupa_starter_theme === '1' && minify_ajax_obj.live_statistic === '1'){
+            $.post(minify_ajax_obj.ajax_url, {
+                'action': 'HupaMinifyServer',
+                '_ajax_nonce': minify_ajax_obj.nonce,
+                'method': 'load_footer_layout',
+            }, function (data) {
+                if(data.status){
+                    $('#status-info-widget').html(data.html);
+                }
+            });
+        }
         let flag = false;
         function minify_do_ajax() {
             $.post(minify_ajax_obj.ajax_url, {
@@ -158,7 +170,9 @@
                 });
         }
 
-        minify_do_ajax();
+        if(minify_ajax_obj.live_statistic === '1') {
+            minify_do_ajax();
+        }
 
         function showUptime(upsec) {
             let clock = $('.uptime').FlipClock(upsec, {

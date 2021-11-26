@@ -18,7 +18,7 @@
  * Requires PHP:      8.0
  * Requires at least: 5.8
  * Tested up to:      5.8
- * Stable tag:        1.0.0
+ * Stable tag:        1.0.1
  */
 
 defined( 'ABSPATH' ) or die();
@@ -42,7 +42,10 @@ define('HUPA_MINIFY_SLUG_PATH', plugin_basename(__FILE__));
 define('HUPA_MINIFY_PLUGIN_URL', plugins_url('hupa-minify'));
 //PLUGIN INC DIR
 const HUPA_MINIFY_INC = HUPA_MINIFY_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR;
-
+// if HUPA Starter Theme
+$theme_data = wp_get_theme('hupa-starter');
+$hupaTheme = $theme_data->exists();
+define('HUPA_STARTER_THEME_AKTIV', $hupaTheme);
 
 //PLUGIN ASSETS URL
 define('HUPA_MINIFY_ASSETS_URL', plugins_url('hupa-minify') . '/assets/');

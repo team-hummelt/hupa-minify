@@ -179,7 +179,13 @@ switch ( $method ) {
 		break;
 
 	case 'activate_server_status':
-		update_option( 'server_status_aktiv', true );
+		$active = (int) filter_var( $_POST['activate'], FILTER_SANITIZE_NUMBER_INT );
+		update_option( 'server_status_aktiv', $active );
+		$responseJson->status = true;
+		break;
+
+	case'reset_minify_settings':
+		do_action('minify_plugin_set_defaults', 'set_defaults');
 		$responseJson->status = true;
 		break;
 }
