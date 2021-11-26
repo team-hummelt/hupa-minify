@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-20 12:12+0100\n"
-"PO-Revision-Date: 2021-11-20 12:21+0100\n"
+"POT-Creation-Date: 2021-11-26 03:17+0100\n"
+"PO-Revision-Date: 2021-11-26 03:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -16,73 +16,151 @@ msgstr ""
 "esc_attr_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin-pages/hupa-minify-start.php:17 admin-pages/hupa-minify-start.php:21
-#: license/register-hupa-plugin.php:58 license/register-hupa-plugin.php:59
-#: register-hupa-minify.php:90 register-hupa-minify.php:91
+#: admin-pages/hupa-minify-scss.php:15
+msgid "Minify SCSS"
+msgstr ""
+
+#: admin-pages/hupa-minify-scss.php:19 admin-pages/hupa-minify-start.php:20
+#: admin-pages/hupa-minify-start.php:24 license/register-hupa-plugin.php:58
+#: license/register-hupa-plugin.php:59 register-hupa-minify.php:94
+#: register-hupa-minify.php:95
 msgid "Minify"
 msgstr ""
 
-#: admin-pages/hupa-minify-start.php:22 admin-pages/hupa-minify-start.php:27
-#: admin-pages/hupa-minify-start.php:33
-msgid "Options"
-msgstr "Optionen"
-
-#: admin-pages/hupa-minify-start.php:36 admin-pages/hupa-minify-start.php:42
-msgid "Create | Edit"
+#: admin-pages/hupa-minify-scss.php:20 admin-pages/hupa-minify-scss.php:25
+#: register-hupa-minify.php:114 register-hupa-minify.php:115
+msgid "SCSS Compiler"
 msgstr ""
 
-#: admin-pages/hupa-minify-start.php:53 admin-pages/hupa-minify-start.php:68
+#: admin-pages/hupa-minify-scss.php:31
+msgid "SCSS Settings"
+msgstr ""
+
+#: admin-pages/hupa-minify-scss.php:34 admin-pages/hupa-minify-scss.php:40
+#: admin-pages/hupa-minify-server-info.php:36
+#: admin-pages/hupa-minify-server-info.php:42
+#: admin-pages/hupa-minify-start.php:39 admin-pages/hupa-minify-start.php:45
+msgid "Ausgabe"
+msgstr ""
+
+#: admin-pages/hupa-minify-scss.php:52
+#, fuzzy
+#| msgid "Minify settings"
+msgid "Minify SCSS Compiler Settings"
+msgstr "Minify Settings"
+
+#: admin-pages/hupa-minify-scss.php:68
+msgid "SCSS / SASS Location"
+msgstr ""
+
+#: admin-pages/hupa-minify-scss.php:81
+#, fuzzy
+#| msgid "CSS active"
+msgid "CSS Location"
+msgstr "CSS aktiv"
+
+#: admin-pages/hupa-minify-server-info.php:17
+#: admin-pages/hupa-minify-server-info.php:27
+msgid "Server Status"
+msgstr "Server Status"
+
+#: admin-pages/hupa-minify-server-info.php:21
+msgid "Server"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-info.php:22
+msgid "Status"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-info.php:33
+msgid "Server status"
+msgstr ""
+
+#: admin-pages/hupa-minify-server-php-info.php:15
+#: admin-pages/hupa-minify-server-php-info.php:20 register-hupa-minify.php:149
+msgid "PHP Information"
+msgstr "PHP-Informationen"
+
+#: admin-pages/hupa-minify-server-php-info.php:20 register-hupa-minify.php:128
+#: register-hupa-minify.php:129 register-hupa-minify.php:181
+msgid "Server Stats"
+msgstr "Server-Statistik"
+
+#: admin-pages/hupa-minify-server-php-info.php:21
+msgid ""
+"This page will show you the in-depth information about the PHP installation "
+"on your server."
+msgstr ""
+"Auf dieser Seite finden Sie ausführliche Informationen über die PHP-"
+"Installation auf Ihrem Server."
+
+#: admin-pages/hupa-minify-start.php:25 admin-pages/hupa-minify-start.php:30
+#: admin-pages/hupa-minify-start.php:36 register-hupa-minify.php:212
+#, fuzzy
+#| msgid "Minify settings"
+msgid "Settings"
+msgstr "Minify Settings"
+
+#: admin-pages/hupa-minify-start.php:48 admin-pages/hupa-minify-start.php:54
+msgid "WordPress"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:68
 msgid "Minify settings"
 msgstr "Minify Settings"
 
-#: admin-pages/hupa-minify-start.php:62
-msgid "active"
-msgstr "aktiv"
-
-#: admin-pages/hupa-minify-start.php:78
+#: admin-pages/hupa-minify-start.php:83
 msgid "CSS active"
 msgstr "CSS aktiv"
 
-#: admin-pages/hupa-minify-start.php:87
+#: admin-pages/hupa-minify-start.php:92
 msgid "JS active"
 msgstr "JS aktiv"
 
-#: admin-pages/hupa-minify-start.php:95
+#: admin-pages/hupa-minify-start.php:101
 msgid "HTML active"
 msgstr "HTML aktiv"
 
-#: admin-pages/hupa-minify-start.php:99
-msgid "Groups"
-msgstr "Gruppen"
+#: admin-pages/hupa-minify-start.php:112
+msgid "CSS Settings"
+msgstr ""
 
-#: admin-pages/hupa-minify-start.php:106
+#: admin-pages/hupa-minify-start.php:120
 msgid "CSS Groups"
 msgstr "CSS Gruppen"
 
-#: admin-pages/hupa-minify-start.php:114
-msgid "JS Groups"
-msgstr "JS Gruppen"
+#: admin-pages/hupa-minify-start.php:130
+msgid "CSS Imports"
+msgstr ""
 
-#: admin-pages/hupa-minify-start.php:118
+#: admin-pages/hupa-minify-start.php:137 admin-pages/hupa-minify-start.php:201
 msgid ""
 "If the group is active, all files are compressed and output in one file."
 msgstr ""
 "Bei aktiver Gruppe, werden alle Dateien komprimiert und in einer Datei "
 "ausgegeben."
 
-#: admin-pages/hupa-minify-start.php:123
-msgid "Javascript Group Options"
+#: admin-pages/hupa-minify-start.php:163
+#, fuzzy
+#| msgid "Javascript Group Options"
+msgid "Javascript Settings"
 msgstr "Javascript Gruppen Optionen"
 
-#: admin-pages/hupa-minify-start.php:131
+#: admin-pages/hupa-minify-start.php:172
+msgid "JS Groups"
+msgstr "JS Gruppen"
+
+#: admin-pages/hupa-minify-start.php:183
 msgid "WP jQuery Core"
 msgstr "WP jQuery Core"
 
-#: admin-pages/hupa-minify-start.php:139
-msgid "WP Embed JS"
+#: admin-pages/hupa-minify-start.php:193
+#, fuzzy
+#| msgid "WP Embed JS"
+msgid "WP Embed Dateien"
 msgstr "WP Embed JS"
 
-#: admin-pages/hupa-minify-start.php:144
+#: admin-pages/hupa-minify-start.php:205
 msgid ""
 "If this option is active, \"Minify\" will include the WordPress Javascript "
 "files."
@@ -90,57 +168,147 @@ msgstr ""
 "Bei aktiver Option, wird \"Minify\" die WordPress Javascript Dateien mit "
 "einbeziehen."
 
-#: admin-pages/hupa-minify-start.php:151
-msgid "Minify Output"
-msgstr "Minify Ausgabe"
+#: admin-pages/hupa-minify-start.php:221
+#, fuzzy
+#| msgid "Minify settings"
+msgid "HTML Settings"
+msgstr "Minify Settings"
 
-#: admin-pages/hupa-minify-start.php:155
+#: admin-pages/hupa-minify-start.php:229
+msgid "Inline CSS Komprimieren"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:238
+msgid "Inline JS Komprimieren"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:247
+msgid "HTML Kommentare entfernen"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:264
+#, fuzzy
+#| msgid "active settings"
+msgid "Server Settings"
+msgstr "aktive Settings"
+
+#: admin-pages/hupa-minify-start.php:272
+msgid "Statische Server-Funktion"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:285
+#, fuzzy
+#| msgid "Minify active"
+msgid "Minify Cache"
+msgstr "Minify aktiv"
+
+#: admin-pages/hupa-minify-start.php:316
 msgid "Subfolder of the installation"
 msgstr "Unterordner der Installation"
 
-#: admin-pages/hupa-minify-start.php:162
-msgid "active settings"
+#: admin-pages/hupa-minify-start.php:345
+#, fuzzy
+#| msgid "active settings"
+msgid "Memcache Settings"
 msgstr "aktive Settings"
 
-#: admin-pages/hupa-minify-start.php:165
+#: admin-pages/hupa-minify-start.php:352
+msgid "Memcache Host"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:360
+msgid "Memcache Port"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:384
+#, fuzzy
+#| msgid "active settings"
+msgid "Ausgabe Settings"
+msgstr "aktive Settings"
+
+#: admin-pages/hupa-minify-start.php:393
 msgid "Development"
 msgstr "Entwicklung"
 
-#: admin-pages/hupa-minify-start.php:169
+#: admin-pages/hupa-minify-start.php:400
 msgid "Production"
 msgstr "Produktion"
 
-#: admin-pages/hupa-minify-start.php:177
+#: admin-pages/hupa-minify-start.php:408
 msgid "Settings Development"
 msgstr "Settings Entwicklung"
 
-#: admin-pages/hupa-minify-start.php:183
+#: admin-pages/hupa-minify-start.php:417 admin-pages/hupa-minify-start.php:472
+msgid "Debug mode"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:429 admin-pages/hupa-minify-start.php:485
+msgid "Verkettung"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:439 admin-pages/hupa-minify-start.php:495
+#, fuzzy
+#| msgid "CSS active"
+msgid "Cache active"
+msgstr "CSS aktiv"
+
+#: admin-pages/hupa-minify-start.php:444 admin-pages/hupa-minify-start.php:500
+msgid "Cache Path"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:452 admin-pages/hupa-minify-start.php:509
+msgid "Cache max age"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:463
 msgid "Production settings"
 msgstr "Settings Produktion"
 
-#: admin-pages/hupa-minify-start.php:191
-msgid "Other options"
-msgstr "weitere Optionen"
+#: admin-pages/hupa-minify-start.php:552
+msgid "Minify WordPress"
+msgstr ""
 
-#: admin-pages/hupa-minify-start.php:197
-msgid "Remove WordPress Version"
-msgstr "WordPress Version entfernen"
+#: admin-pages/hupa-minify-start.php:560
+msgid "Discovery-Service-Links (RSD) entfernen"
+msgstr ""
 
-#: admin-pages/hupa-minify-start.php:205 admin-pages/hupa-minify-start.php:223
-#: admin-pages/hupa-minify-start.php:241
+#: admin-pages/hupa-minify-start.php:568 admin-pages/hupa-minify-start.php:594
+#: admin-pages/hupa-minify-start.php:621 admin-pages/hupa-minify-start.php:643
+#: admin-pages/hupa-minify-start.php:666 admin-pages/hupa-minify-start.php:687
+#: admin-pages/hupa-minify-start.php:710 admin-pages/hupa-minify-start.php:735
+#: admin-pages/hupa-minify-start.php:753
 msgid "remove"
 msgstr "entfernen"
 
-#: admin-pages/hupa-minify-start.php:208
-msgid "If active, the WordPress version is <b>hidden</b> in the FrontEnd."
-msgstr ""
-"Wenn aktiv, wird die WordPress-Version im Frontend <b>ausgeblendet</b>."
+#: admin-pages/hupa-minify-start.php:586
+msgid "Remove WordPress Version"
+msgstr "WordPress Version entfernen"
 
-#: admin-pages/hupa-minify-start.php:215
+#: admin-pages/hupa-minify-start.php:613
+msgid "RSS-Feed-Links entfernen"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:635
+msgid "zusätzliche Feed-Links entfernen"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:658
+msgid "Live Writer-Unterstützung entfernen"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:679
+msgid "Relationale Links entfernen"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:702
+msgid "Shortlink-Tag entfernen"
+msgstr ""
+
+#: admin-pages/hupa-minify-start.php:727
 msgid "Remove emoji"
 msgstr "Emoji entfernen"
 
-#: admin-pages/hupa-minify-start.php:226
+#: admin-pages/hupa-minify-start.php:738
 msgid ""
 "If this option is enabled the emoji source code will be <b>removed</b> from "
 "the front end."
@@ -148,11 +316,11 @@ msgstr ""
 "Ist diese Option aktiviert, wird der Emoji-Quellcode aus dem Frontend "
 "<b>entfernt</b>."
 
-#: admin-pages/hupa-minify-start.php:233
+#: admin-pages/hupa-minify-start.php:745
 msgid "Remove WP block CSS"
 msgstr "WP-Block-CSS entfernen"
 
-#: admin-pages/hupa-minify-start.php:244
+#: admin-pages/hupa-minify-start.php:756
 msgid ""
 "If this option is activated, the CSS Gutenberg editor source code and "
 "WooCommerce CSS code is removed from the front end."
@@ -160,12 +328,245 @@ msgstr ""
 "Ist diese Option aktiv, wird der <b>CSS Gutenberg-Editor-Quellcode</b> und "
 "der <b>WooCommerce-CSS-Code</b> aus dem Frontend entfernt."
 
-#: admin-pages/hupa-minify-start.php:258
-msgid "SMTP Settings"
+#: admin-pages/minify-server-options-page.php:16 register-hupa-minify.php:180
+msgid "Change the Server Stats Settings"
+msgstr "Ändern der Server-Status Einstellungen"
+
+#: admin-pages/minify-server-options-page.php:21
+msgid "Server Stats Settings"
+msgstr "Server-Statistiken Einstellungen"
+
+#: admin-pages/minify-server-options-page.php:48
+msgid "Set the realtime script refresh interval (in ms) [1sec = 1000ms]"
+msgstr ""
+"Legen Sie das Aktualisierungsintervall für das Echtzeitskript fest (in ms) "
+"[1sec = 1000ms]."
+
+#: admin-pages/minify-server-options-page.php:66
+msgid ""
+"Memcached Server Host (Only if you have Memcached installed in your server)"
+msgstr ""
+"Memcached Server Host (nur wenn Sie Memcached auf Ihrem Server installiert "
+"haben)"
+
+#: admin-pages/minify-server-options-page.php:71
+msgid "Do you want to use the IP-API Pro key?"
+msgstr "Möchten Sie den IP-API Pro-Schlüssel verwenden?"
+
+#: admin-pages/minify-server-options-page.php:82
+#, php-format
+msgid ""
+"By default, this extension uses %1$sIP-API.com%2$s free API, which allows "
+"%3$s150 requests/min%4$s. However, for busy websites this can be very little "
+"and result in %3$s503 Error%4$s if you try to do more than %3$s150 req/min"
+"%4$s. To solve this problem, you can use the %5$sPaid version of IP-API%6$s "
+"and specify your paid key below, which will allow you a %7$sUnlimited%8$s "
+"number of requests."
+msgstr ""
+"Standardmäßig verwendet diese Erweiterung die kostenlose API von %1$sIP-API."
+"com%2$s, die %3$s150 Anfragen/min%4$s erlaubt. Bei stark frequentierten "
+"Websites kann dies jedoch sehr wenig sein und zu %3$s503 Error%4$s führen, "
+"wenn Sie versuchen, mehr als %3$s150 req/min%4$s durchzuführen. Um dieses "
+"Problem zu lösen, können Sie die %5$sPaid Version von IP-API%6$s verwenden "
+"und Ihren bezahlten Schlüssel unten angeben, der Ihnen eine %7$sUnlimited"
+"%8$s Anzahl von Anfragen ermöglicht."
+
+#: admin-pages/minify-server-options-page.php:101
+msgid "Provide your IP-API Pro key"
+msgstr "Geben Sie Ihren IP-API Pro-Schlüssel an"
+
+#: admin-pages/minify-server-options-page.php:109
+msgid "Realtime Status Bar Background Color"
+msgstr "Hintergrundfarbe der Echtzeit-Statusleiste"
+
+#: admin-pages/minify-server-options-page.php:114
+msgid "Status OK"
+msgstr "Status OK"
+
+#: admin-pages/minify-server-options-page.php:120
+msgid "Critical Status"
+msgstr "kritischer Status"
+
+#: admin-pages/minify-server-options-page.php:126
+msgid "Very Critical Status"
+msgstr "Hochkritischer Status"
+
+#: admin-pages/minify-server-options-page.php:133
+msgid "Footer Text Color"
+msgstr "Textfarbe der Fußzeile"
+
+#: dashboard-widget/wp-dashboard-widget.php:19
+#, fuzzy
+#| msgid "Server Stats"
+msgid "Server OS"
+msgstr "Server-Statistik"
+
+#: dashboard-widget/wp-dashboard-widget.php:20
+msgid "Bit OS"
 msgstr ""
 
-#: admin-pages/hupa-minify-start.php:307
-msgid "hupa-minify"
+#: dashboard-widget/wp-dashboard-widget.php:22
+#, fuzzy
+#| msgid "Server Stats"
+msgid "Server Software"
+msgstr "Server-Statistik"
+
+#: dashboard-widget/wp-dashboard-widget.php:24
+#, fuzzy
+#| msgid "Server Stats"
+msgid "Server IP"
+msgstr "Server-Statistik"
+
+#: dashboard-widget/wp-dashboard-widget.php:27
+#, fuzzy
+#| msgid "Server Stats"
+msgid "Server Port"
+msgstr "Server-Statistik"
+
+#: dashboard-widget/wp-dashboard-widget.php:29
+#, fuzzy
+#| msgid "CSS active"
+msgid "Server Location"
+msgstr "CSS aktiv"
+
+#: dashboard-widget/wp-dashboard-widget.php:31
+#, fuzzy
+#| msgid "Server Stats"
+msgid "Server Hostname"
+msgstr "Server-Statistik"
+
+#: dashboard-widget/wp-dashboard-widget.php:33
+msgid "Site's Document Root"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:35
+msgid "Memcached Enabled"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:36
+msgid "Yes"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:36
+msgid "No"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:39
+msgid "Total CPUs"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:40
+msgid "Cores"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:42
+msgid "Total RAM"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:45
+msgid "Real Time Free RAM"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:47
+msgid "Real Time RAM Usage"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:61
+msgid "Real Time CPU Load"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:75
+msgid "Check More Memcached Info"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:80
+msgid "Database Software"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:82
+#, fuzzy
+#| msgid "Database Information"
+msgid "Database Version"
+msgstr "Datenbank-Informationen"
+
+#: dashboard-widget/wp-dashboard-widget.php:84
+msgid "Maximum No. of Connections"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:86
+msgid "Maximum Packet Size"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:88
+msgid "Database Disk Usage"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:90
+msgid "Index Disk Usage"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:95
+msgid "Check More Database Info"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:99
+#, fuzzy
+#| msgid "PHP Information"
+msgid "PHP Version"
+msgstr "PHP-Informationen"
+
+#: dashboard-widget/wp-dashboard-widget.php:100
+msgid "PHP Max Upload Size"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:101
+msgid "PHP Max Post Size"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:102
+msgid "PHP Max Execution Time"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:102
+msgid "sec"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:103
+msgid "PHP Short Tag"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:104
+msgid "PHP Memory Limit"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:105
+msgid "Real Time PHP Memory Usage"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:115
+msgid "Check More PHP Info"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:119
+#, fuzzy
+#| msgid "active settings"
+msgid "Server Uptime"
+msgstr "aktive Settings"
+
+#: dashboard-widget/wp-dashboard-widget.php:125
+msgid "Special Note"
+msgstr ""
+
+#: dashboard-widget/wp-dashboard-widget.php:125
+msgid ""
+"Hi, please note that PHP \n"
+"\t\t\t\t<code>shell_exec()</code> function is either not enable in your "
+"hosting environment or not been given executable permission, \n"
+"\t\t\t\thence you won't be seeing the following results above: CPU/Core "
+"count, Real Time CPU Usage, Server Uptime, RAM details, Real Time RAM Usage. "
+"To see these details, \n"
+"\t\t\t\tplease ask your host to enable <code>shell_exec()</code> function "
+"and give it executable permission."
 msgstr ""
 
 #: license/activate-hupa-minify-page.php:66
@@ -176,7 +577,43 @@ msgstr ""
 msgid "Client secret"
 msgstr ""
 
-#: register-hupa-minify.php:235
+#: register-hupa-minify.php:104
+msgid "Minify - Settings"
+msgstr "Minify Eistellungen"
+
+#: register-hupa-minify.php:105
+msgid "Minify Settings "
+msgstr "Minify Eistellungen"
+
+#: register-hupa-minify.php:138
+msgid "Server Stats - General Settings"
+msgstr "Server-Statistiken - Allgemeine Einstellungen"
+
+#: register-hupa-minify.php:139
+msgid "General Settings"
+msgstr "Allgemeine Einstellungen"
+
+#: register-hupa-minify.php:148
+msgid "Server Stats - PHP Information"
+msgstr "Server-Statistiken - PHP-Informationen"
+
+#: register-hupa-minify.php:158
+msgid "Server Stats - Database Information"
+msgstr "Server-Statistiken - Datenbankinformationen"
+
+#: register-hupa-minify.php:159
+msgid "Database Information"
+msgstr "Datenbank-Informationen"
+
+#: register-hupa-minify.php:169
+msgid "Server Stats - Memcache Information"
+msgstr "Server-Statistiken - Memcache-Informationen"
+
+#: register-hupa-minify.php:170
+msgid "Memcache Information"
+msgstr "Memcache-Informationen"
+
+#: register-hupa-minify.php:376
 #, php-format
 msgid ""
 "This plugin has been disabled because it requires a PHP version greater than "
@@ -209,8 +646,51 @@ msgstr "Unbekannter Status für Aktualisierungscheck \"%s\""
 msgid "There is no changelog available."
 msgstr "Es steht kein Änderungsprotokoll zur Verfügung."
 
-#~ msgid "Minify active"
-#~ msgstr "Minify aktiv"
+#~ msgid ""
+#~ "Insert a valid background colour of the real-time status bar - For OK "
+#~ "status."
+#~ msgstr ""
+#~ "Fügen Sie eine gültige Hintergrundfarbe der Echtzeit-Statusleiste für den "
+#~ "Status OK ein."
+
+#~ msgid ""
+#~ "Insert a valid background colour of the real-time status bar - For "
+#~ "Critical status."
+#~ msgstr ""
+#~ "Fügen Sie eine gültige Hintergrundfarbe der Echtzeit-Statusleiste für den "
+#~ "kritischen Status ein."
+
+#~ msgid ""
+#~ "Insert a valid background colour of the real-time status bar - For Very "
+#~ "Critical status."
+#~ msgstr ""
+#~ "Fügen Sie eine gültige Hintergrundfarbe der Echtzeit-Statusleiste für den "
+#~ "Hochkritischen Status ein."
+
+#~ msgid "Insert a valid color for the footer text color."
+#~ msgstr "Fügen Sie eine gültige Farbe für den Fußzeilentext ein."
+
+#~ msgid "Super Critical Status"
+#~ msgstr "Hochkritischer Status"
+
+#~ msgid "Options"
+#~ msgstr "Optionen"
+
+#~ msgid "active"
+#~ msgstr "aktiv"
+
+#~ msgid "Groups"
+#~ msgstr "Gruppen"
+
+#~ msgid "Minify Output"
+#~ msgstr "Minify Ausgabe"
+
+#~ msgid "Other options"
+#~ msgstr "weitere Optionen"
+
+#~ msgid "If active, the WordPress version is <b>hidden</b> in the FrontEnd."
+#~ msgstr ""
+#~ "Wenn aktiv, wird die WordPress-Version im Frontend <b>ausgeblendet</b>."
 
 #~ msgid "Remove version"
 #~ msgstr "Version entfernen"

@@ -13,7 +13,7 @@ final class RegisterHupaServerStatus {
 	private static $instance;
 	var $memory = false;
 	// declaring the protected variables
-	protected $refresh_interval, $memcache_host, $memcache_port, $use_ipapi_pro, $ipapi_pro_key, $bg_color_good, $bg_color_average, $bg_color_bad, $footer_text_color, $server_load_nonce;
+	protected  $use_ipapi_pro;
 	
 	/**
 	 * @return static
@@ -35,7 +35,10 @@ final class RegisterHupaServerStatus {
 		}
 		if(get_option('server_status_aktiv')) {
 			add_action('init', array($this, 'minify_check_limit'));
-			add_action('wp_dashboard_setup', array($this, 'minify_add_dashboard'));
+			add_filter('admin_footer_text', array($this, 'minify_add_footer'));
+
+			add_action('admin_bar_menu', array($this, 'add_server_stat_admin_bar_menu_item'), 100);
+
 		}
 	}
 
@@ -52,101 +55,54 @@ final class RegisterHupaServerStatus {
 		}
 	}
 
-	public function minify_add_dashboard()
+	public function minify_add_footer($content)
 	{
-		wp_add_dashboard_widget('wp_memory_dashboard', 'Server Overview', array($this, 'minify_dashboard_output'));
+		if (current_user_can('manage_options')) :
+			$stat = json_decode(get_option('settings_server_status'));
+			//check if the content is empty or not
+			if (!empty($content)) {
+				$start = " | ";
+			} else {
+				$start = "";
+			}
+
+			if ($this->isShellEnabled()) {
+				$content .= $start . '<strong style="color: ' . $stat->footer_text_color . ';">' . __('PHP Memory', 'hupa-minify') . ' : <span id="mem_usage_mb_footer"></span>'
+				            . ' ' . __('of', 'hupa-minify') . ' ' . $this->minify_check_limit() . ' (<span id="memory-usage-pos-footer"></span> '
+				            . __('used', 'hupa-minify') . ')</strong> | <strong style="color: ' . $stat->footer_text_color . ';">' . __('RAM', 'hupa-minify') . ' : <span id="ram_usage_footer"></span> ' . __('of', 'hupa-minify') . ' ' . (is_numeric($this->minify_check_total_ram()) ? $this->minify_format_filesize_kB($this->minify_check_total_ram()) : $this->minify_check_total_ram()) . ' (<span id="ram-usage-pos-footer"></span> ' . __('used', 'hupa-minify') . ')</strong> | <strong style="color: ' . $stat->footer_text_color . ';">' . __('CPU Load', 'hupa-minify')
+				            . ': <span id="cpu_load_footer"></span></strong>';
+			} else {
+				$content .= $start . '<strong style="color: ' . $stat->footer_text_color . ';">' . __('Memory', 'hupa-minify') . ' : <span id="mem_usage_mb_footer"></span>'
+				            . ' ' . __('of', 'hupa-minify') . ' ' . $this->minify_check_limit() . ' (<span id="memory-usage-pos-footer"></span> '
+				            . __('used', 'hupa-minify') . ')</strong>';
+			}
+			return $content;
+		endif;
 	}
 
-				public function minify_dashboard_output()
-			{
-				if (current_user_can('manage_options')) :?>
-						<ul>
-							<li><strong><?php _e('Server OS', 'hupa-minify'); ?></strong> : <span><?php echo $this->minify_server_os(); ?>&nbsp;/&nbsp;<?php echo (PHP_INT_SIZE * 8) . __('Bit OS', 'hupa-minify'); ?></span></li>
-							<li><strong><?php _e('Server Software', 'hupa-minify'); ?></strong> : <span><?php echo $_SERVER['SERVER_SOFTWARE']; ?></span></li>
-							<li><strong><?php _e('Server IP', 'hupa-minify'); ?></strong> : <span><?php echo ($this->minify_validate_ip_address($this->minify_check_server_ip()) ? $this->minify_check_server_ip() : "ERROR IP096T"); ?></span></li>
-							<li><strong><?php _e('Server Port', 'hupa-minify'); ?></strong> : <span><?php echo $_SERVER['SERVER_PORT']; ?></span></li>
-							<li><strong><?php _e('Server Location', 'hupa-minify'); ?></strong> : <span><?php echo $this->minify_check_server_location(); ?></span></li>
-							<li><strong><?php _e('Server Hostname', 'hupa-minify'); ?></strong> : <span><?php echo gethostname(); ?></span></li>
-							<li><strong><?php _e('Site\'s Document Root', 'hupa-minify'); ?></strong> : <span><?php echo $_SERVER['DOCUMENT_ROOT'] . '/'; ?></span></li>
-							<li><strong><?php _e('Memcached Enabled', 'hupa-minify'); ?></strong> : <span><?php echo (class_exists('Memcache') ? __('Yes', 'wp-sever-stats') : __('No', 'hupa-minify')); ?></span></li>
-							<?php if ($this->isShellEnabled()) : ?>
-							<li><strong><?php _e('Total CPUs', 'hupa-minify'); ?></strong> : <span><?php echo $this->minify_check_cpu_count() . ' / ' . $this->minify_check_core_count() . __('Cores', 'hupa-minify'); ?></span></li>
-							<li><strong><?php _e('Total RAM', 'hupa-minify'); ?></strong> : <span><?php echo (is_numeric($this->minify_check_total_ram()) ? $this->minify_format_filesize_kB($this->minify_check_total_ram()) : $this->minify_check_total_ram()); ?></span></li>
-							<li><strong><?php _e('Real Time Free RAM', 'hupa-minify'); ?></strong> : <span id="realtime_free_ram"></span></li>
-							<li><strong><?php _e('Real Time RAM Usage', 'hupa-minify'); ?></strong> : <span id="realtime_ram_usage"></span></li>
-							<?php endif; ?>
-						<ul>
-						<?php if ($this->isShellEnabled()) : ?>
-						<div class="progressbar">
-							<div style="border:1px solid #DDDDDD; background-color:#F9F9F9;	border-color: rgb(223, 223, 223); box-shadow: 0px 1px 0px rgb(255, 255, 255) inset; border-radius: 3px;">
-								<div id="ram-usage-upper-div" style="padding: 0px; border-width:0px; color:#FFFFFF;text-align:right; border-color: rgb(223, 223, 223); box-shadow: 0px 1px 0px rgb(255, 255, 255) inset; border-radius: 3px; margin-top: -1px;">
-									<div id="ram-usage" style="padding:2px;"></div>
-								</div>
-							</div>
-						</div>
-
-						<span style="line-height: 2.5em;"><strong><?php _e('Real Time CPU Load', 'hupa-minify') ?>:</strong></span>
-						<div class="progressbar">
-							<div style="border:1px solid #DDDDDD; background-color:#F9F9F9;	border-color: rgb(223, 223, 223); box-shadow: 0px 1px 0px rgb(255, 255, 255) inset; border-radius: 3px;">
-		            <div id="server-load-upper-div" style="padding: 0px; border-width:0px; color:#FFFFFF;text-align:right; border-color: rgb(223, 223, 223); box-shadow: 0px 1px 0px rgb(255, 255, 255) inset; border-radius: 3px; margin-top: -1px;">
-									<div id="server-load" style="padding:2px;"></div>
-								</div>
-							</div>
-						</div>
-						<?php endif; ?>
-						<?php if (class_exists('Memcache')) : ?>
-							<div class="wpss_show_buttons content-center">
-								<a href="<?php echo get_admin_url(); ?>admin.php?page=wpss_memcache_info" title="Checkout Memcached Info" class="wpss_btn button button-small"><?php _e('Check More Memcached Info', 'hupa-minify'); ?></a>
-							</div>
-						<?php endif; ?>
-						<hr />
-						<ul>
-							<li><strong><?php _e('Database Software', 'hupa-minify'); ?></strong> : <span><?php echo $this->minify_database_software(); ?></span></li>
-							<li><strong><?php _e('Database Version', 'hupa-minify'); ?></strong> : <span><?php echo $this->minify_database_version(); ?></span></li>
-							<li><strong><?php _e('Maximum No. of Connections', 'hupa-minify'); ?></strong> : <span><?php echo $this->minify_database_max_no_connection(); ?></span></li>
-							<li><strong><?php _e('Maximum Packet Size', 'hupa-minify'); ?></strong> : <span><?php echo $this->minify_database_max_packet_size(); ?></span></li>
-							<li><strong><?php _e('Database Disk Usage', 'hupa-minify'); ?></strong> : <span><?php echo $this->minify_database_disk_usage(); ?></span></li>
-							<li><strong><?php _e('Index Disk Usage', 'hupa-minify'); ?></strong> : <span><?php echo $this->minify_index_disk_usage(); ?></span></li>
-						</ul>
-						<div class="wpss_show_buttons content-center">
-							<a href="<?php echo get_admin_url(); ?>admin.php?page=wpss_sql_info" title="Checkout More Database Info" class="wpss_btn button button-small"><?php _e('Check More Database Info', 'hupa-minify'); ?></a>
-						</div>
-						<hr />
-						<ul>
-							<li><strong><?php _e('PHP Version', 'hupa-minify'); ?></strong> : <span><?php echo PHP_VERSION; ?></span></li>
-							<li><strong><?php _e('PHP Max Upload Size', 'hupa-minify'); ?></strong> : <span><?php echo $this->minify_index_disk_usage(); ?></span></li>
-							<li><strong><?php _e('PHP Max Post Size', 'hupa-minify'); ?></strong> : <span><?php echo $this->minify_php_max_post_size(); ?></span></li>
-							<li><strong><?php _e('PHP Max Execution Time', 'hupa-minify'); ?></strong> : <span><?php echo $this->minify_php_max_execution_time() . " " . __("sec", "hupa-minify"); ?></span></li>
-							<li><strong><?php _e('PHP Short Tag', 'hupa-minify'); ?></strong> : <span><?php echo $this->minify_php_short_tag(); ?></span></li>
-							<li><strong><?php _e('PHP Memory Limit', 'hupa-minify'); ?></strong> : <span><?php echo $this->minify_check_limit(); ?></span></li>
-							<li><strong><?php _e('Real Time PHP Memory Usage', 'hupa-minify'); ?></strong> : <span id="mem_usage_mb"></span></li>
-						</ul>
-						<div class="progressbar">
-							<div style="border:1px solid #DDDDDD; background-color:#F9F9F9;	border-color: rgb(223, 223, 223); box-shadow: 0px 1px 0px rgb(255, 255, 255) inset; border-radius: 3px;">
-		                        <div id="memory-load-upper-div" style="padding: 0px; border-width:0px; color:#FFFFFF;text-align:right; border-color: rgb(223, 223, 223); box-shadow: 0px 1px 0px rgb(255, 255, 255) inset; border-radius: 3px; margin-top: -1px;">
-		                        	<div id="memory-usage-pos" style="padding:2px;"></div>
-								</div>
-							</div>
-						</div>
-						<div class="wpss_show_buttons content-center">
-							<a href="<?php echo get_admin_url(); ?>admin.php?page=wpss_php_info" title="Checkout More PHP Info" class="wpss_btn button button-small"><?php _e('Check More PHP Info', 'hupa-minify'); ?></a>
-						</div>
-						<?php if ($this->isShellEnabled()) : ?>
-						<hr style="margin-top: 15px; margin-bottom: 0px;" />
-						<span style="line-height: 2.5em; margin-left: auto; margin-right: auto; display: table;"><strong><?php _e('Server Uptime', 'hupa-minify') ?></strong></span>
-						<div style="margin-top: 20px;">
-							<div class="uptime" style="font-size: 20px;"></div>
-						</div>
-				<?php else : ?>
-
-							<hr style="margin-top: 15px; margin-bottom: 15px;" />
-							<p style="text-align: justify;"><strong><?php _e('Special Note', 'hupa-minify'); ?>:</strong> <?php _e('Hi, please note that PHP 
-							<code>shell_exec()</code> function is either not enable in your hosting environment or not been given executable permission, 
-							hence you won\'t be seeing the following results above: CPU/Core count, Real Time CPU Usage, Server Uptime, RAM details, Real Time RAM Usage. To see these details, 
-							please ask your host to enable <code>shell_exec()</code> function and give it executable permission.', 'hupa-minify'); ?></p>
-						<?php endif;
-					endif;
-				}
+	public function add_server_stat_admin_bar_menu_item($admin_bar) {
+		if( defined( 'WPSERVERSTATS_ADMINBAR_DISABLE' ) ) {
+			if( constant( 'WPSERVERSTATS_ADMINBAR_DISABLE' ) ) {
+				// Do nothing as the user don't need the purge cache option
+			} else {
+				$admin_bar->add_menu(
+					array(
+						'id' => 'wpss-cache-purge',
+						'title' => 'Purge Cache - WP Server Stats',
+						'href' => '#'
+					)
+				);
+			}
+		} else {
+			$admin_bar->add_menu(
+				array(
+					'id' => 'wpss-cache-purge',
+					'title' => 'Purge Cache - WP Server Stats',
+					'href' => '#'
+				)
+			);
+		}
+	}
 
 	public function minify_server_os()
 	{
@@ -164,9 +120,7 @@ final class RegisterHupaServerStatus {
 
 	public function minify_check_cpu_count()
 	{
-
 		$cpu_count = get_transient('wpss_cpu_count');
-
 		if ($cpu_count === false) {
 			if ($this->isShellEnabled()) {
 				$cpu_count = shell_exec('cat /proc/cpuinfo |grep "physical id" | sort | uniq | wc -l');
@@ -181,9 +135,7 @@ final class RegisterHupaServerStatus {
 
 	public function minify_check_core_count()
 	{
-
 		$cpu_core_count = get_transient('wpss_cpu_core_count');
-
 		if ($cpu_core_count === false) {
 			if ($this->isShellEnabled()) {
 				$cpu_core_count = shell_exec("echo \"$((`cat /proc/cpuinfo | grep cores | grep -o '[0-9]' | uniq` * `cat /proc/cpuinfo |grep 'physical id' | sort | uniq | wc -l`))\"");
@@ -206,9 +158,7 @@ final class RegisterHupaServerStatus {
 
 	public function minify_database_disk_usage()
 	{
-
 		$db_disk_usage = get_transient('wpss_db_disk_usage');
-
 		if ($db_disk_usage === false) {
 			global $wpdb;
 			$db_disk_usage = 0;
@@ -217,7 +167,7 @@ final class RegisterHupaServerStatus {
 				$db_disk_usage += $tablestatus->Data_length;
 			}
 			if (empty($db_disk_usage)) {
-				$db_disk_usage = __('N/A', 'wp-server-stats');
+				$db_disk_usage = __('N/A', 'hupa-minify');
 			} else {
 				$db_disk_usage = $this->minify_format_filesize($db_disk_usage);
 				set_transient('wpss_db_disk_usage', $db_disk_usage, WEEK_IN_SECONDS);
@@ -300,14 +250,18 @@ final class RegisterHupaServerStatus {
 		return $memory_limit;
 	}
 
+	public function minify_check_memory_limit_cal(): int {
+		return (int)ini_get('memory_limit');
+	}
+
 	public function minify_format_php_size($size)
 	{
 		if (!is_numeric($size)) {
-			if (strpos($size, 'M') !== false) {
+			if ( str_contains( $size, 'M' ) ) {
 				$size = intval($size) * 1024 * 1024;
-			} elseif (strpos($size, 'K') !== false) {
+			} elseif ( str_contains( $size, 'K' ) ) {
 				$size = intval($size) * 1024;
-			} elseif (strpos($size, 'G') !== false) {
+			} elseif ( str_contains( $size, 'G' ) ) {
 				$size = intval($size) * 1024 * 1024 * 1024;
 			}
 		}
@@ -336,16 +290,14 @@ final class RegisterHupaServerStatus {
 
 	public function minify_php_max_post_size()
 	{
-
 		$php_max_post_size = get_transient('wpss_php_max_post_size');
-
 		if ($php_max_post_size === false) {
 			if (ini_get('post_max_size')) {
 				$php_max_post_size = ini_get('post_max_size');
 				$php_max_post_size = $this->minify_format_php_size($php_max_post_size);
 				set_transient('wpss_php_max_post_size', $php_max_post_size, WEEK_IN_SECONDS);
 			} else {
-				$php_max_post_size = __('N/A', 'wp-server-stats');
+				$php_max_post_size = __('N/A', 'hupa-minify');
 			}
 		}
 
@@ -355,7 +307,6 @@ final class RegisterHupaServerStatus {
 	public function minify_database_version()
 	{
 		$db_version = get_transient('wpss_db_version');
-
 		if ($db_version === false) {
 			global $wpdb;
 			$db_version_dump = $wpdb->get_var("SELECT VERSION() AS version from DUAL");
@@ -366,7 +317,6 @@ final class RegisterHupaServerStatus {
 				$db_version = __('N/A', 'hupa-minify');
 			}
 		}
-
 		return $db_version;
 	}
 
@@ -375,7 +325,7 @@ final class RegisterHupaServerStatus {
 		if (ini_get('max_execution_time')) {
 			$max_execute = ini_get('max_execution_time');
 		} else {
-			$max_execute = __('N/A', 'wp-server-stats');
+			$max_execute = __('N/A', 'hupa-minify');
 		}
 		return $max_execute;
 	}
@@ -383,9 +333,9 @@ final class RegisterHupaServerStatus {
 	public function minify_php_short_tag()
 	{
 		if (ini_get('short_open_tag')) {
-			$short_tag = __('On', 'wp-server-stats');
+			$short_tag = __('On', 'hupa-minify');
 		} else {
-			$short_tag = __('Off', 'wp-server-stats');
+			$short_tag = __('Off', 'hupa-minify');
 		}
 		return $short_tag;
 	}
@@ -393,7 +343,6 @@ final class RegisterHupaServerStatus {
 	public function minify_database_max_no_connection()
 	{
 		$db_max_connection = get_transient('wpss_db_max_connection');
-
 		if ($db_max_connection === false) {
 			global $wpdb;
 			$connection_max_query = $wpdb->get_row("SHOW VARIABLES LIKE 'max_connections'");
@@ -411,7 +360,6 @@ final class RegisterHupaServerStatus {
 
 	public function minify_database_max_packet_size()
 	{
-
 		$db_max_packet_size = get_transient('wpss_db_max_packet_size');
 
 		if ($db_max_packet_size === false) {
@@ -425,15 +373,12 @@ final class RegisterHupaServerStatus {
 				set_transient('wpss_db_max_packet_size', $db_max_packet_size, WEEK_IN_SECONDS);
 			}
 		}
-
 		return $db_max_packet_size;
 	}
 
 	public function minify_index_disk_usage()
 	{
-
 		$db_index_disk_usage = get_transient('wpss_db_index_disk_usage');
-
 		if ($db_index_disk_usage === false) {
 			global $wpdb;
 			$db_index_disk_usage = 0;
@@ -442,39 +387,38 @@ final class RegisterHupaServerStatus {
 				$db_index_disk_usage += $tablestatus->Index_length;
 			}
 			if (empty($db_index_disk_usage)) {
-				$db_index_disk_usage = __('N/A', 'wp-server-stats');
+				$db_index_disk_usage = __('N/A', 'hupa-minify');
 			} else {
 				$db_index_disk_usage = $this->minify_format_filesize($db_index_disk_usage);
 				set_transient('wpss_db_index_disk_usage', $db_index_disk_usage, WEEK_IN_SECONDS);
 			}
 		}
-
 		return $db_index_disk_usage;
 	}
 
 	public function minify_check_server_location()
 	{
-		$this->minify_fetch_data();
-		$ipapi_pro_key = trim($this->ipapi_pro_key);
+		$stat = json_decode(get_option('settings_server_status'));
+		$ipapi_pro_key = trim($stat->ipapi_pro_key);
 		//get the server ip
-		$ip = $this->minify_check_server_ip();
-
+		//$ip = $this->minify_check_server_ip();
+        $ip = '217.87.180.174';
 		$server_location = get_transient('wpss_server_location');
 
 		if ($server_location === false) {
 			// lets validate the ip
 			if ($this->minify_validate_ip_address($ip)) {
-				if ($this->use_ipapi_pro == 'Yes' && !empty($ipapi_pro_key)) { // Use the pro version of IP-API query
+				if ($stat->use_ipapi_pro && !empty($ipapi_pro_key)) { // Use the pro version of IP-API query
 					$query = @unserialize(file_get_contents('https://pro.ip-api.com/php/' . $ip . '?key=' . $ipapi_pro_key));
 				} else { // Use the free version of IP-API
-					$query = @unserialize(file_get_contents('https://ip-api.com/php/' . $ip));
+					$query = @unserialize(file_get_contents('http://ip-api.com/php/' . $ip));
 				}
 				if ($query && $query['status'] == 'success') {
 					$server_location = $query['city'] . ', ' . $query['country'];
 					set_transient('wpss_server_location', $server_location, WEEK_IN_SECONDS);
 				} else {
 					if (empty($query['message'])) {
-						if ($this->use_ipapi_pro == 'Yes') {
+						if ($stat->use_ipapi_pro) {
 							$server_location = 'You\'ve provided a wrong IP-API Pro Key';
 						} else {
 							$server_location = $query['status'];
@@ -491,91 +435,59 @@ final class RegisterHupaServerStatus {
 		return $server_location;
 	}
 
-	public function minify_fetch_data()
-	{
-		// assuming our wpss_settings_option entry in database's option table is already there
-		// so lets try to fetch it
-		$fetched_data = get_option('wpss_settings_options'); // $fetched_data will be an array
+	public function minify_check_free_ram(): string {
+		if ($this->isShellEnabled()) {
+			$free_ram = shell_exec("grep -w 'MemFree' /proc/meminfo | grep -o -E '[0-9]+'");
 
-		if (!empty($fetched_data)) {
-
-			// fetching the refresh_interval data
-			if (!empty($fetched_data['refresh_interval'])) {
-				$this->refresh_interval = $fetched_data['refresh_interval'];
+			if( !is_null( $this->minify_check_ram_cache() ) || !is_null( $this->minify_check_ram_buffer() ) ) {
+				$ram_cache = is_null( $this->minify_check_ram_cache() ) ? 0 : (int) $this->minify_check_ram_cache();
+				$ram_buffer = is_null( $this->minify_check_ram_buffer() ) ? 0 : (int) $this->minify_check_ram_buffer();
+				$free_ram_final = (int) $free_ram + $ram_cache + $ram_buffer;
 			} else {
-				$this->refresh_interval = 200; // default refresh interval is 200ms
-			}
-
-			// fetching memcache host
-			if (!empty($fetched_data['memcache_host'])) {
-				$this->memcache_host = $fetched_data['memcache_host'];
-			} else {
-				$this->memcache_host = 'localhost'; // default memcache host localhost
-			}
-
-			// fetching memcache port
-			if (!empty($fetched_data['memcache_port'])) {
-				$this->memcache_port = $fetched_data['memcache_port'];
-			} else {
-				$this->memcache_port = 11211; // default memcache port 11211
-			}
-
-			// fetching if using ip-api
-			if (!empty($fetched_data['use_ipapi_pro'])) {
-				$this->use_ipapi_pro = $fetched_data['use_ipapi_pro'];
-			} else {
-				$this->use_ipapi_pro = 'No';
-			}
-
-			// fetching the ip-api key
-			if (!empty($fetched_data['ipapi_pro_key'])) {
-				$this->ipapi_pro_key = $fetched_data['ipapi_pro_key'];
-			} else {
-				$this->ipapi_pro_key = '';
-			}
-
-			// fetching the bg_color_good
-			if (!empty($fetched_data['bg_color_good'])) {
-				$this->bg_color_good = $fetched_data['bg_color_good'];
-			} else {
-				$this->bg_color_good = "#37BF91";
-			}
-
-			// fetching the bg_color_average
-			if (!empty($fetched_data['bg_color_average'])) {
-				$this->bg_color_average = $fetched_data['bg_color_average'];
-			} else {
-				$this->bg_color_average = "#d35400";
-			}
-
-			// fetching the bg_color_bad
-			if (!empty($fetched_data['bg_color_bad'])) {
-				$this->bg_color_bad = $fetched_data['bg_color_bad'];
-			} else {
-				$this->bg_color_bad = "#e74c3c";
-			}
-
-			// fetching footer text color
-			if (!empty($fetched_data['footer_text_color'])) {
-				$this->footer_text_color = $fetched_data['footer_text_color'];
-			} else {
-				$this->footer_text_color = "#8e44ad";
+				$free_ram_final = $free_ram;
 			}
 		} else {
-			$this->refresh_interval = 200; // default refresh interval is 200ms
-			$this->bg_color_good = "#37BF91";
-			$this->bg_color_average = "#d35400";
-			$this->bg_color_bad = "#e74c3c";
-			$this->footer_text_color = "#8e44ad";
-			$this->memcache_host = 'localhost';
-			$this->memcache_port = 11211;
-			$this->use_ipapi_pro = 'No';
-			$this->ipapi_pro_key = '';
+			$free_ram_final = 'ERROR EXEC096T';
 		}
+
+		return trim($free_ram_final);
+	}
+
+	public function minify_check_ram_cache(): string {
+		if ($this->isShellEnabled()) {
+			$ram_cache = shell_exec("grep -w 'Cached' /proc/meminfo | grep -o -E '[0-9]+'");
+		} else {
+			$ram_cache= 'ERROR EXEC096T';
+		}
+
+		return trim($ram_cache);
+	}
+
+	public function minify_check_ram_buffer(): string {
+		if ($this->isShellEnabled()) {
+			$ram_buffer = shell_exec("grep -w 'Buffers' /proc/meminfo | grep -o -E '[0-9]+'");
+		} else {
+			$ram_buffer= 'ERROR EXEC096T';
+		}
+
+		return trim($ram_buffer);
+	}
+
+	/**
+	 * Function that will check if value is a valid HEX color.
+	 */
+	public function minify_check_color($value): bool {
+
+		if (preg_match('/^#[a-f0-9]{6}$/i', $value)) { // if user insert a HEX color with #
+			return true;
+		}
+
+		return false;
 	}
 }
+global $hupa_server_class;
 if (is_admin()) {
-	$register_server_status = RegisterHupaServerStatus::instance();
-	$register_server_status->server_status_init();
+	$hupa_server_class = RegisterHupaServerStatus::instance();
+	$hupa_server_class->server_status_init();
 }
 

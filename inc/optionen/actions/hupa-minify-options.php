@@ -66,6 +66,8 @@ function hupa_minify_set_settings() {
 	update_option( 'minify_wp_version', $default->wp_version );
 	update_option( 'minify_wp_block_css', $default->wp_block_css );
 	update_option( 'minify_wp_emoji', $default->wp_emoji );
+	update_option( 'settings_server_status', $default->settings_server_status );
+	update_option('server_status_aktiv', $default->server_status_aktiv);
 }
 
 function hupa_minify_default_settings(): object {
@@ -103,10 +105,11 @@ function hupa_minify_default_settings(): object {
 		'html_inline_js'  => 1,
 		'html_comment'    => 1,
 
-		'wp_version'           => 0,
-		'wp_block_css'         => 0,
-		'wp_emoji'             => 0,
-		'settings_entwicklung' => json_encode(
+		'wp_version'             => 0,
+		'wp_block_css'           => 0,
+		'wp_emoji'               => 0,
+		'server_status_aktiv'    => 0,
+		'settings_entwicklung'   => json_encode(
 			[
 				'min_cachePath' => HUPA_MINIFY_CACHE_PATH,
 				'cache_max_age' => 0,
@@ -115,7 +118,7 @@ function hupa_minify_default_settings(): object {
 				'verkettung'    => 1
 			]
 		),
-		'settings_production'  => json_encode(
+		'settings_production'    => json_encode(
 			[
 				'min_cachePath' => HUPA_MINIFY_CACHE_PATH,
 				'cache_max_age' => 86400,
@@ -124,6 +127,19 @@ function hupa_minify_default_settings(): object {
 				'verkettung'    => 0
 			]
 		),
+		'settings_server_status' => json_encode(
+			[
+				'refresh_interval'  => 200,
+				'bg_color_good'     => '#37BF91',
+				'bg_color_average'  => '#d35400',
+				'bg_color_bad'      => '#e74c3c',
+				'footer_text_color' => '#8e44ad',
+				'memcache_host'     => 'localhost',
+				'memcache_port'     => 11211,
+				'use_ipapi_pro'     => 0,
+				'ipapi_pro_key'     => ''
+			]
+		)
 	];
 
 	return (object) $settings;

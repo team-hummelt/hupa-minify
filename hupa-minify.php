@@ -24,13 +24,12 @@
 defined( 'ABSPATH' ) or die();
 
 //HUPA MINIFY CONSTANTS
-const HUPA_MINIFY_PLUGIN_DB_VERSION = '1.0.0';
 const HUPA_MINIFY_MIN_PHP_VERSION = '8.0';
 const HUPA_MINIFY_MIN_WP_VERSION = '5.7';
 const HUPA_MINIFY_QUERY_VAR = 'minify';
 const HUPA_MINIFY_QUERY_VALUE = 'min';
-const HUPA_MINIFY_SETTINGS_ID = 1;
 const MINIFY_SCSS_COMPILER_AKTIV = true;
+const MINIFY_IP_API_AKTIV = true;
 
 //PLUGIN VERSION
 $plugin_data = get_file_data(dirname(__FILE__) . '/hupa-minify.php', array('Version' => 'Version'), false);
@@ -107,9 +106,7 @@ if(get_option('hupa_minify_product_install_authorize')) {
 	require 'inc/enqueue.php';
 	require 'inc/scss-server/scss-server.php';
 	require 'min/vendor/autoload.php';
-	if(get_option('server_status_aktiv')) {
-		//require 'server-status/class-server-status.php';
-	}
+	require 'server-status/class-server-status.php';
 	require 'inc/update-checker/autoload.php';
 	$hupaMinifyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 		'https://github.com/team-hummelt/hupa-minify/',

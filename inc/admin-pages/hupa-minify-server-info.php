@@ -105,3 +105,5 @@ $statusAktiv = (bool) get_option( 'server_status_aktiv' );
         </div>
     </div>
 </div>
+<div id="snackbar-success"></div>
+<div id="snackbar-warning"></div>

@@ -135,6 +135,15 @@ jQuery(document).ready(function ($) {
                 });
         }
     });
+    $(document).on('click', '.change-server-status', function () {
+        let optionFieldset = $('.fieldset-server-option');
+        if($(this).prop('checked')){
+            optionFieldset.prop('disabled',false);
+        } else {
+            optionFieldset.prop('disabled', true);
+        }
+    })
+
 
     /**+++++++++++++++++++++++++++++++++++++
      *+++++++ Change LOG Settings ++++++++++

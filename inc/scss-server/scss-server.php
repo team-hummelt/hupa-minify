@@ -35,7 +35,6 @@ class HupaMinifyScssPlugin {
 	protected string $destination_dir;
 	protected string $destination_uri;
 	protected string $regExUriPath = '/(wp-content.+|wp-include.+)/i';
-	protected string $regExMin = '@\.min\.@';
 	protected array $parsedFiles;
 
 	/**
@@ -67,7 +66,7 @@ class HupaMinifyScssPlugin {
 
 		$source_dir      = HUPA_MINIFY_THEME_ROOT . $this->in_dir;
 		$destination_dir = HUPA_MINIFY_THEME_ROOT . $this->out_dir;
-		$extension = '.css';
+
 		if ( ! is_dir( $source_dir ) ) {
 			return null;
 		}
@@ -98,8 +97,7 @@ class HupaMinifyScssPlugin {
 						continue;
 					}
 					$this->destination_uri = site_url() . '/'. str_replace('\\','/',$matches[0]) ;
-					$this->minifiyCompiler( $source, $cssDestination );
-					//file_put_contents($cssDestination, $compile, LOCK_EX);
+					$this->minifyCompiler( $source, $cssDestination );
 				}
 			}
 		}
@@ -117,7 +115,7 @@ class HupaMinifyScssPlugin {
 	/**
 	 * @throws Exception
 	 */
-	public function minifiyCompiler( $source, $out = null ) {
+	public function minifyCompiler( $source, $out = null ): bool|int|string {
 
 		//weiter laufen, auch wenn der Benutzer das Skript durch Schließen des Browsers, des Terminals usw. "stoppt".
 		ignore_user_abort( true );
