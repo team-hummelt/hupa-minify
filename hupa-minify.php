@@ -61,20 +61,6 @@ define( "HUPA_MINIFY_ROOT_PATH", $path);
 $cacheFolder = $root_path . 'minify-cache';
 define( "HUPA_MINIFY_CACHE_PATH", sys_get_temp_dir());
 
-$opcache = false;
-$memcache = false;
-
-if(ini_get("opcache.enable")){
-	$opcache = true;
-}
-
-if(ini_get_all("memcache")){
-$memcache = true;
-}
-
-define( "HUPA_MINIFY_OPCACHE", $opcache);
-define( "HUPA_MINIFY_MEMCACHE", $memcache);
-
 /**
  * REGISTER PLUGIN
  */

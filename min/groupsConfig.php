@@ -19,47 +19,14 @@ $singleSrc    = [];
 $singleMinSrc = [];
 $singleMinCss = [];
 $footerSrcArr = [];
-$src1         = new Minify_Source( array(
-    'filepath' => '//wp-content/plugins/wp-post-selector/inc/assets/js/tools/wowjs/wow.min.js',
-    'minifier' => 'myJsMinifier',
-) );
-
-/*switch ($location){
-    case 'header-css':
-        $path = json_decode(get_option('minify_style_header_css'));
-        foreach ($path as $tmp){
-            $cssArr[] = $tmp->css;
-        }
-        break;
-    case 'footer-js':
-        $path = json_decode(get_option('minify_script_footer_js'));
-        foreach ($path as $tmp){
-            $scrArr[] = $tmp->js;
-        }
-        break;
-    case 'header-js':
-        $path = json_decode(get_option('minify_script_header_js'));
-        foreach ($path as $tmp){
-            $scrArr[] = $tmp->js;
-        }
-        break;
-    case'no-group-footer-js':
-
-        break;
-    case'no-group-header-css':
-        $cssArr[] = $file;
-        break;
-}
-*/
-
 
 switch ( $method ) {
     case 'js':
     case 'singleJs':
-        //$min_serveOptions['maxAge'] = 86400 * 7;
+        $min_serveOptions['maxAge'] = 86400 * 7;
         break;
     case 'css':
-        //$min_serveOptions['contentTypeCharset'] = 'iso-8859-1';
+        $min_serveOptions['contentTypeCharset'] = 'iso-8859-1';
         break;
 }
 

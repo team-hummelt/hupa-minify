@@ -1,0 +1,9 @@
+*.swp
+*~
+/*.less
+/*.css
+tests/bootstrap
+tests/tmp
+composer.lock
+
+.idea/

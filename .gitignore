@@ -1,3 +1,16 @@
 .idea
 .github
 .vscode
+/min/vendor/tubalmartin/cssmin/gui/third-party/bootstrap/js/bootstrap.min.js
+/min/vendor/tubalmartin/cssmin/tests/expectations/bootstrap.css
+/min/vendor/tubalmartin/cssmin/tests/fixtures/bootstrap.css
+/min/vendor/tubalmartin/cssmin/gui/third-party/bootstrap/css/bootstrap.min.css
+/min/tests/
+/min/vendor/intervention/httpauth/tests/
+/min/vendor/marcusschwarz/lesserphp/tests/
+/min/vendor/mrclay/jsmin-php/tests/
+/min/vendor/pimple/pimple/ext/pimple/tests/
+/min/vendor/pimple/pimple/src/Pimple/Tests/
+/min/vendor/tubalmartin/cssmin/tests/
+/min/vendor/psr/log/Psr/Log/Test/
+/min/vendor/tubalmartin/cssmin/gui/

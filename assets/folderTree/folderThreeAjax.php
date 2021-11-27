@@ -36,7 +36,7 @@ class HupaMinifyTreeView {
 
 	function create_tree() {
 
-		if ( count( $this->files ) > 2 ) {
+		if ( $this->files && count( $this->files ) > 2 ) {
 			natcasesort( $this->files );
 			$list = '<ul class="filetree" style="display: none;">';
 			// Group folders first

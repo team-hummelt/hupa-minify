@@ -63,7 +63,6 @@ class HupaMinifyScssPlugin {
 	 */
 	public function compileFile() {
 
-
 		$source_dir      = HUPA_MINIFY_THEME_ROOT . $this->in_dir;
 		$destination_dir = HUPA_MINIFY_THEME_ROOT . $this->out_dir;
 
@@ -77,8 +76,13 @@ class HupaMinifyScssPlugin {
 		$src = array_diff( scandir( $source_dir ), array( '..', '.' ) );
 		if ( $src ) {
 			foreach ( $src as $tmp ) {
-				$pi = pathinfo( $source_dir . $tmp );
 
+				$file = $source_dir . DIRECTORY_SEPARATOR . $tmp;
+				if(!is_file($file)){
+					continue;
+				}
+
+				$pi = pathinfo( $file );
 				if ( $pi['extension'] === 'scss' ) {
 					$this->scss_file_name  = $pi['basename'];
 

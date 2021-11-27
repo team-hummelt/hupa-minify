@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) or die();
 //do_action('minify_plugin_set_defaults', 'set_defaults');
 $sE = json_decode( get_option( 'minify_settings_entwicklung' ) );
 $sP = json_decode( get_option( 'minify_settings_production' ) );
-
+global $hupa_server_class;
 ?>
 <div class="wp-bs-starter-wrapper">
 
@@ -337,7 +337,9 @@ $sP = json_decode( get_option( 'minify_settings_production' ) );
                                         <div class="collapse  <?= get_option( 'minify_cache_type' ) == 3 ? ' show' : '' ?>"
                                              id="memCacheOptions">
 											<?php
-											if ( HUPA_MINIFY_MEMCACHE ) {
+
+                                            //minify_check_memory_limit_cal
+											if ( $hupa_server_class->minify_check_memory_limit_cal() ) {
 												$memStat = '<span style="color:#79b500"> Memcache installiert</span>';
 											} else {
 												$memStat = '<span class="text-danger"> Memcache nicht installiert!</span>';

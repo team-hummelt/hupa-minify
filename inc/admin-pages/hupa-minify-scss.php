@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) or die();
 ?>
 <div class="wp-bs-starter-wrapper">
     <div class="container">
-        <div id="minifyThemeRoot"  class="card card-license shadow-sm">
+        <div id="minifyThemeRoot" data-folder="<?=HUPA_MINIFY_THEME_ROOT?>"  class="card card-license shadow-sm">
             <h5 class="card-header d-flex align-items-center bg-hupa py-4">
                 <i class="icon-hupa-white d-block mt-2" style="font-size: 2rem"></i>&nbsp;
                 HUPA&nbsp; <?= __( 'Minify SCSS', 'hupa-minify' ) ?> </h5>
