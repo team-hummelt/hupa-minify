@@ -344,12 +344,10 @@ global $hupa_server_class;
                                         <div class="collapse  <?= get_option( 'minify_cache_type' ) == 3 ? ' show' : '' ?>"
                                              id="memCacheOptions">
 											<?php
-
-                                            //minify_check_memory_limit_cal
-											if ( $hupa_server_class->minify_check_memory_limit_cal() ) {
+											if ( $hupa_server_class->check_memcache_active() ) {
 												$memStat = '<span style="color:#79b500"> Memcache installiert</span>';
 											} else {
-												$memStat = '<span class="text-danger"> Memcache nicht installiert!</span>';
+												$memStat = '<i class="text-danger fa fa-exclamation-triangle"></i> <span class="text-danger"> Memcache nicht installiert!</span>';
 											}
 											?>
                                             <div class="card card-body bg-light mb-2 shadow-sm">
@@ -357,11 +355,12 @@ global $hupa_server_class;
                                                     <small class="fw-normal small d-block"> <?= $memStat ?></small>
                                                 </div>
                                                 <hr>
+                                                <fieldset <?= !$hupa_server_class->check_memcache_active() ? 'disabled' : ''?>>
                                                 <div class="row">
                                                     <div class="col-xl-6 col-lg-6 col-12 pe-2 mb-3">
                                                         <label for="inputMemHost"
                                                                class="form-label clickPathFolder"><?= __( 'Memcache Host', 'hupa-minify' ); ?></label>
-                                                        <input type="text" name="memcache_host"
+                                                        <input type="text" placeholder="localhost" name="memcache_host"
                                                                value="<?= get_option( 'minify_memcache_host' ) ?>"
                                                                class="form-control" id="inputMemHost">
                                                     </div>
@@ -369,11 +368,12 @@ global $hupa_server_class;
                                                     <div class="col-xl-6 col-lg-6 col-12 pe-2 mb-3">
                                                         <label for="inputMemPort"
                                                                class="form-label clickPathFolder"><?= __( 'Memcache Port', 'hupa-minify' ); ?></label>
-                                                        <input type="number" name="memcache_port"
+                                                        <input type="number" placeholder="11211" name="memcache_port"
                                                                value="<?= get_option( 'minify_memcache_port' ) ?>"
                                                                class="form-control" id="inputMemPort">
                                                     </div>
                                                 </div>
+                                                </fieldset>
                                             </div>
                                         </div>
                                     </div>
