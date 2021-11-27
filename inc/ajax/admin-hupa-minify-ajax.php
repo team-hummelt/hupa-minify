@@ -180,7 +180,9 @@ switch ( $method ) {
 
 	case 'activate_server_status':
 		$active = (int) filter_var( $_POST['activate'], FILTER_SANITIZE_NUMBER_INT );
+
 		update_option( 'server_status_aktiv', $active );
+		update_option( 'minify_aktiv', true );
 		$responseJson->status = true;
 		break;
 

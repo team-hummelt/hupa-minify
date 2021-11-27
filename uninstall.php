@@ -65,6 +65,7 @@ delete_option('minify_scss_compiler_aktiv');
 delete_option('minify_scss_map_option');
 
 // SERVER STATUS
+delete_option('minify_aktiv');
 delete_option('server_status_aktiv');
 delete_option('server_footer_aktiv');
 delete_option('server_dashboard_aktiv');
