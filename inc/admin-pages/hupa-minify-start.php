@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) or die();
 $sE = json_decode( get_option( 'minify_settings_entwicklung' ) );
 $sP = json_decode( get_option( 'minify_settings_production' ) );
 global $hupa_server_class;
+
 ?>
 <div class="wp-bs-starter-wrapper">
 
@@ -53,8 +54,14 @@ global $hupa_server_class;
                                 class="fa fa-wordpress"></i>&nbsp;
 						<?= __( 'WordPress', 'hupa-minify' ) ?>
                     </button>
+                    <div class="ms-auto">
 
-                    <button id="btnResetMinify" class="d-none ms-auto btn btn-danger btn-sm"><i class="fa fa-random"></i> Reset</button>
+                    <button data-method="change_ip_api_aktiv"  class="btnResetBtnMinify d-none btn btn-danger btn-sm">
+                        <i class="fa fa-tag"></i>
+                        <span id="changeIpApi"> <?=get_option('ip_api_aktiv') ? 'IP-API deaktivieren' : 'IP-API aktivieren'?></span>
+                    </button>
+                    <button data-method="reset_minify_settings" class="btnResetBtnMinify d-none btn btn-danger btn-sm"><i class="fa fa-random"></i> Reset</button>
+                    </div>
                 </div>
 
                 <hr>

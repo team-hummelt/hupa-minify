@@ -43,7 +43,7 @@ $stat = json_decode( get_option( 'settings_server_status' ) );
                                 <div class="form-check form-switch mb-3 me-3">
                                     <input class="form-check-input" name="server_footer_aktiv" type="checkbox"
                                            role="switch"
-                                           id="SwitchFooterAktiv" <?= ! get_option( 'server_footer_aktiv' ) ?: ' checked' ?>>
+                                           id="SwitchFooterAktiv" <?= ! get_option( 'server_footer_aktiv' ) ?: ' checked' ?> <?= get_option( 'echtzeit_statistik_aktiv' ) ?: ' disabled' ?>>
                                     <label class="form-check-label" for="SwitchFooterAktiv"><b
                                                 class="strong-font-weight">Footer</b> Statistik aktiv</label>
                                 </div>
@@ -79,16 +79,16 @@ $stat = json_decode( get_option( 'settings_server_status' ) );
                             </div>
                             <hr class="mt-0">
                             <div class="col-xl-4 col-lg-6 col-12">
-                                <div class="mb-3">
+                                <div class="mb-0">
                                     <label for="inputScriptInterval" class="form-label">Aktualisierungsintervall</label>
                                     <input type="number" name="script_interval" value="<?= $stat->refresh_interval ?>"
                                            class="form-control"
                                            id="inputScriptInterval"
                                            aria-describedby="inputScriptIntervalHelp">
-                                    <div id="inputScriptIntervalHelp" class="form-text">
-										<?= __( 'Set the realtime script refresh interval (in ms) [1sec = 1000ms]', 'hupa-minify' ) ?>
-                                    </div>
                                 </div>
+                            </div>
+                            <div id="inputScriptIntervalHelp" class="form-text mb-3">
+		                        <?= __( 'Set the realtime script refresh interval (in ms) [1sec = 1000ms]', 'hupa-minify' ) ?>
                             </div>
                             <hr class="mt-1 mb-3">
                             <h6 class="mb-3"><i class="fa fa-gears wp-blue"></i>&nbsp; Memcache Settings</h6>
@@ -109,7 +109,7 @@ $stat = json_decode( get_option( 'settings_server_status' ) );
 								<?= __( 'Memcached Server Host (Only if you have Memcached installed in your server)', 'hupa-minify' ) ?>
                             </div>
                             <hr>
-							<?php if ( MINIFY_IP_API_AKTIV ): ?>
+							<?php if ( get_option('ip_api_aktiv') ): ?>
                                 <h6 class="mb-3"><i class="fa fa-gears wp-blue"></i>&nbsp; IP-API Pro?</h6>
                                 <label class="form-label"><?= __( 'Do you want to use the IP-API Pro key?', 'hupa-minify' ) ?></label>
                                 <div class="form-check form-switch">

@@ -123,9 +123,9 @@ jQuery(document).ready(function ($) {
 
         let activate;
         if ($(this).prop('checked')) {
-            activate = 1;
+            activate = 'on';
         } else {
-            activate = 0;
+            activate = '';
         }
             $.post(minify_ajax_obj.ajax_url, {
                     'action': 'HupaMinifyHandle',
@@ -140,7 +140,6 @@ jQuery(document).ready(function ($) {
                         warning_message(data.msg);
                     }
                 });
-
     });
     $(document).on('click', '#SwitchEchtZeitAktiv', function () {
         let optionFooter = $('#SwitchFooterAktiv');
@@ -150,23 +149,34 @@ jQuery(document).ready(function ($) {
             optionFooter.prop('disabled', true);
             optionFooter.prop('checked',false);
         }
-    })
+    });
 
     $(document).on('dblclick', '.btn-reset-double', function () {
-        let resetBtn = $('#btnResetMinify');
+        let resetBtn = $('.btnResetBtnMinify');
         resetBtn.removeClass('d-none');
     });
 
-    $(document).on('click', '#btnResetMinify', function () {
+    $(document).on('click', '.btnResetBtnMinify', function () {
         $.post(minify_ajax_obj.ajax_url, {
                 'action': 'HupaMinifyHandle',
                 '_ajax_nonce': minify_ajax_obj.nonce,
-                'method': 'reset_minify_settings',
+                'method': $(this).attr('data-method'),
             },
             function (data) {
-                if (data.status) {
+            switch (data.method){
+                case 'reset_minify_settings':
                     window.location.reload(true);
-                }
+                    break;
+                case'change_ip_api_aktiv':
+                    let ipApiBtn = $('#changeIpApi');
+                    if(data.ip_api) {
+                        ipApiBtn.html('IP-API deaktivieren');
+                    } else {
+                        ipApiBtn.html('IP-API aktivieren');
+                    }
+                    break;
+            }
+
             });
     });
 

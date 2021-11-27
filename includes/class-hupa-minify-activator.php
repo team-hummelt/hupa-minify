@@ -24,22 +24,11 @@ class Hupa_Minify_Activator {
 		delete_option("hupa_minify_product_install_authorize");
 		delete_option("hupa_minify_client_id");
 		delete_option("hupa_minify_client_secret");
-		//delete_option("bs_formular_message");
+		delete_option("hupa_minify_message");
 		delete_option("hupa_minify_access_token");
 		$infoTxt = 'aktiviert am ' . date('d.m.Y H:i:s')."\r\n";
 		file_put_contents(HUPA_MINIFY_PLUGIN_DIR.'/hupa-minify.txt',$infoTxt,  FILE_APPEND | LOCK_EX);
 		set_transient('show_lizenz_info', true, 5);
-		//self::hupa_minify_min_uri_output();
-		//flush_rewrite_rules();
-	}
-
-
-	public static function hupa_minify_min_uri_output() {
-
-	}
-
-	public static function hupa_minify_uri_trigger_check() {
-
 	}
 }
 

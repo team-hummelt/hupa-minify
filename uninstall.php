@@ -16,6 +16,8 @@ delete_option("hupa_minify_client_secret");
 delete_option("hupa_minify_message");
 delete_option("hupa_minify_access_token");
 
+delete_option('minify_db_version');
+
 delete_option( 'minify_sub_folder');
 delete_option( 'minify_css_aktiv');
 delete_option( 'minify_js_aktiv');
@@ -75,6 +77,7 @@ delete_option('sql_menu_aktiv');
 delete_option('memcache_menu_aktiv');
 delete_option('minify_server_linux');
 delete_option('echtzeit_statistik_aktiv');
+delete_option('ip_api_aktiv');
 
 
 // Let's delete the Options
