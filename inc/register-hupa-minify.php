@@ -123,7 +123,7 @@ final class RegisterHupaMinifyPlugin {
 		 * =========== SERVER STATUS MENU ===========
 		 * ==========================================
 		 */
-		if(get_option('status_menu_aktiv')):
+
 		add_menu_page(
 			__( 'Server Stats', 'hupa-minify' ),
 			__( 'Server Stats', 'hupa-minify' ),
@@ -142,7 +142,6 @@ final class RegisterHupaMinifyPlugin {
 			array( $this, 'admin_hupa_minify_server_info_page' ) );
 
 		add_action( 'load-' . $hook_suffix, array( $this, 'hupa_minify_load_ajax_admin_options_script' ) );
-
 		if(get_option('server_status_aktiv') && get_option('minify_server_linux')):
 		if(get_option('php_menu_aktiv')) {
 			$hook_suffix = add_submenu_page(
@@ -180,7 +179,6 @@ final class RegisterHupaMinifyPlugin {
 			add_action( 'load-' . $hook_suffix, array( $this, 'hupa_minify_load_ajax_admin_options_script' ) );
 
 		}
-		endif;
 		endif;
 		/** OPTIONS PAGE */
 		if(get_option('server_status_aktiv') ) {
