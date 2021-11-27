@@ -94,10 +94,12 @@ final class RegisterHupaServerStatus {
 			//check if the content is empty or not
 
 			if ($this->isShellEnabled()) {
+				$content .= '<div class="">';
 				$content .=  '<strong style="color: ' . $stat->footer_text_color . ';">' . __('PHP Memory', 'hupa-minify') . ' : <span id="mem_usage_mb_footer"></span>'
 				            . ' ' . __('of', 'hupa-minify') . ' ' . $this->minify_check_limit() . ' (<span id="memory-usage-pos-footer"></span> '
 				            . __('used', 'hupa-minify') . ')</strong> | <strong style="color: ' . $stat->footer_text_color . ';">' . __('RAM', 'hupa-minify') . ' : <span id="ram_usage_footer"></span> ' . __('of', 'hupa-minify') . ' ' . (is_numeric($this->minify_check_total_ram()) ? $this->minify_format_filesize_kB($this->minify_check_total_ram()) : $this->minify_check_total_ram()) . ' (<span id="ram-usage-pos-footer"></span> ' . __('used', 'hupa-minify') . ')</strong> | <strong style="color: ' . $stat->footer_text_color . ';">' . __('CPU Load', 'hupa-minify')
 				            . ': <span id="cpu_load_footer"></span></strong>';
+				$content .= '</div>';
 			} else {
 				$content .= '<strong style="color: ' . $stat->footer_text_color . ';">' . __('Memory', 'hupa-minify') . ' : <span id="mem_usage_mb_footer"></span>'
 				            . ' ' . __('of', 'hupa-minify') . ' ' . $this->minify_check_limit() . ' (<span id="memory-usage-pos-footer"></span> '
@@ -438,7 +440,11 @@ final class RegisterHupaServerStatus {
 		$ipapi_pro_key = trim($stat->ipapi_pro_key);
 		//get the server ip
 		$ip = $this->minify_check_server_ip();
-		$server_location = get_transient('wpss_server_location');
+		if(get_option('ip_api_aktiv')){
+			$server_location = get_transient('wpss_server_location');
+		} else {
+			$server_location = 'nicht aktiviert';
+		}
 
 		if ($server_location === false) {
 			// lets validate the ip

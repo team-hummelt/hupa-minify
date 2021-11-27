@@ -322,7 +322,7 @@ final class RegisterHupaMinifyPlugin {
 
 		//SET DEFAULT SETTINGS
 		require 'optionen/actions/hupa-minify-options.php';
-		do_action( 'minify_plugin_set_defaults', 'check_settings' );
+		do_action( 'minify_plugin_set_defaults', 'check_update' );
 	}
 
 	/**
@@ -334,10 +334,6 @@ final class RegisterHupaMinifyPlugin {
 		if ( get_query_var( HUPA_MINIFY_QUERY_VAR ) == HUPA_MINIFY_QUERY_VALUE ) {
 			require HUPA_MINIFY_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'min/index.php';
 			exit();
-		}
-		if ( get_query_var( HUPA_MINIFY_QUERY_VAR ) == 'static' ) {
-			//require HUPA_MINIFY_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'min/static.php';
-			//exit();
 		}
 	}
 

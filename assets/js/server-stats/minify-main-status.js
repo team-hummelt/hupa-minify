@@ -52,7 +52,11 @@
                 'method': 'load_footer_layout',
             }, function (data) {
                 if(data.status){
-                    $('#status-info-widget').html(data.html);
+                    let adminFooter = document.querySelector('.admin_footer_version');
+                    let statusSpan = document.createElement('span');
+                    statusSpan.classList.add('real-show-status');
+                    statusSpan.innerHTML = data.html;
+                    adminFooter.parentNode.insertBefore(statusSpan, adminFooter);
                 }
             });
         }

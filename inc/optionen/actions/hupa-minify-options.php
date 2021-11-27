@@ -2,8 +2,6 @@
 
 namespace Hupa\Minify;
 
-use stdClass;
-
 /**
  * Hupa Minify Plugin
  * @package Hummelt & Partner
@@ -19,10 +17,10 @@ add_action( 'minify_plugin_set_defaults', function () {
 	$argsNum = func_num_args();
 
 	switch ( $args[0] ) {
-		case 'check_settings':
-			if ( ! get_option( 'minify_aktiv' ) ) {
+		case 'check_update':
+			if ( get_option( 'minify_db_version' ) != HUPA_MINIFY_MIN_DB_VERSION ) {
 				hupa_minify_set_settings();
-				update_option( 'minify_aktiv', true );
+				update_option( 'minify_db_version', HUPA_MINIFY_MIN_DB_VERSION );
 			}
 			break;
 		case 'set_defaults':
@@ -33,7 +31,6 @@ add_action( 'minify_plugin_set_defaults', function () {
 
 function hupa_minify_set_settings() {
 	$default = hupa_minify_default_settings();
-	update_option( 'minify_aktiv', $default->aktiv );
 	update_option( 'minify_sub_folder', $default->sub_folder );
 	update_option( 'minify_css_aktiv', $default->css_aktiv );
 	update_option( 'minify_js_aktiv', $default->js_aktiv );
@@ -72,7 +69,7 @@ function hupa_minify_set_settings() {
 	update_option( 'server_footer_aktiv', $default->server_footer_aktiv );
 	update_option( 'server_dashboard_aktiv', $default->server_dashboard_aktiv );
 	update_option( 'echtzeit_statistik_aktiv', $default->echtzeit_aktiv );
-
+	update_option( 'ip_api_aktiv', $default->ip_api_aktiv );
 
 	update_option( 'php_menu_aktiv', $default->php_menu_aktiv );
 	update_option( 'sql_menu_aktiv', $default->sql_menu_aktiv );
@@ -132,6 +129,7 @@ function hupa_minify_default_settings(): object {
 		'php_menu_aktiv'          => 1,
 		'sql_menu_aktiv'          => 1,
 		'memcache_menu_aktiv'     => 1,
+		'ip_api_aktiv'            => 1,
 
 		//SCSS
 		'minify_scss_source'      => '',

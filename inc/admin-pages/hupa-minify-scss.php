@@ -115,16 +115,16 @@ defined( 'ABSPATH' ) or die();
                                             </div>
                                         </div>
                                     </div>
-                                    <hr>
+                                    <hr >
                                     <div class="d-flex flex-wrap show-form-input">
-                                        <div class="form-check form-switch mb-3 me-3">
+                                        <div class="form-check form-switch mb-md-0 mb-3  me-3">
                                             <input class="form-check-input" name="stylesheet" type="checkbox"
                                                    role="switch"
                                                    id="SwitchStyleSheets" <?= ! get_option( 'scss_stylesheet_aktiv' ) ?: ' checked' ?>>
                                             <label class="form-check-label" for="SwitchStyleSheets">Enqueue
                                                 Stylesheets erstellen</label>
                                         </div>
-                                        <div class="form-check form-switch mb-3 me-3">
+                                        <div class="form-check form-switch me-3">
                                             <input class="form-check-input" data-bs-toggle="collapse" data-bs-target="#collapseMapOption" name="map" type="checkbox" role="switch"
                                                    id="SwitchSourceMap" <?= ! get_option( 'scss_map_aktiv' ) ?: ' checked' ?>>
                                             <label class="form-check-label" for="SwitchSourceMap">Source Map

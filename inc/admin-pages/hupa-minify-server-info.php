@@ -6,8 +6,7 @@ defined( 'ABSPATH' ) or die();
  * Copyright 2021, Jens Wiecker
  * License: Commercial - goto https://www.hummelt-werbeagentur.de/
  */
-$sysStatus   = false;
-$statusAktiv = (bool) get_option( 'server_status_aktiv' );
+$statusAktiv =  get_option( 'server_status_aktiv' );
 $stat = json_decode(get_option('settings_server_status'));
 ?>
 <div class="wp-bs-starter-wrapper">
@@ -29,7 +28,7 @@ $stat = json_decode(get_option('settings_server_status'));
                     <!--  TODO JOB WARNING STATUS STARTSEITE -->
                     <div class="collapse show" id="collapseMinifyServerStatus"
                          data-bs-parent="#minify_display_data">
-                        <div class="border rounded mt-1 mb-3 shadow-sm p-3 bg-custom-gray" style="min-height: 53vh">
+                        <div class="border rounded mt-1 mb-3 shadow-sm p-3 bg-custom-gray" style="min-height: 63vh">
 
 							<?php if ( ! $statusAktiv ): ?>
                                 <hr>
@@ -51,11 +50,9 @@ $stat = json_decode(get_option('settings_server_status'));
 								if ( php_uname( "s" ) == 'Linux' ) {
 									$sysText   = 'success';
 									$sysStatus = true;
-									update_option('minify_server_linux', true);
 								} else {
 									$sysText   = 'danger';
 									$sysStatus = false;
-									update_option('minify_server_linux', false);
 								}
 								?>
                                 <h6>Ihr System: <b class="text-<?= $sysText ?>"> <?= php_uname( "s" ) ?></b>
@@ -118,7 +115,7 @@ $stat = json_decode(get_option('settings_server_status'));
 					                        <?= __( 'Memcached Server Host (Only if you have Memcached installed in your server)', 'hupa-minify' ) ?>
                                         </div>
                                         <hr>
-				                        <?php if(MINIFY_IP_API_AKTIV): ?>
+				                        <?php if(get_option('ip_api_aktiv')): ?>
                                             <h6 class="mb-3"><i class="fa fa-gears wp-blue"></i>&nbsp; IP-API Pro?</h6>
                                             <label class="form-label"><?= __( 'Do you want to use the IP-API Pro key?', 'hupa-minify' ) ?></label>
                                             <div class="form-check form-switch">

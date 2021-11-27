@@ -173,21 +173,26 @@ switch ( $method ) {
 		update_option( 'line_comments_aktiv', $line_comments_aktiv );
 		update_option( 'minify_scss_map_option', $map_option );
 
-
 		$responseJson->status = true;
 		$responseJson->msg    = date( 'H:i:s', current_time( 'timestamp' ) );
 		break;
 
 	case 'activate_server_status':
-		$active = (int) filter_var( $_POST['activate'], FILTER_SANITIZE_NUMBER_INT );
+		$active = filter_var( $_POST['activate'], FILTER_SANITIZE_STRING );
+		$active ? $isActive = true : $isActive = false;
 
-		update_option( 'server_status_aktiv', $active );
-		update_option( 'minify_aktiv', true );
+		update_option( 'server_status_aktiv', $isActive );
 		$responseJson->status = true;
 		break;
 
 	case'reset_minify_settings':
 		do_action('minify_plugin_set_defaults', 'set_defaults');
-		$responseJson->status = true;
+		$responseJson->method = $method;
+		break;
+
+	case 'change_ip_api_aktiv':
+		get_option('ip_api_aktiv') ? update_option('ip_api_aktiv', 0) : update_option('ip_api_aktiv', 1);
+		$responseJson->ip_api = (bool) get_option('ip_api_aktiv');
+		$responseJson->method = $method;
 		break;
 }
