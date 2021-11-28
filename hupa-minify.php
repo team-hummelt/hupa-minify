@@ -40,6 +40,7 @@ define('HUPA_MINIFY_PLUGIN_DIR', dirname(__FILE__));
 
 //PLUGIN SLUG
 define('HUPA_MINIFY_SLUG_PATH', plugin_basename(__FILE__));
+define('HUPA_MINIFY_BASENAME', plugin_basename(__DIR__));
 
 //PLUGIN URL
 define('HUPA_MINIFY_PLUGIN_URL', plugins_url('hupa-minify'));

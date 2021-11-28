@@ -95,7 +95,7 @@ final class RegisterHupaMinifyPlugin {
 			'manage_options',
 			'hupa-minify',
 			'',
-			'dashicons-editor-contract', 8
+			'dashicons-editor-contract', 80
 		);
 
 		$hook_suffix = add_submenu_page(
@@ -124,6 +124,7 @@ final class RegisterHupaMinifyPlugin {
 		 * ==========================================
 		 */
 
+		if(get_option('minify_show_status_menu')):
 		add_menu_page(
 			__( 'Server Stats', 'hupa-minify' ),
 			__( 'Server Stats', 'hupa-minify' ),
@@ -142,8 +143,10 @@ final class RegisterHupaMinifyPlugin {
 			array( $this, 'admin_hupa_minify_server_info_page' ) );
 
 		add_action( 'load-' . $hook_suffix, array( $this, 'hupa_minify_load_ajax_admin_options_script' ) );
-		if(get_option('server_status_aktiv') && get_option('minify_server_linux')):
-		if(get_option('php_menu_aktiv')) {
+
+		if(get_option('server_status_aktiv') ):
+
+			if(get_option('php_menu_aktiv')) {
 			$hook_suffix = add_submenu_page(
 				'minify_server_stats',
 				__( 'Server Stats - PHP Information', 'hupa-minify' ),
@@ -192,6 +195,8 @@ final class RegisterHupaMinifyPlugin {
 
 			add_action( 'load-' . $hook_suffix, array( $this, 'hupa_minify_load_ajax_admin_options_script' ) );
 		}
+
+		endif;
 	}
 
 	/**

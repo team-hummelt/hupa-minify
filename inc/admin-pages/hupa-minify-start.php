@@ -55,7 +55,10 @@ global $hupa_server_class;
 						<?= __( 'WordPress', 'hupa-minify' ) ?>
                     </button>
                     <div class="ms-auto">
-
+                        <button data-method="change_statistik_menu"  class="btnResetBtnMinify d-none btn btn-danger btn-sm">
+                            <i class="fa fa-bars"></i>
+                            <span id="changeShowServeMenu"> <?=get_option('minify_show_status_menu') ? 'Statistik-Menu deaktivieren' : 'Statistik-Menu aktivieren'?></span>
+                        </button>
                     <button data-method="change_ip_api_aktiv"  class="btnResetBtnMinify d-none btn btn-danger btn-sm">
                         <i class="fa fa-tag"></i>
                         <span id="changeIpApi"> <?=get_option('ip_api_aktiv') ? 'IP-API deaktivieren' : 'IP-API aktivieren'?></span>
@@ -63,7 +66,6 @@ global $hupa_server_class;
                     <button data-method="reset_minify_settings" class="btnResetBtnMinify d-none btn btn-danger btn-sm"><i class="fa fa-random"></i> Reset</button>
                     </div>
                 </div>
-
                 <hr>
                 <div id="minify_display_data">
                     <!--  TODO JOB WARNING MINIFY STARTSEITE -->
@@ -81,7 +83,6 @@ global $hupa_server_class;
                                 <hr>
                                 <div class="card card-body bg-light mb-2 shadow-sm">
                                     <div class="d-lg-flex d-block">
-
                                         <div class="form-check form-switch mb-3 mb-lg-0 me-3">
                                             <input data-bs-toggle="collapse" data-bs-target="#collapseCSSSettings"
                                                    class="form-check-input"
