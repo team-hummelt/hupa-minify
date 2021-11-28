@@ -175,6 +175,14 @@ jQuery(document).ready(function ($) {
                         ipApiBtn.html('IP-API aktivieren');
                     }
                     break;
+                case 'change_statistik_menu':
+                    let statisticMenu = $('#changeShowServeMenu');
+                    if(data.show_menu) {
+                        statisticMenu.html('Statistik-Menu deaktivieren');
+                    } else {
+                        statisticMenu.html('Statistik-Menu aktivieren');
+                    }
+                    break;
             }
 
             });

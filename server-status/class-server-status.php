@@ -38,7 +38,10 @@ final class RegisterHupaServerStatus {
 			if(get_option('server_footer_aktiv') && !HUPA_STARTER_THEME_AKTIV){
 				add_filter('admin_footer_text', array($this, 'minify_add_footer'));
 			}
-			add_action('admin_bar_menu', array($this, 'add_server_stat_admin_bar_menu_item'), 100);
+			if(get_option('server_status_aktiv')) {
+				add_action('admin_bar_menu', array($this, 'add_server_stat_admin_bar_menu_item'), 100);
+			}
+
 			//JOB WARNING ADD Plugin DASHBOARD WIDGET
 			add_action('wp_dashboard_setup', array($this, 'minify_server_status_add_dashboard'));
 		}

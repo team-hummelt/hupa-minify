@@ -33,16 +33,22 @@ $stat = json_decode(get_option('settings_server_status'));
 				$cache_miss = '';
 				if (class_exists('Memcache')) {
 				$memcached_obj = new Memcache;
+
 				$memcached_obj->addServer($stat->memcache_host, $stat->memcache_port);
+
 				$memcachedinfo = $memcached_obj->getStats();
+
 				if (!empty($memcachedinfo)) {
-					$cache_hit = (($memcachedinfo['get_hits'] / $memcachedinfo['cmd_get']) * 100);
-					$cache_hit = round($cache_hit, 2);
+                    if($memcachedinfo['get_hits']){
+	                    $cache_hit = (($memcachedinfo['get_hits'] / $memcachedinfo['cmd_get']) * 100);
+	                    $cache_hit = round($cache_hit, 2);
+                    } else {
+                        $cache_hit = 0;
+                    }
 					$cache_miss = 100 - $cache_hit;
 					$usage = round((($memcachedinfo['bytes'] / $memcachedinfo['limit_maxbytes']) * 100), 2);
 					$uptime = number_format_i18n(($memcachedinfo['uptime'] / 60 / 60 / 24));
 				}
-
 				?>
 					<div class="wrap wpss_info">
 					<table class="widefat table table-bordered table-striped">

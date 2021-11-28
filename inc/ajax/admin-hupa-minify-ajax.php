@@ -195,4 +195,10 @@ switch ( $method ) {
 		$responseJson->ip_api = (bool) get_option('ip_api_aktiv');
 		$responseJson->method = $method;
 		break;
+
+	case 'change_statistik_menu':
+		get_option('minify_show_status_menu') ? update_option('minify_show_status_menu', 0) : update_option('minify_show_status_menu', 1);
+		$responseJson->show_menu = (bool) get_option('minify_show_status_menu');
+		$responseJson->method = $method;
+		break;
 }

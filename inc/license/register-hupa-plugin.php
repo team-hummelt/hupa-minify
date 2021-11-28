@@ -9,12 +9,11 @@ defined('ABSPATH') or die();
  * @package Hummelt & Partner WordPress Theme
  * Copyright 2021, Jens Wiecker
  * License: Commercial - goto https://www.hummelt-werbeagentur.de/
- * https://www.hummelt-werbeagentur.de/
  */
 final class RegisterHupaMinify
 {
     private static $hupa_minify_instance;
-    private string $plugin_dir;
+
 
     /**
      * @return static
@@ -28,10 +27,7 @@ final class RegisterHupaMinify
     }
 
     public function __construct(){
-        $file_path_from_plugin_root = str_replace(WP_PLUGIN_DIR . '/', '', __DIR__);
-        $path_array = explode('/', $file_path_from_plugin_root);
-        $plugin_folder_name = reset($path_array);
-        $this->plugin_dir = $plugin_folder_name;
+
     }
 
     public function init_hupa_minify(): void
@@ -108,15 +104,11 @@ final class RegisterHupaMinify
     */
     public function hupa_minify_license_site_trigger_check(): void {
         global $wp;
-        $wp->add_query_var( $this->plugin_dir );
+        $wp->add_query_var( HUPA_MINIFY_BASENAME );
     }
 
     function hupa_minify_license_callback_trigger_check(): void {
-        $file_path_from_plugin_root = str_replace(WP_PLUGIN_DIR . '/', '', __DIR__);
-        $path_array = explode('/', $file_path_from_plugin_root);
-        $plugin_folder_name = reset($path_array);
-        //$requestUri = base64_encode($plugin_folder_name);
-       if ( get_query_var( $this->plugin_dir ) === $this->plugin_dir) {
+       if ( get_query_var( HUPA_MINIFY_BASENAME ) === HUPA_MINIFY_BASENAME) {
             require 'api-request-page.php';
             exit;
         }

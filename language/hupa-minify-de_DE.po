@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2021-11-26 13:57+0100\n"
-"PO-Revision-Date: 2021-11-27 00:20+0100\n"
+"PO-Revision-Date: 2021-11-28 17:10+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -920,7 +920,7 @@ msgstr "Minify Eistellungen"
 
 #: register-hupa-minify.php:105
 msgid "Minify Settings "
-msgstr "Minify Eistellungen"
+msgstr "Minify Settings"
 
 #: register-hupa-minify.php:138
 msgid "Server Stats - General Settings"

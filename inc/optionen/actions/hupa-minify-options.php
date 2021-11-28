@@ -82,6 +82,7 @@ function hupa_minify_set_settings() {
 	update_option( 'scss_map_aktiv', $default->scss_map_aktiv );
 	update_option( 'line_comments_aktiv', $default->line_comments_aktiv );
 	update_option( 'minify_scss_map_option', $default->minify_scss_map_option );
+	update_option('minify_show_status_menu', $default->minify_show_status_menu);
 }
 
 function hupa_minify_default_settings(): object {
@@ -130,6 +131,7 @@ function hupa_minify_default_settings(): object {
 		'sql_menu_aktiv'          => 1,
 		'memcache_menu_aktiv'     => 1,
 		'ip_api_aktiv'            => 1,
+		'minify_show_status_menu' => 1,
 
 		//SCSS
 		'minify_scss_source'      => '',

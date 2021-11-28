@@ -79,6 +79,7 @@ delete_option('minify_server_linux');
 delete_option('echtzeit_statistik_aktiv');
 delete_option('ip_api_aktiv');
 delete_option('server_shell_exec');
+delete_option('minify_show_status_menu');
 
 
 // Let's delete the Options
