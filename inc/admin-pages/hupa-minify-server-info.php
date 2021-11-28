@@ -6,8 +6,8 @@ defined( 'ABSPATH' ) or die();
  * Copyright 2021, Jens Wiecker
  * License: Commercial - goto https://www.hummelt-werbeagentur.de/
  */
-$statusAktiv =  get_option( 'server_status_aktiv' );
 $stat = json_decode(get_option('settings_server_status'));
+
 ?>
 <div class="wp-bs-starter-wrapper">
     <div class="container">
@@ -30,7 +30,7 @@ $stat = json_decode(get_option('settings_server_status'));
                          data-bs-parent="#minify_display_data">
                         <div class="border rounded mt-1 mb-3 shadow-sm p-3 bg-custom-gray" style="min-height: 63vh">
 
-							<?php if ( ! $statusAktiv ): ?>
+							<?php if ( ! get_option( 'server_status_aktiv' ) ): ?>
                                 <hr>
                                 <h5>Server status aktivieren</h5>
                                 <hr>
@@ -61,7 +61,7 @@ $stat = json_decode(get_option('settings_server_status'));
                                     </div>
                                 </h6>
                                 <hr>
-								<?php if ( $sysStatus ): ?>
+								<?php if ( $sysStatus && get_option('server_shell_exec') ): ?>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input activate-server-status" type="checkbox"
                                                role="switch" id="CheckServerAktiv">
@@ -71,13 +71,20 @@ $stat = json_decode(get_option('settings_server_status'));
                                     <hr>
 								<?php else: ?>
                                     <h5 class="text-center"><i class="text-danger fa fa-exclamation-triangle"></i>&nbsp;
-                                        Diese Erweiterung kann <b class="text-danger">nicht aktiviert</b> werden!</h5>
+                                        Diese Erweiterung kann <b class="text-danger">nicht aktiviert</b> werden!
+										<?= get_option('server_shell_exec') ?: ' 
+                                    <div class="small d-block mt-2">
+                                    <i class="text-danger fa fa-exclamation"></i>&nbsp;
+                                    <b>Error: </b> 
+                                    <span class="text-danger strong-font-weight"> shell_exec </span>!</div>' ?>
+                                    </h5>
                                     <hr>
+                                    <!-- <div class="clock" id="serverErrorClock"></div>-->
 								<?php endif; ?>
 							<?php endif; ?>
                             <!---ENDE AKTIVIERUNG--->
                             <!------------------------------------------------>
-	                        <?php if ( $statusAktiv ): ?>
+	                        <?php if ( get_option( 'server_status_aktiv' ) ): ?>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input activate-server-status" type="checkbox"
                                            role="switch" id="CheckServerAktiv" <?=!get_option( 'server_status_aktiv' ) ?: ' checked'?>>

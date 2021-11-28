@@ -78,6 +78,7 @@ delete_option('memcache_menu_aktiv');
 delete_option('minify_server_linux');
 delete_option('echtzeit_statistik_aktiv');
 delete_option('ip_api_aktiv');
+delete_option('server_shell_exec');
 
 
 // Let's delete the Options

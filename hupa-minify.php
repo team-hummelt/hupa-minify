@@ -24,7 +24,7 @@
 defined( 'ABSPATH' ) or die();
 
 //HUPA MINIFY CONSTANTS
-const HUPA_MINIFY_MIN_DB_VERSION = '1.0.0';
+const HUPA_MINIFY_MIN_DB_VERSION = '1.0.1';
 const HUPA_MINIFY_MIN_PHP_VERSION = '8.0';
 const HUPA_MINIFY_MIN_WP_VERSION = '5.7';
 const HUPA_MINIFY_QUERY_VAR = 'minify';
@@ -67,6 +67,8 @@ define( "HUPA_MINIFY_ROOT_PATH", $path);
 //Cache Path
 $cacheFolder = $root_path . 'minify-cache';
 define( "HUPA_MINIFY_CACHE_PATH", sys_get_temp_dir());
+
+
 
 /**
  * REGISTER PLUGIN

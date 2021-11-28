@@ -12,9 +12,7 @@ defined( 'ABSPATH' ) or die();
 final class RegisterHupaServerStatus {
 	private static $instance;
 	var $memory = false;
-	// declaring the protected variables
-	protected  $use_ipapi_pro;
-	
+
 	/**
 	 * @return static
 	 */
@@ -32,8 +30,10 @@ final class RegisterHupaServerStatus {
 	public function server_status_init() {
 		if(!$this->isShellEnabled()){
 			update_option('server_status_aktiv', false);
+			update_option('server_shell_exec', false);
 		}
 		if(get_option('server_status_aktiv') ) {
+			update_option('server_shell_exec', true);
 			add_action('init', array($this, 'minify_check_limit'));
 			if(get_option('server_footer_aktiv') && !HUPA_STARTER_THEME_AKTIV){
 				add_filter('admin_footer_text', array($this, 'minify_add_footer'));
@@ -524,6 +524,14 @@ final class RegisterHupaServerStatus {
 		}
 
 		return false;
+	}
+
+	public function check_memcache_active(): bool {
+		if(class_exists('Memcache')){
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 global $hupa_server_class;
