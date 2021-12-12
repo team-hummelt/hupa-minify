@@ -20,7 +20,9 @@ class Hupa_Minify_Activator {
 	 */
 	public static function activate() {
 		$register = HUPA_MINIFY_INC . 'register-hupa-minify.php';
-		unlink($register);
+		if(!get_option('hupa_minify_product_install_authorize')){
+			unlink($register);
+		}
 		delete_option("hupa_minify_product_install_authorize");
 		delete_option("hupa_minify_client_id");
 		delete_option("hupa_minify_client_secret");
@@ -28,7 +30,7 @@ class Hupa_Minify_Activator {
 		delete_option("hupa_minify_access_token");
 		$infoTxt = 'aktiviert am ' . date('d.m.Y H:i:s')."\r\n";
 		file_put_contents(HUPA_MINIFY_PLUGIN_DIR.'/hupa-minify.txt',$infoTxt,  FILE_APPEND | LOCK_EX);
-		set_transient('show_lizenz_info', true, 5);
+		set_transient('show_minify_lizenz_info', true, 5);
 	}
 }
 

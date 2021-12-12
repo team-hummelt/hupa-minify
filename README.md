@@ -1,15 +1,20 @@
 # HUPA MINIFY 
-[![release](https://img.shields.io/github/v/tag/team-hummelt/hupa-minify?style=plastic)](https://github.com/team-hummelt/hupa-minify)
+hummelt und partner | Werbeagentur GmbH
 
+[![release](https://img.shields.io/github/v/release/team-hummelt/hupa-minify)](https://github.com/team-hummelt/hupa-minify)
+[![Hupa Release](https://img.shields.io/github/release-date/team-hummelt/hupa-minify)](https://github.com/team-hummelt/hupa-minify/releases/latest)
+[![GitHub](https://img.shields.io/github/license/team-hummelt/hupa-minify)](https://github.com/team-hummelt/hupa-minify/blob/master/LICENSE.txt)
+
+***
 * Contributors: jwiecker
 * Tags: minify, hupa minify
 * Requires at least: 5.8
 * Tested up to: 5.8
-* Stable tag: 1.0.0
+* Stable tag: 1.0.1
 * Requires PHP: 8.0
-* License: GPLv2 or later
-* License URI: https://www.gnu.org/licenses/gpl-2.0.html
+* License: MIT License
 
+***
 ### Features
 * JS und CSS komprimieren
 * reduzierte JS/CSS-Bandbreite
@@ -28,6 +33,10 @@ SCSS Compiler ist eine CSS-Präprozessorsprache, die viele Funktionen wie Variab
 Überwachen Sie Ihre WordPress-Website auf die richtige Art und Weise mit den wichtigsten Server-Statistiken wie Datenbankdetails, Speichernutzung, PHP-Details, CPU-Last, Server-Uptime & mehr.
 
 ### Changelog
+***
+= 1.0.1 =
+* CSS URL Fehler behoben
+* Lizenz Informationen hinzugefügt
 
 = 1.0.0 =
 * HUPA minify release. Included basic plugin features.
