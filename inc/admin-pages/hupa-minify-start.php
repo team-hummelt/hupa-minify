@@ -10,7 +10,6 @@ defined( 'ABSPATH' ) or die();
 $sE = json_decode( get_option( 'minify_settings_entwicklung' ) );
 $sP = json_decode( get_option( 'minify_settings_production' ) );
 global $hupa_server_class;
-
 ?>
 <div class="wp-bs-starter-wrapper">
 

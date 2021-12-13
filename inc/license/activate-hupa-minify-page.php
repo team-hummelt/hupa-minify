@@ -5,7 +5,6 @@ defined('ABSPATH') or die();
  * @package Hummelt & Partner WordPress MINIFY
  * Copyright 2021, Jens Wiecker
  * License: Commercial - goto https://www.hummelt-werbeagentur.de/
- * https://www.hummelt-werbeagentur.de/
  */
 
 $code = filter_input(INPUT_GET, 'code', FILTER_SANITIZE_STRING);

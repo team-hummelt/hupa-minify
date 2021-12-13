@@ -17,9 +17,6 @@ switch ($method) {
     case 'save_license_data':
         $client_id = filter_input( INPUT_POST, 'client_id', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
         $client_secret = filter_input( INPUT_POST, 'client_secret', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
-        global $wpdb;
-        $table = $wpdb->prefix . 'post_selector_license';
-        $licenseTable = $wpdb->get_var( "SHOW TABLES LIKE '{$table}'" );
 
         if(strlen($client_id) !== 12 || strlen($client_secret) !== 36) {
             $responseJson->status        = false;
@@ -27,12 +24,13 @@ switch ($method) {
             return;
         }
 
-
         if(get_option('hupa_minify_product_install_authorize')) {
             $responseJson->status = true;
             $responseJson->if_authorize = true;
             return;
         }
+
+	    update_option('minify_license_url', site_url());
         if(!get_option('hupa_server_url')){
             update_option('hupa_server_url','https://start.hu-ku.com/theme-update/api/v2/');
         }

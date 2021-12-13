@@ -19,7 +19,7 @@ if (!class_exists('HupaApiPluginMinifyServerHandle')) {
     class HupaApiPluginMinifyServerHandle
     {
         private static $api_filter_instance;
-        private string $hupa_server_url;
+
 
         /**
          * @return static
@@ -34,8 +34,6 @@ if (!class_exists('HupaApiPluginMinifyServerHandle')) {
 
         public function __construct()
         {
-
-            $this->hupa_server_url = get_option('hupa_server_url');
 
             //TODO Endpoints URL's
             add_filter('get_hupa_minify_api_urls', array($this, 'HupaMinifyGetApiUrl'));
@@ -61,7 +59,7 @@ if (!class_exists('HupaApiPluginMinifyServerHandle')) {
         {
             $client_id =  get_option('hupa_minify_client_id');
             return match ($scope) {
-                'authorize_url' => $this->hupa_server_url . 'authorize?response_type=code&client_id=' . $client_id,
+                'authorize_url' => get_option('hupa_server_url') . 'authorize?response_type=code&client_id=' . $client_id,
                 default => '',
             };
         }
@@ -72,7 +70,7 @@ if (!class_exists('HupaApiPluginMinifyServerHandle')) {
             $error->status = false;
             $client_id =  get_option('hupa_minify_client_id');
             $client_secret = get_option('hupa_minify_client_secret');
-            $token_url =$this->hupa_server_url . 'token';
+            $token_url = get_option('hupa_server_url') . 'token';
             $authorization = base64_encode("$client_id:$client_secret");
 
             $args = array(
@@ -99,44 +97,34 @@ if (!class_exists('HupaApiPluginMinifyServerHandle')) {
             }
 
             update_option('hupa_minify_access_token', $apiData->access_token);
-            return $this->HupaMinifyPOSTApiResource('install');
+	        $body = [
+		        'version' => HUPA_MINIFY_PLUGIN_VERSION,
+	        ];
+            return $this->HupaMinifyPOSTApiResource('install', $body);
         }
 
         public function HupaMinifyPOSTApiResource($scope, $body=false)
         {
-            $error = new stdClass();
-            $error->status = false;
-            $response = wp_remote_post($this->hupa_server_url . $scope, $this->HupaMinifyApiPostArgs($body));
-            if (is_wp_error($response)) {
+	        $response = wp_remote_post(get_option('hupa_server_url') . $scope, $this->HupaMinifyApiPostArgs($body));
+	        if (is_wp_error($response)) {
+		        return $response->get_error_message();
+	        }
+	        if (is_array($response)) {
+		        $query = json_decode($response['body']);
+		        if (isset($query->error)) {
+			        if ($this->get_error_message($query)) {
+				        $this->HupaMinifyGetApiClientCredentials();
+			        }
+			        $response = wp_remote_post(get_option('hupa_server_url') . $scope, $this->HupaMinifyApiPostArgs($body));
+			        if (is_array($response)) {
+				        return json_decode($response['body']);
+			        }
+		        } else {
+			        return $query;
+		        }
+	        }
+	        return false;
 
-                $error->message = $response->get_error_message();
-                return $error;
-            }
-
-            $apiData = json_decode($response['body']);
-            if($apiData->error){
-                $errType = $this->get_error_message($apiData);
-                if($errType) {
-                   $this->HupaMinifyGetApiClientCredentials();
-                }
-            }
-
-            $response = wp_remote_post($this->hupa_server_url . $scope, $this->HupaMinifyApiPostArgs($body));
-            if (is_wp_error($response)) {
-                $error->message = $response->get_error_message();
-                $error->apicode = $response['code'];
-                $error->apimessage = $response['message'];
-                return $error;
-            }
-            $apiData = json_decode($response['body']);
-            if(!$apiData->error){
-                $apiData->status = true;
-                return $apiData;
-            }
-
-            $error->error = $apiData->error;
-            $error->error_description = $apiData->error_description;
-            return $error;
         }
 
         public function HupaMinifyGETApiResource($scope, $get = []) {
@@ -150,7 +138,7 @@ if (!class_exists('HupaApiPluginMinifyServerHandle')) {
                 $getUrl = '?' . $getUrl;
             }
 
-            $url = $this->hupa_server_url . $scope . $getUrl;
+            $url = get_option('hupa_server_url') . $scope . $getUrl;
             $args = $this->HupaMinifyGETApiArgs();
 
             $response = wp_remote_get( $url, $args );
@@ -167,7 +155,7 @@ if (!class_exists('HupaApiPluginMinifyServerHandle')) {
                 }
             }
 
-            $response = wp_remote_get( $this->hupa_server_url, $this->HupaMinifyGETApiArgs() );
+            $response = wp_remote_get( get_option('hupa_server_url'), $this->HupaMinifyGETApiArgs() );
             if (is_wp_error($response)) {
                 $error->message = $response->get_error_message();
                 return $error;
@@ -222,7 +210,7 @@ if (!class_exists('HupaApiPluginMinifyServerHandle')) {
 
         private function HupaMinifyGetApiClientCredentials():void
         {
-            $token_url = $this->hupa_server_url . 'token';
+            $token_url = get_option('hupa_server_url') . 'token';
             $client_id =  get_option('hupa_minify_client_id');
             $client_secret = get_option('hupa_minify_client_secret');
             $authorization = base64_encode("$client_id:$client_secret");
@@ -250,6 +238,42 @@ if (!class_exists('HupaApiPluginMinifyServerHandle')) {
                 update_option('hupa_minify_access_token', $apiData->access_token);
             }
         }
+
+	    public function MinifyApiDownloadFile($url, $body = []) {
+
+		    $bearerToken = get_option('hupa_minify_access_token');
+		    $args = [
+			    'method'        => 'POST',
+			    'timeout'       => 45,
+			    'redirection'   => 5,
+			    'httpversion'   => '1.0',
+			    'blocking'      => true,
+			    'sslverify'     => true,
+			    'headers' => [
+				    'Content-Type' => 'application/x-www-form-urlencoded',
+				    'Authorization' => "Bearer $bearerToken"
+			    ],
+			    'body'          => $body
+		    ];
+
+		    $response = wp_remote_post( $url, $args );
+
+		    if (is_wp_error($response)) {
+			    $this->HupaMinifyGetApiClientCredentials();
+		    }
+
+		    $response = wp_remote_post( $url, $args );
+
+		    if (is_wp_error($response)) {
+			    print_r($response->get_error_message());
+			    exit();
+		    }
+
+		    if( !is_array( $response ) ) {
+			    exit('Download Fehlgeschlagen!');
+		    }
+		    return $response['body'];
+	    }
 
         private function get_error_message($error): bool
         {

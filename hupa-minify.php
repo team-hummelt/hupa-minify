@@ -11,14 +11,13 @@
  * Plugin Name:       Hupa Minify
  * Plugin URI:        https://www.hummelt-werbeagentur.de/leistungen/
  * Description:       Minify ist ein HTTP-Server für JS- und CSS-Assets. Es komprimiert und kombiniert Dateien und stellt sie mit entsprechenden Headern bereit, die bedingtes GET oder langes Expires ermöglichen.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Jens Wiecker
- * License:           GPLv2 or later
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * License:           MIT License
  * Requires PHP:      8.0
  * Requires at least: 5.8
  * Tested up to:      5.8
- * Stable tag:        1.0.0
+ * Stable tag:        1.0.1
  */
 
 defined( 'ABSPATH' ) or die();
@@ -99,7 +98,7 @@ register_activation_hook( __FILE__, 'activate_hupa_minify');
 register_deactivation_hook( __FILE__, 'deactivate_hupa_minify' );
 
 if(get_option('hupa_minify_product_install_authorize')) {
-	delete_transient('show_lizenz_info');
+	delete_transient('show_minify_lizenz_info');
 	require 'inc/register-hupa-minify.php';
 	require 'inc/optionen/optionen-init.php';
 	require 'inc/enqueue.php';
@@ -114,3 +113,13 @@ if(get_option('hupa_minify_product_install_authorize')) {
 	);
 	$hupaMinifyUpdateChecker->getVcsApi()->enableReleaseAssets();
 }
+
+function showWPMinifySitemapInfo() {
+	if(get_transient('show_minify_lizenz_info')) {
+		echo '<div class="error"><p>' .
+		     'Hupa Minify ungültige Lizenz: Zum Aktivieren geben Sie Ihre Zugangsdaten ein.' .
+		     '</p></div>';
+	}
+}
+
+add_action('admin_notices','showWPMinifySitemapInfo');
