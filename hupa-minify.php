@@ -117,7 +117,7 @@ if(get_option('hupa_minify_product_install_authorize')) {
 function showWPMinifySitemapInfo() {
 	if(get_transient('show_minify_lizenz_info')) {
 		echo '<div class="error"><p>' .
-		     'WP-Postselector ungültige Lizenz: Zum Aktivieren geben Sie Ihre Zugangsdaten ein.' .
+		     'Hupa Minify ungültige Lizenz: Zum Aktivieren geben Sie Ihre Zugangsdaten ein.' .
 		     '</p></div>';
 	}
 }

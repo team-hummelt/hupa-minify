@@ -8,10 +8,8 @@
 
 //$min_enableBuilder = true;
 //$min_serveOptions['rewriteCssUris'] = false;
-
-
+//$min_serveOptions['minifierOptions']['text/css']['prependRelativePath'] = '/css/';
 $min_enableStatic = (bool) get_option('minify_static_aktiv');
-
 $min_builderPassword = 'admin';
 $minDevelop = json_decode( get_option( 'minify_settings_entwicklung' ) );
 $minProduct = json_decode( get_option( 'minify_settings_production' ) );
@@ -105,7 +103,7 @@ $min_cacheFileLocking = true;
  * Set to true to disable the "f" GET parameter for specifying files.
  * Only the "g" parameter will be considered.
  */
-
+//$min_serveOptions['minifierOptions']['text/css']['prependRelativePath'] = '/css/';
 
 
 /**
