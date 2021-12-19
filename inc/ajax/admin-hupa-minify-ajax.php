@@ -22,28 +22,30 @@ if ( ! $method ) {
 switch ( $method ) {
 	case 'update_minify_settings':
 		$responseJson->spinner = true;
-		filter_var( $data->css_aktiv, FILTER_SANITIZE_STRING ) ? $css_aktiv = 1 : $css_aktiv = 0;
-		filter_var( $data->js_aktiv, FILTER_SANITIZE_STRING ) ? $js_aktiv = 1 : $js_aktiv = 0;
-		filter_var( $data->html_aktiv, FILTER_SANITIZE_STRING ) ? $html_aktiv = 1 : $html_aktiv = 0;
+
+		isset( $data->css_aktiv ) && is_string( $data->css_aktiv ) ? $css_aktiv = 1 : $css_aktiv = 0;
+		isset( $data->js_aktiv ) && is_string( $data->js_aktiv ) ? $js_aktiv = 1 : $js_aktiv = 0;
+		isset( $data->html_aktiv ) && is_string( $data->html_aktiv ) ? $html_aktiv = 1 : $html_aktiv = 0;
 
 		//CSS OPTION
-		filter_var( $data->css_groups_aktiv, FILTER_SANITIZE_STRING ) ? $css_groups_aktiv = 1 : $css_groups_aktiv = 0;
-		filter_var( $data->css_import_aktiv, FILTER_SANITIZE_STRING ) ? $css_import_aktiv = 1 : $css_import_aktiv = 0;
+		isset( $data->css_groups_aktiv ) && is_string( $data->css_groups_aktiv ) ? $css_groups_aktiv = 1 : $css_groups_aktiv = 0;
+		isset( $data->css_import_aktiv ) && is_string( $data->css_import_aktiv ) ? $css_import_aktiv = 1 : $css_import_aktiv = 0;
 		//JS OPTION
-		filter_var( $data->js_groups_aktiv, FILTER_SANITIZE_STRING ) ? $js_groups_aktiv = 1 : $js_groups_aktiv = 0;
-		filter_var( $data->wp_core_aktiv, FILTER_SANITIZE_STRING ) ? $wp_core_aktiv = 1 : $wp_core_aktiv = 0;
-		filter_var( $data->wp_embed_aktiv, FILTER_SANITIZE_STRING ) ? $wp_embed_aktiv = 1 : $wp_embed_aktiv = 0;
+		isset( $data->js_groups_aktiv ) && is_string( $data->js_groups_aktiv ) ? $js_groups_aktiv = 1 : $js_groups_aktiv = 0;
+		isset( $data->wp_core_aktiv ) && is_string( $data->wp_core_aktiv ) ? $wp_core_aktiv = 1 : $wp_core_aktiv = 0;
+		isset( $data->wp_embed_aktiv ) && is_string( $data->wp_embed_aktiv ) ? $wp_embed_aktiv = 1 : $wp_embed_aktiv = 0;
 		//HTML OPTION
-		filter_var( $data->html_inline_css, FILTER_SANITIZE_STRING ) ? $html_inline_css = 1 : $html_inline_css = 0;
-		filter_var( $data->html_inline_js, FILTER_SANITIZE_STRING ) ? $html_inline_js = 1 : $html_inline_js = 0;
-		filter_var( $data->html_comment, FILTER_SANITIZE_STRING ) ? $html_comment = 1 : $html_comment = 0;
+		isset( $data->html_inline_css ) && is_string( $data->html_inline_css ) ? $html_inline_css = 1 : $html_inline_css = 0;
+		isset( $data->html_inline_js ) && is_string( $data->html_inline_js ) ? $html_inline_js = 1 : $html_inline_js = 0;
+		isset( $data->html_comment ) && is_string( $data->html_comment ) ? $html_comment = 1 : $html_comment = 0;
 
 		//SERVER SETTINGS
-		filter_var( $data->static_aktiv, FILTER_SANITIZE_STRING ) ? $static_aktiv = 1 : $static_aktiv = 0;
-		$cache_type    = filter_var( $data->cache_type, FILTER_SANITIZE_NUMBER_INT );
-		$memcache_host = filter_var( $data->memcache_host, FILTER_SANITIZE_STRING );
-		$memcache_port = filter_var( $data->memcache_port, FILTER_SANITIZE_NUMBER_INT );
-		$subfolder     = filter_var( $data->subfolder, FILTER_SANITIZE_STRING );
+		isset( $data->static_aktiv ) && is_string( $data->static_aktiv ) ? $static_aktiv = 1 : $static_aktiv = 0;
+
+		isset($data->cache_type) && is_numeric($data->cache_type) ? $cache_type = $data->cache_type : $cache_type = '';
+		isset($data->memcache_host) && is_string($data->memcache_host) ? $memcache_host = $data->memcache_host : $memcache_host = '';
+		isset($data->memcache_port) && is_numeric($data->memcache_port) ? $memcache_port = $data->memcache_port : $memcache_port = '';
+		isset($data->subfolder) && is_string($data->subfolder) ? $subfolder = $data->subfolder : $subfolder = '';
 
 		if ( ! $subfolder ) {
 			$root    = explode( '/', HUPA_MINIFY_ROOT_PATH );
@@ -81,19 +83,20 @@ switch ( $method ) {
 	case'minify_ausgabe_settings':
 		$responseJson->spinner = true;
 
-		$active_settings = filter_var( $data->active_settings, FILTER_SANITIZE_NUMBER_INT );
+		isset($data->active_settings) && is_numeric($data->active_settings) ? $active_settings = $data->active_settings : $active_settings = '';
 
-		filter_var( $data->develop_debug, FILTER_SANITIZE_STRING ) ? $develop_debug = 1 : $develop_debug = 0;
-		filter_var( $data->develop_verkettung_aktiv, FILTER_SANITIZE_STRING ) ? $develop_verkettung_aktiv = 1 : $develop_verkettung_aktiv = 0;
-		filter_var( $data->develop_cache_aktiv, FILTER_SANITIZE_STRING ) ? $develop_cache_aktiv = 1 : $develop_cache_aktiv = 0;
-		$develop_cache_path = filter_var( $data->develop_cache_path, FILTER_SANITIZE_STRING );
-		$develop_cache_time = filter_var( $data->develop_cache_time, FILTER_SANITIZE_NUMBER_INT );
+		isset( $data->develop_debug ) && is_string( $data->develop_debug ) ? $develop_debug = 1 : $develop_debug = 0;
+		isset( $data->develop_verkettung_aktiv ) && is_string( $data->develop_verkettung_aktiv ) ? $develop_verkettung_aktiv = 1 : $develop_verkettung_aktiv = 0;
+		isset( $data->develop_cache_aktiv ) && is_string( $data->develop_cache_aktiv ) ? $develop_cache_aktiv = 1 : $develop_cache_aktiv = 0;
+		isset( $data->develop_cache_path ) && is_string( $data->develop_cache_path ) ? $develop_cache_path = $data->develop_cache_path : $develop_cache_path = '';
+		isset( $data->develop_cache_time ) && is_numeric( $data->develop_cache_time ) ? $develop_cache_time = $data->develop_cache_time : $develop_cache_time = '';
 
-		filter_var( $data->product_debug, FILTER_SANITIZE_STRING ) ? $product_debug = 1 : $product_debug = 0;
-		filter_var( $data->product_verkettung_aktiv, FILTER_SANITIZE_STRING ) ? $product_verkettung_aktiv = 1 : $product_verkettung_aktiv = 0;
-		filter_var( $data->produktion_cache_aktiv, FILTER_SANITIZE_STRING ) ? $produktion_cache_aktiv = 1 : $produktion_cache_aktiv = 0;
-		$product_cache_path = filter_var( $data->product_cache_path, FILTER_SANITIZE_STRING );
-		$product_cache_time = filter_var( $data->product_cache_time, FILTER_SANITIZE_NUMBER_INT );
+		isset( $data->product_debug ) && is_string( $data->product_debug ) ? $product_debug = 1 : $product_debug = 0;
+		isset( $data->product_verkettung_aktiv ) && is_string( $data->product_verkettung_aktiv ) ? $product_verkettung_aktiv = 1 : $product_verkettung_aktiv = 0;
+		isset( $data->produktion_cache_aktiv ) && is_string( $data->produktion_cache_aktiv ) ? $produktion_cache_aktiv = 1 : $produktion_cache_aktiv = 0;
+
+		isset( $data->product_cache_path ) && is_string( $data->product_cache_path ) ? $product_cache_path = $data->product_cache_path : $product_cache_path = '';
+		isset( $data->product_cache_time ) && is_numeric( $data->product_cache_time ) ? $product_cache_time = $data->product_cache_time : $product_cache_time = '';
 
 		$develop_cache_path ? $dev_cache_path = $develop_cache_path : $dev_cache_path = HUPA_MINIFY_CACHE_PATH;
 		$product_cache_path ? $prod_cache_path = $product_cache_path : $prod_cache_path = HUPA_MINIFY_CACHE_PATH;
@@ -129,16 +132,16 @@ switch ( $method ) {
 	case'minify_wordpress_settings':
 		$responseJson->spinner = true;
 
-		filter_var( $data->rsd_aktiv, FILTER_SANITIZE_STRING ) ? $rsd_aktiv = 1 : $rsd_aktiv = 0;
-		filter_var( $data->rss_aktiv, FILTER_SANITIZE_STRING ) ? $rss_aktiv = 1 : $rss_aktiv = 0;
-		filter_var( $data->rss_extra, FILTER_SANITIZE_STRING ) ? $rss_extra = 1 : $rss_extra = 0;
-		filter_var( $data->live_writer, FILTER_SANITIZE_STRING ) ? $live_writer = 1 : $live_writer = 0;
-		filter_var( $data->posts_rel, FILTER_SANITIZE_STRING ) ? $posts_rel = 1 : $posts_rel = 0;
-		filter_var( $data->short_link, FILTER_SANITIZE_STRING ) ? $short_link = 1 : $short_link = 0;
+		isset( $data->rsd_aktiv ) && is_string( $data->rsd_aktiv ) ? $rsd_aktiv = 1 : $rsd_aktiv = 0;
+		isset( $data->rss_aktiv ) && is_string( $data->rss_aktiv ) ? $rss_aktiv = 1 : $rss_aktiv = 0;
+		isset( $data->rss_extra ) && is_string( $data->rss_extra ) ? $rss_extra = 1 : $rss_extra = 0;
+		isset( $data->live_writer ) && is_string( $data->live_writer ) ? $live_writer = 1 : $live_writer = 0;
+		isset( $data->posts_rel ) && is_string( $data->posts_rel ) ? $posts_rel = 1 : $posts_rel = 0;
+		isset( $data->short_link ) && is_string( $data->short_link ) ? $short_link = 1 : $short_link = 0;
 
-		filter_var( $data->version_aktiv, FILTER_SANITIZE_STRING ) ? $version_aktiv = 1 : $version_aktiv = 0;
-		filter_var( $data->emoji_aktiv, FILTER_SANITIZE_STRING ) ? $emoji_aktiv = 1 : $emoji_aktiv = 0;
-		filter_var( $data->css_gutenberg_aktiv, FILTER_SANITIZE_STRING ) ? $css_gutenberg_aktiv = 1 : $css_gutenberg_aktiv = 0;
+		isset( $data->version_aktiv ) && is_string( $data->version_aktiv ) ? $version_aktiv = 1 : $version_aktiv = 0;
+		isset( $data->emoji_aktiv ) && is_string( $data->emoji_aktiv ) ? $emoji_aktiv = 1 : $emoji_aktiv = 0;
+		isset( $data->css_gutenberg_aktiv ) && is_string( $data->css_gutenberg_aktiv ) ? $css_gutenberg_aktiv = 1 : $css_gutenberg_aktiv = 0;
 
 		update_option( 'minify_rsd_aktiv', $rsd_aktiv );
 		update_option( 'minify_rss_link', $rss_aktiv );
@@ -157,13 +160,15 @@ switch ( $method ) {
 
 	case 'update_scss_settings':
 		$responseJson->spinner = true;
-		filter_var( $data->stylesheet, FILTER_SANITIZE_STRING ) ? $stylesheet_aktiv = 1 : $stylesheet_aktiv = 0;
-		filter_var( $data->map, FILTER_SANITIZE_STRING ) ? $map_aktiv = 1 : $map_aktiv = 0;
-		filter_var( $data->line_comments_aktiv, FILTER_SANITIZE_STRING ) ? $line_comments_aktiv = 1 : $line_comments_aktiv = 0;
-		$formatter_mode = filter_var( $data->formatter_mode, FILTER_SANITIZE_STRING );
-		$destination    = filter_var( $data->destination, FILTER_SANITIZE_STRING );
-		$source         = filter_var( $data->source, FILTER_SANITIZE_STRING );
-		$map_option     = filter_var( $data->map_option, FILTER_SANITIZE_STRING );
+		isset( $data->stylesheet ) && is_string( $data->stylesheet ) ? $stylesheet_aktiv = 1 : $stylesheet_aktiv = 0;
+		isset( $data->map ) && is_string( $data->map ) ? $map_aktiv = 1 : $map_aktiv = 0;
+		isset( $data->line_comments_aktiv ) && is_string( $data->line_comments_aktiv ) ? $line_comments_aktiv = 1 : $line_comments_aktiv = 0;
+
+		isset( $data->formatter_mode ) && is_string( $data->formatter_mode ) ? $formatter_mode = esc_textarea($data->formatter_mode) : $formatter_mode = '';
+		isset( $data->destination ) && is_string( $data->destination ) ? $destination = esc_textarea($data->destination) : $destination = '';
+		isset( $data->source ) && is_string( $data->source ) ? $source = esc_textarea($data->source) : $source = '';
+		isset( $data->map_option ) && is_string( $data->map_option ) ? $map_option = esc_textarea($data->map_option) : $map_option = '';
+
 
 		update_option( 'minify_scss_source', $source );
 		update_option( 'minify_scss_destination', $destination );
@@ -186,19 +191,19 @@ switch ( $method ) {
 		break;
 
 	case'reset_minify_settings':
-		do_action('minify_plugin_set_defaults', 'set_defaults');
+		do_action( 'minify_plugin_set_defaults', 'set_defaults' );
 		$responseJson->method = $method;
 		break;
 
 	case 'change_ip_api_aktiv':
-		get_option('ip_api_aktiv') ? update_option('ip_api_aktiv', 0) : update_option('ip_api_aktiv', 1);
-		$responseJson->ip_api = (bool) get_option('ip_api_aktiv');
+		get_option( 'ip_api_aktiv' ) ? update_option( 'ip_api_aktiv', 0 ) : update_option( 'ip_api_aktiv', 1 );
+		$responseJson->ip_api = (bool) get_option( 'ip_api_aktiv' );
 		$responseJson->method = $method;
 		break;
 
 	case 'change_statistik_menu':
-		get_option('minify_show_status_menu') ? update_option('minify_show_status_menu', 0) : update_option('minify_show_status_menu', 1);
-		$responseJson->show_menu = (bool) get_option('minify_show_status_menu');
-		$responseJson->method = $method;
+		get_option( 'minify_show_status_menu' ) ? update_option( 'minify_show_status_menu', 0 ) : update_option( 'minify_show_status_menu', 1 );
+		$responseJson->show_menu = (bool) get_option( 'minify_show_status_menu' );
+		$responseJson->method    = $method;
 		break;
 }

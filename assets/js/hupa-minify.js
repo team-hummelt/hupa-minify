@@ -196,7 +196,7 @@ jQuery(document).ready(function ($) {
     let InputMinifyFormTimeout;
     $('.send-ajax-minify-settings').on('input propertychange change', function () {
         $('.ajax-status-spinner').html('<i class="fa fa-spinner fa-spin"></i>&nbsp; Saving...');
-        const form_data = $(this).serializeObject();
+        let form_data = $(this).serializeObject();
         clearTimeout(InputMinifyFormTimeout);
         InputMinifyFormTimeout = setTimeout(function () {
             set_settings_form_input(form_data);
@@ -204,6 +204,7 @@ jQuery(document).ready(function ($) {
     });
 
     function set_settings_form_input(form_data) {
+
         $.post(minify_ajax_obj.ajax_url, {
                 'action': 'HupaMinifyHandle',
                 '_ajax_nonce': minify_ajax_obj.nonce,

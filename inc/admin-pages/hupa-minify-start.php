@@ -6,7 +6,6 @@ defined( 'ABSPATH' ) or die();
  * Copyright 2021, Jens Wiecker
  * License: Commercial - goto https://www.hummelt-werbeagentur.de/
  */
-//do_action('minify_plugin_set_defaults', 'set_defaults');
 $sE = json_decode( get_option( 'minify_settings_entwicklung' ) );
 $sP = json_decode( get_option( 'minify_settings_production' ) );
 global $hupa_server_class;
