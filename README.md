@@ -10,7 +10,7 @@ hummelt und partner | Werbeagentur GmbH
 * Tags: minify, hupa minify
 * Requires at least: 5.8
 * Tested up to: 5.8
-* Stable tag: 1.0.1
+* Stable tag: 1.0.2
 * Requires PHP: 8.0
 * License: MIT License
 
@@ -34,9 +34,13 @@ SCSS Compiler ist eine CSS-Präprozessorsprache, die viele Funktionen wie Variab
 
 ### Changelog
 ***
-= 1.0.1 =
+
+### 1.0.2
+* Plugin Update über Server hinzugefügt
+
+### 1.0.1
 * CSS URL Fehler behoben
 * Lizenz Informationen hinzugefügt
 
-= 1.0.0 =
+### 1.0.0
 * HUPA minify release. Included basic plugin features.

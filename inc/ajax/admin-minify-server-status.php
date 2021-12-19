@@ -33,16 +33,16 @@ switch ( $method ) {
 		$super_critical_status_color = filter_var( trim( $data->super_critical_status_color ), FILTER_SANITIZE_STRING );
 		$footer_text_color           = filter_var( trim( $data->footer_text_color ), FILTER_SANITIZE_STRING );
 
-		filter_var( $data->status_aktiv, FILTER_SANITIZE_STRING ) ? $status_aktiv = 1 : $status_aktiv = 0;
-		filter_var( $data->use_ipapi_pro, FILTER_SANITIZE_STRING ) ? $use_ipapi_pro = 1 : $use_ipapi_pro = 0;
+		isset($data->status_aktiv) && is_string($data->status_aktiv) ? $status_aktiv = 1 : $status_aktiv = 0;
+		isset($data->use_ipapi_pro) && is_string($data->use_ipapi_pro) ? $use_ipapi_pro = 1 : $use_ipapi_pro = 0;
 
-		filter_var( $data->echtzeit_aktiv, FILTER_SANITIZE_STRING ) ? $echtzeit_aktiv = 1 : $echtzeit_aktiv = 0;
-		filter_var( $data->server_footer_aktiv, FILTER_SANITIZE_STRING ) ? $server_footer_aktiv = 1 : $server_footer_aktiv = 0;
-		filter_var( $data->server_dashboard_aktiv, FILTER_SANITIZE_STRING ) ? $server_dashboard_aktiv = 1 : $server_dashboard_aktiv = 0;
+		isset($data->echtzeit_aktiv) && is_string($data->echtzeit_aktiv) ? $echtzeit_aktiv = 1 : $echtzeit_aktiv = 0;
+		isset($data->server_footer_aktiv) && is_string($data->server_footer_aktiv) ? $server_footer_aktiv = 1 : $server_footer_aktiv = 0;
+		isset($data->server_dashboard_aktiv) && is_string($data->server_dashboard_aktiv) ? $server_dashboard_aktiv = 1 : $server_dashboard_aktiv = 0;
 
-		filter_var( $data->php_menu_aktiv, FILTER_SANITIZE_STRING ) ? $php_menu_aktiv = 1 : $php_menu_aktiv = 0;
-		filter_var( $data->sql_menu_aktiv, FILTER_SANITIZE_STRING ) ? $sql_menu_aktiv = 1 : $sql_menu_aktiv = 0;
-		filter_var( $data->memcache_menu_aktiv, FILTER_SANITIZE_STRING ) ? $memcache_menu_aktiv = 1 : $memcache_menu_aktiv = 0;
+		isset($data->php_menu_aktiv) && is_string($data->php_menu_aktiv) ? $php_menu_aktiv = 1 : $php_menu_aktiv = 0;
+		isset($data->sql_menu_aktiv) && is_string($data->sql_menu_aktiv) ? $sql_menu_aktiv = 1 : $sql_menu_aktiv = 0;
+		isset($data->memcache_menu_aktiv) && is_string($data->memcache_menu_aktiv) ? $memcache_menu_aktiv = 1 : $memcache_menu_aktiv = 0;
 
 		$script_interval ? $script_interval = strip_tags( stripslashes( $script_interval ) ) : $script_interval = 200;
 		$good_status_color ? $good_status_color = strip_tags( stripslashes( $good_status_color ) ) : $good_status_color = '#37BF91';
