@@ -125,11 +125,17 @@ final class HupaMinifyWpLoaded {
 		if ( get_option( 'minify_css_aktiv' ) ):
 			$minDevelop  = json_decode( get_option( 'minify_settings_entwicklung' ) );
 			$minProduct  = json_decode( get_option( 'minify_settings_production' ) );
-			$debug_aktiv = match ( get_option( 'minify_settings_select' ) ) {
-				'1' => (bool) $minDevelop->debug_aktiv,
-				'2' => (bool) $minProduct->debug_aktiv,
-				default => false,
-			};
+			switch(get_option( 'minify_settings_select' )){
+				case'1':
+					$debug_aktiv =  (bool) $minDevelop->debug_aktiv;
+					break;
+				case'2':
+					$debug_aktiv = (bool) $minProduct->debug_aktiv;
+					break;
+				default:
+					$debug_aktiv = false;
+			}
+
 			$debug_aktiv ? $debug = '&debug' : $debug = '';
 			$styleArr = [];
 
@@ -183,11 +189,17 @@ final class HupaMinifyWpLoaded {
 		if ( get_option( 'minify_js_aktiv' ) ):
 			$minDevelop  = json_decode( get_option( 'minify_settings_entwicklung' ) );
 			$minProduct  = json_decode( get_option( 'minify_settings_production' ) );
-			$debug_aktiv = match ( get_option( 'minify_settings_select' ) ) {
-				'1' => (bool) $minDevelop->debug_aktiv,
-				'2' => (bool) $minProduct->debug_aktiv,
-				default => false,
-			};
+
+			switch(get_option( 'minify_settings_select' )){
+				case'1':
+					$debug_aktiv = (bool) $minDevelop->debug_aktiv;
+					break;
+				case'2':
+					$debug_aktiv = (bool) $minProduct->debug_aktiv;
+					break;
+				default:
+					$debug_aktiv = false;
+			}
 
 			$debug_aktiv ? $debug = '&debug' : $debug = '';
 
