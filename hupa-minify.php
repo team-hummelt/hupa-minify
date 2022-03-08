@@ -11,21 +11,21 @@
  * Plugin Name:       Hupa Minify
  * Plugin URI:        https://www.hummelt-werbeagentur.de/leistungen/
  * Description:       Minify ist ein HTTP-Server für JS- und CSS-Assets. Es komprimiert und kombiniert Dateien und stellt sie mit entsprechenden Headern bereit, die bedingtes GET oder langes Expires ermöglichen.
- * Version:           1.0.2
+ * Version:           1.0.3
  * Author:            Jens Wiecker
  * License:           MIT License
- * Requires PHP:      8.0
- * Requires at least: 5.8
- * Tested up to:      5.8
- * Stable tag:        1.0.2
+ * Requires PHP:      7.4
+ * Requires at least: 5.6
+ * Tested up to:      5.9.1
+ * Stable tag:        1.0.3
  */
 
 defined( 'ABSPATH' ) or die();
 
 //HUPA MINIFY CONSTANTS
 const HUPA_MINIFY_MIN_DB_VERSION  = '1.0.1';
-const HUPA_MINIFY_MIN_PHP_VERSION = '8.0';
-const HUPA_MINIFY_MIN_WP_VERSION  = '5.7';
+const HUPA_MINIFY_MIN_PHP_VERSION = '7.4';
+const HUPA_MINIFY_MIN_WP_VERSION  = '5.6';
 const HUPA_MINIFY_QUERY_VAR       = 'minify';
 const HUPA_MINIFY_QUERY_VALUE     = 'min';
 const MINIFY_SCSS_COMPILER_AKTIV  = true;

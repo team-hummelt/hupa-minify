@@ -119,7 +119,7 @@ class HupaMinifyScssPlugin {
 	/**
 	 * @throws Exception
 	 */
-	public function minifyCompiler( $source, $out = null ): bool|int|string {
+	public function minifyCompiler( $source, $out = null ) {
 
 		//weiter laufen, auch wenn der Benutzer das Skript durch Schließen des Browsers, des Terminals usw. "stoppt".
 		ignore_user_abort( true );

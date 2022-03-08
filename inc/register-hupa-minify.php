@@ -374,7 +374,7 @@ final class RegisterHupaMinifyPlugin {
 	 * =========== DEACTIVATE-ADMIN-NOTIZ ===========
 	 * ==============================================
 	 */
-	#[NoReturn] public function self_deactivate_notice() {
+	public function self_deactivate_notice() {
 		echo sprintf( '<div class="error" style="margin-top:5rem"><p>' . __( 'This plugin has been disabled because it requires a PHP version greater than %s and a WordPress version greater than %s. Your PHP version can be updated by your hosting provider.', 'lva-buchungssystem' ) . '</p></div>', HUPA_MINIFY_MIN_PHP_VERSION, HUPA_MINIFY_MIN_WP_VERSION );
 		exit();
 	}

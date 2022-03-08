@@ -264,7 +264,7 @@ final class RegisterHupaServerStatus {
 		}
 	}
 
-	public function minify_check_limit(): bool|string {
+	public function minify_check_limit() {
 		$memory_limit = ini_get('memory_limit');
 		if (preg_match('/^(\d+)(.)$/', $memory_limit, $matches)) {
 			if ($matches[2] == 'G') {
@@ -289,11 +289,11 @@ final class RegisterHupaServerStatus {
 	public function minify_format_php_size($size)
 	{
 		if (!is_numeric($size)) {
-			if ( str_contains( $size, 'M' ) ) {
+			if ( strpos( $size, 'M' ) ) {
 				$size = intval($size) * 1024 * 1024;
-			} elseif ( str_contains( $size, 'K' ) ) {
+			} elseif ( strpos( $size, 'K' ) ) {
 				$size = intval($size) * 1024;
-			} elseif ( str_contains( $size, 'G' ) ) {
+			} elseif ( strpos( $size, 'G' ) ) {
 				$size = intval($size) * 1024 * 1024 * 1024;
 			}
 		}

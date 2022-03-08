@@ -84,12 +84,12 @@ $stat = json_decode(get_option('settings_server_status'));
 								</tr>
 								<tr>
 									<td class="e"><?php _e('usage_user', 'hupa-minify'); ?></td>
-									<td class="v"><?php echo $memcachedinfo['usage_user']; ?></td>
+									<td class="v"><?= $memcachedinfo['usage_user'] ?? ''; ?></td>
 									<td class="v"><?php _e('Number of seconds the cpu has devoted to the process as the user', 'hupa-minify'); ?></td>
 								</tr>
 								<tr>
 									<td class="e"><?php _e('usage_system', 'hupa-minify'); ?></td>
-									<td class="v"><?php echo $memcachedinfo['usage_system']; ?></td>
+									<td class="v"><?= $memcachedinfo['usage_system'] ?? ''; ?></td>
 									<td class="v"><?php _e('Number of seconds the cpu has devoted to the process as the system', 'hupa-minify'); ?></td>
 								</tr>
 								<tr>

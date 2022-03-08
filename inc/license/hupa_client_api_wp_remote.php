@@ -58,10 +58,16 @@ if (!class_exists('HupaApiPluginMinifyServerHandle')) {
         public function HupaMinifyGetApiUrl($scope): string
         {
             $client_id =  get_option('hupa_minify_client_id');
-            return match ($scope) {
-                'authorize_url' => get_option('hupa_server_url') . 'authorize?response_type=code&client_id=' . $client_id,
-                default => '',
-            };
+
+			switch ($scope){
+				case 'authorize_url':
+					$return = get_option('hupa_server_url') . 'authorize?response_type=code&client_id=' . $client_id;
+					break;
+				default:
+					$return = '';
+
+			}
+			return $return;
         }
 
         public function HupaMinifyInstallByAuthorizationCode($authorization_code): object
@@ -91,7 +97,7 @@ if (!class_exists('HupaApiPluginMinifyServerHandle')) {
             }
 
             $apiData = json_decode($response['body']);
-            if ($apiData->error) {
+            if (isset($apiData->error)) {
                 $apiData->status = false;
                 return $apiData;
             }
