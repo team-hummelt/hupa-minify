@@ -8,10 +8,10 @@ defined( 'ABSPATH' ) or die();
  * https://www.hummelt-werbeagentur.de/
  */
 
-$method       = filter_input( INPUT_GET, 'g', FILTER_SANITIZE_STRING );
-$getFile      = filter_input( INPUT_GET, 'f', FILTER_SANITIZE_STRING );
-$location     = filter_input( INPUT_GET, 'l', FILTER_SANITIZE_STRING );
-$file         = filter_input( INPUT_GET, 'p', FILTER_SANITIZE_STRING );
+$method       = filter_input( INPUT_GET, 'g', FILTER_UNSAFE_RAW );
+$getFile      = filter_input( INPUT_GET, 'f', FILTER_UNSAFE_RAW );
+$location     = filter_input( INPUT_GET, 'l', FILTER_UNSAFE_RAW );
+$file         = filter_input( INPUT_GET, 'p', FILTER_UNSAFE_RAW );
 $cssArr       = [];
 $scrArr       = [];
 $singleCss    = [];

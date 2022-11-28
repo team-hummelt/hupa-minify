@@ -385,7 +385,7 @@ final class RegisterHupaMinifyPlugin {
 	 * ==========================================================
 	 */
 	public function load_hupa_minify_admin_style(): void {
-		$page = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_STRING );
+		$page = filter_input( INPUT_GET, 'page', FILTER_UNSAFE_RAW );
 		//TODO FontAwesome / Bootstrap
 		wp_enqueue_style( 'hupa-minify-admin-bs-style', HUPA_MINIFY_ASSETS_URL . 'css/bs/bootstrap.min.css', array(), HUPA_MINIFY_PLUGIN_VERSION, false );
 		// TODO ADMIN ICONS

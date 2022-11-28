@@ -11,12 +11,12 @@ $responseJson         = new stdClass();
 $record               = new stdClass();
 $responseJson->status = false;
 $data                 = '';
-$method               = filter_input( INPUT_POST, 'method', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
+$method               = filter_input( INPUT_POST, 'method', FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH );
 
 switch ($method) {
     case 'save_license_data':
-        $client_id = filter_input( INPUT_POST, 'client_id', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
-        $client_secret = filter_input( INPUT_POST, 'client_secret', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
+        $client_id = filter_input( INPUT_POST, 'client_id', FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH );
+        $client_secret = filter_input( INPUT_POST, 'client_secret', FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH );
 
         if(strlen($client_id) !== 12 || strlen($client_secret) !== 36) {
             $responseJson->status        = false;
