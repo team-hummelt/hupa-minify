@@ -170,6 +170,7 @@ switch ( $method ) {
 		isset( $data->map_option ) && is_string( $data->map_option ) ? $map_option = esc_textarea($data->map_option) : $map_option = '';
         isset( $data->scss_login_aktiv ) && is_string( $data->scss_login_aktiv ) ? $scss_login_aktiv = 1 : $scss_login_aktiv = 0;
 
+
 		update_option( 'minify_scss_source', $source );
 		update_option( 'minify_scss_destination', $destination );
 		update_option( 'minify_scss_formatter', $formatter_mode );
@@ -178,9 +179,17 @@ switch ( $method ) {
 		update_option( 'line_comments_aktiv', $line_comments_aktiv );
 		update_option( 'minify_scss_map_option', $map_option );
         update_option( 'scss_login_aktiv', $scss_login_aktiv );
+
 		$responseJson->status = true;
 		$responseJson->msg    = date( 'H:i:s', current_time( 'timestamp' ) );
 		break;
+
+    case 'set_scss_compiler_aktiv':
+        $compiler_aktiv = filter_input(INPUT_POST, 'active', FILTER_SANITIZE_NUMBER_INT);
+        update_option( 'compiler_aktiv', $compiler_aktiv );
+        $responseJson->status = true;
+        $responseJson->msg    = 'Gespeichert: ' . date( 'H:i:s', current_time( 'timestamp' ) );
+        break;
 
 	case 'activate_server_status':
 		$active = filter_var( $_POST['activate'], FILTER_UNSAFE_RAW );

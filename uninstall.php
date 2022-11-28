@@ -66,6 +66,7 @@ delete_option('line_comments_aktiv');
 delete_option('minify_scss_compiler_aktiv');
 delete_option('minify_scss_map_option');
 delete_option('scss_login_aktiv');
+delete_option('compiler_aktiv');
 
 // SERVER STATUS
 delete_option('minify_aktiv');
