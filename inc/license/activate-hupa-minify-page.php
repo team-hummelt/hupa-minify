@@ -7,7 +7,7 @@ defined('ABSPATH') or die();
  * License: Commercial - goto https://www.hummelt-werbeagentur.de/
  */
 
-$code = filter_input(INPUT_GET, 'code', FILTER_SANITIZE_STRING);
+$code = filter_input(INPUT_GET, 'code', FILTER_UNSAFE_RAW);
 $errMsg = '';
 $aktivShow = 'd-none';
 $registerShow = '';

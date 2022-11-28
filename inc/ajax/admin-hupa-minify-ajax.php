@@ -14,9 +14,9 @@ $data         = '';
 if ( isset( $_POST['data'] ) ) {
 	$data = apply_filters( 'array_to_object', $_POST['data'] );
 }
-$method = filter_var( $data->method, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
+$method = filter_var( $data->method, FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH );
 if ( ! $method ) {
-	$method = filter_input( INPUT_POST, 'method', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
+	$method = filter_input( INPUT_POST, 'method', FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH );
 }
 
 switch ( $method ) {
@@ -168,7 +168,7 @@ switch ( $method ) {
 		isset( $data->destination ) && is_string( $data->destination ) ? $destination = esc_textarea($data->destination) : $destination = '';
 		isset( $data->source ) && is_string( $data->source ) ? $source = esc_textarea($data->source) : $source = '';
 		isset( $data->map_option ) && is_string( $data->map_option ) ? $map_option = esc_textarea($data->map_option) : $map_option = '';
-
+        isset( $data->scss_login_aktiv ) && is_string( $data->scss_login_aktiv ) ? $scss_login_aktiv = 1 : $scss_login_aktiv = 0;
 
 		update_option( 'minify_scss_source', $source );
 		update_option( 'minify_scss_destination', $destination );
@@ -177,13 +177,13 @@ switch ( $method ) {
 		update_option( 'scss_map_aktiv', $map_aktiv );
 		update_option( 'line_comments_aktiv', $line_comments_aktiv );
 		update_option( 'minify_scss_map_option', $map_option );
-
+        update_option( 'scss_login_aktiv', $scss_login_aktiv );
 		$responseJson->status = true;
 		$responseJson->msg    = date( 'H:i:s', current_time( 'timestamp' ) );
 		break;
 
 	case 'activate_server_status':
-		$active = filter_var( $_POST['activate'], FILTER_SANITIZE_STRING );
+		$active = filter_var( $_POST['activate'], FILTER_UNSAFE_RAW );
 		$active ? $isActive = true : $isActive = false;
 
 		update_option( 'server_status_aktiv', $isActive );

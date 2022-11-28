@@ -23,6 +23,7 @@ class Hupa_Minify_Activator {
 		if(!get_option('hupa_minify_product_install_authorize')){
 			unlink($register);
 		}
+
 		delete_option("hupa_minify_product_install_authorize");
 		delete_option("hupa_minify_client_id");
 		delete_option("hupa_minify_client_secret");

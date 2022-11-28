@@ -15,23 +15,23 @@ $data         = '';
 if ( isset( $_POST['data'] ) ) {
 	$data = apply_filters( 'array_to_object', $_POST['data'] );
 }
-$method = filter_var( $data->method, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
+$method = filter_var( $data->method, FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH );
 if ( ! $method ) {
-	$method = filter_input( INPUT_POST, 'method', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
+	$method = filter_input( INPUT_POST, 'method', FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH );
 }
 
 switch ( $method ) {
 	case 'update_server_status_settings':
 		$responseJson->spinner = true;
 		$script_interval       = filter_var( trim( $data->script_interval ), FILTER_SANITIZE_NUMBER_INT );
-		$memcache_host         = filter_var( trim( $data->memcache_host ), FILTER_SANITIZE_STRING );
+		$memcache_host         = filter_var( trim( $data->memcache_host ), FILTER_UNSAFE_RAW );
 		$memcache_port         = filter_var( trim( $data->memcache_port ), FILTER_SANITIZE_NUMBER_INT );
-		$api_pro_key           = filter_var( trim( $data->api_pro_key ), FILTER_SANITIZE_STRING );
+		$api_pro_key           = filter_var( trim( $data->api_pro_key ), FILTER_UNSAFE_RAW );
 
-		$good_status_color           = filter_var( trim( $data->good_status_color ), FILTER_SANITIZE_STRING );
-		$critical_status_color       = filter_var( trim( $data->critical_status_color ), FILTER_SANITIZE_STRING );
-		$super_critical_status_color = filter_var( trim( $data->super_critical_status_color ), FILTER_SANITIZE_STRING );
-		$footer_text_color           = filter_var( trim( $data->footer_text_color ), FILTER_SANITIZE_STRING );
+		$good_status_color           = filter_var( trim( $data->good_status_color ), FILTER_UNSAFE_RAW );
+		$critical_status_color       = filter_var( trim( $data->critical_status_color ), FILTER_UNSAFE_RAW );
+		$super_critical_status_color = filter_var( trim( $data->super_critical_status_color ), FILTER_UNSAFE_RAW );
+		$footer_text_color           = filter_var( trim( $data->footer_text_color ), FILTER_UNSAFE_RAW );
 
 		isset($data->status_aktiv) && is_string($data->status_aktiv) ? $status_aktiv = 1 : $status_aktiv = 0;
 		isset($data->use_ipapi_pro) && is_string($data->use_ipapi_pro) ? $use_ipapi_pro = 1 : $use_ipapi_pro = 0;
