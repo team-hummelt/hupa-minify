@@ -105,6 +105,32 @@ jQuery(document).ready(function ($) {
         $(this).trigger('blur')
     });
 
+    $(document).on('click', '#compilerAktiv', function () {
+
+        let fieldSet = $('#scssConfig');
+        if($(this).prop('checked')){
+            fieldSet.prop('disabled', false);
+        } else {
+            fieldSet.prop('disabled', true);
+        }
+        let scssAktiv;
+        $(this).prop('checked') ? scssAktiv = 1 : scssAktiv = 0;
+        $.post(minify_ajax_obj.ajax_url, {
+                'action': 'HupaMinifyHandle',
+                '_ajax_nonce': minify_ajax_obj.nonce,
+                'method': 'set_scss_compiler_aktiv',
+                'active': scssAktiv,
+            },
+            function (data) {
+                if (data.status) {
+                    success_message(data.msg);
+                } else {
+                    warning_message(data.msg);
+                }
+            });
+    });
+
+
 
     $(document).on('change', '#inputSelectCache', function () {
         $(this).trigger('blur');

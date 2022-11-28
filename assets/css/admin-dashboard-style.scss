@@ -104,6 +104,12 @@ background-color: #fdfdfd!important;
   font-weight: 400 !important;
 }
 
+.no-blur:focus, .no-blur:active, .no-blur:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+}
+
 .custom-btn:disabled{
   opacity: 1!important;
 }
