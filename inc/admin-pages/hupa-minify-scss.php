@@ -93,6 +93,35 @@ defined('ABSPATH') or die();
                                                 </button>
                                             </div>
                                             <hr class="mb-2">
+                                            <h6>Cache Settings</h6>
+                                            <hr>
+                                            <div class="mb-2">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-bs-toggle="collapse"
+                                                           data-bs-target="#collapseCacheAktiv" name="cache_aktiv" type="checkbox"
+                                                           role="switch"
+                                                           id="SwitchCacheAktiv" <?= !get_option('minify_cache_aktiv') ?: 'checked' ?>>
+                                                    <label class="form-check-label" for="SwitchCacheAktiv">Cache aktiv</label>
+                                                </div>
+                                                <div id="collapseCacheAktiv" class="collapse <?= !get_option('minify_cache_aktiv') ?: 'show' ?>">
+                                                    <div class="col-12">
+                                                        <div class="form-floating mt-3">
+                                                            <input type="text" name="cache_path" class="form-control no-blur"
+                                                                   value="<?=get_option('minify_cache_path')?>" id="inputCachePath" placeholder="Cache Pfad">
+                                                            <label for="inputCachePath">Cache Pfad</label>
+                                                        </div>
+                                                        <div class="form-text mb-3">
+                                                            Der angegebene Pfad muss existieren.
+                                                        </div>
+
+                                                        <button type="button" class="clear-cache btn btn-blue-outline mb-2 btn-sm">
+                                                            <i class="bi bi-rocket-takeoff me-1"></i>
+                                                            Cache leeren
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="mb-2">
                                             <h6>Ausgabe Settings</h6>
                                             <hr>
                                             <div class="row">
@@ -124,7 +153,13 @@ defined('ABSPATH') or die();
                                                 <label class="form-check-label" for="SwitchSourceMap">Source Map
                                                     erstellen</label>
                                             </div>
-
+                                            <div class="form-check form-check-inline form-switch me-3">
+                                                <input class="form-check-input" name="enqueue_aktiv" type="checkbox"
+                                                       role="switch"
+                                                       id="SwitchEnqueueAktiv" <?=!get_option('minify_enqueue_aktiv') ?: 'checked'?>>
+                                                <label class="form-check-label" for="SwitchEnqueueAktiv">Enqueue
+                                                    Stylesheets erstellen <sup class="text-danger">(1)</sup></label>
+                                            </div>
                                             <div class="form-check form-check-inline form-switch me-3">
                                                 <input class="form-check-input" name="scss_login_aktiv" type="checkbox"
                                                        role="switch"
@@ -133,9 +168,13 @@ defined('ABSPATH') or die();
                                                     Login aktiv <sup class="text-danger">*</sup></label>
                                             </div>
                                             <div class="form-text mt-2">
-                                                <span class="text-danger">*</span>
-                                                Wenn aktiviert, ist der SCSS-Compiler nur für angemeldete Benutzer
-                                                aktiv.
+                                                <span class="text-danger">(1)</span>
+                                                CSS-Stylesheets werden automatisch in den Header eingereiht.
+                                            </div>
+                                            <div class="form-text">
+                                                <span class="text-danger">(2)</span>
+                                                Wenn aktiviert, ist der SCSS-Compiler nur aktiv, wenn ein Benutzer
+                                                angemeldet ist.
                                             </div>
                                         </div>
                                         <div class="show-form-input">

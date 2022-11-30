@@ -10,6 +10,27 @@ defined( 'ABSPATH' ) or die();
 if ( ! function_exists( 'hupa_minify_public_style' ) ) {
     function hupa_minify_public_style() {
 
+        if(get_option('minify_enqueue_aktiv')){
+            $dir = HUPA_MINIFY_THEME_ROOT . get_option('minify_scss_destination');
+            if(is_dir($dir)){
+                $scanned_directory = array_diff(scandir($dir), array('..', '.'));
+                $separator = substr(get_option('minify_scss_destination'), -1, 1);
+                if ($separator == '/') {
+                    $separator = '';
+                } else {
+                    $separator = '/';
+                }
+                foreach ($scanned_directory as $file) {
+                    $pathInfo = pathinfo($dir . $separator . $file);
+                    if ($pathInfo['extension'] === 'css') {
+                        $url = str_replace('\\', '/', site_url() . '/wp-content/themes/' . get_option('minify_scss_destination') . $separator);
+                        $url = $url . $pathInfo['basename'];
+                        $id = 'minify-css-compiler-file-' . $pathInfo['filename'];
+                        wp_enqueue_style($id, $url, [], HUPA_MINIFY_PLUGIN_VERSION);
+                    }
+                }
+            }
+        }
 	    /**
 	     * ==========================================
 	     * =========== AJAX PUBLIC HANDLE ===========

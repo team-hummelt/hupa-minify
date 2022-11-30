@@ -77,7 +77,9 @@ class HupaMinifyScssPlugin
         $src = array_diff(scandir($source_dir), array('..', '.'));
         if ($src) {
             foreach ($src as $tmp) {
-
+                if(substr($tmp,0,1) == '_') {
+                    continue;
+                }
                 $file = $source_dir . DIRECTORY_SEPARATOR . $tmp;
                 if (!is_file($file)) {
                     continue;
@@ -101,7 +103,7 @@ class HupaMinifyScssPlugin
         }
     }
 
-    protected function check_if_dir($dir): bool
+    public function check_if_dir($dir): bool
     {
         if (!is_dir($dir)) {
             if (!mkdir($dir, 0777, true)) {
@@ -122,7 +124,12 @@ class HupaMinifyScssPlugin
         ignore_user_abort(true);
         set_time_limit(0);
 
-        $scssCompiler = new Compiler();
+        $cacheArr = null;
+        if(get_option('minify_cache_aktiv') && !empty(get_option('minify_cache_path'))){
+            ///$this->delete_scss_compiler_cache(get_option('minify_cache_path'));
+            $cacheArr = ['cacheDir' => get_option('minify_cache_path')];
+        }
+        $scssCompiler = new Compiler($cacheArr);
         $pi = pathinfo($source);
         $scssCompiler->addImportPath($pi['dirname'] . '/');
 
@@ -165,18 +172,58 @@ class HupaMinifyScssPlugin
         }
         return $compiled;
     }
+
+    public function delete_scss_compiler_cache($dir)
+    {
+        if (is_dir($dir)) {
+            $scanned_directory = array_diff(scandir($dir), array('..', '.'));
+            foreach ($scanned_directory as $file) {
+                $f = explode('_', $file);
+                if (isset($f[0]) && $f[0] == 'scssphp') {
+                    if (is_file($dir . DIRECTORY_SEPARATOR . $file)) {
+                        @unlink($dir . DIRECTORY_SEPARATOR . $file);
+                    }
+                }
+            }
+        }
+    }
+
+    public function enqueue_scss_script()
+    {
+        if(get_option('minify_enqueue_aktiv')) {
+            $dir = HUPA_MINIFY_ROOT_PATH . $this->out_dir;
+            if (is_dir($dir)) {
+                $scanned_directory = array_diff(scandir($dir), array('..', '.'));
+                $separator = substr($this->out_dir, -1, 1);
+                if ($separator == '/') {
+                    $separator = '';
+                } else {
+                    $separator = '/';
+                }
+                foreach ($scanned_directory as $file) {
+                    $pathInfo = pathinfo($dir . $separator . $file);
+                    if ($pathInfo['extension'] === 'css') {
+                        $url = str_replace('\\', '/', site_url() . '/wp-content/themes/' . $this->out_dir . $separator);
+                        $url = $url . $pathInfo['basename'];
+                        $id = 'css-compiler-file-' . $pathInfo['filename'];
+                        wp_enqueue_style($id, $url, [], HUPA_MINIFY_PLUGIN_VERSION);
+                    }
+                }
+            }
+        }
+    }
 }
 $isLogin = true;
 if(get_option( 'scss_login_aktiv' ) && !is_user_logged_in() ){
     $isLogin = false;
 }
-
+global $SCSS_compiler;
 if (MINIFY_SCSS_COMPILER_AKTIV && $isLogin) {
     $SCSS_compiler = HupaMinifyScssPlugin::instance();
     try {
         $SCSS_compiler->compileFile();
     } catch (Exception|SassException $e) {
-        echo '<div class="p-5 mt-5"> <span class="text-danger fs-5 fw-bolder d-block">SCSS Compiler Error:</span>   '.$e->getMessage().'</div>';
+        echo '<div class="d-flex justify-content-center flex-column position-absolute start-50 translate-middle bg-light p-3" style="z-index: 99999;width:95%;top:10rem;min-height: 150px; border: 2px solid #dc3545; border-radius: .5rem"> <span class="text-danger fs-5 fw-bolder d-flex align-items-center"><i class="bi bi-cpu fs-4 me-1"></i>SCSS Compiler Error:</span>   ' . $e->getMessage() . '</div>';
     }
 }
 

@@ -63,6 +63,6 @@ class HupaMinifyTreeView {
 	}
 }
 
-$path = urldecode( $_REQUEST['dir'] );
+$path =  $_REQUEST['dir'];
 $tree = new HupaMinifyTreeView( $path );
 $responseJson = $tree->create_tree();
