@@ -29,7 +29,7 @@ jQuery(document).ready(function ($) {
         if( entry.hasClass('folder') ) {
             if( entry.hasClass('collapsed') ) {
                 entry.find('UL').remove();
-                getfilelist( entry, escape( $(this).attr('rel') ));
+                getfilelist( entry,  $(this).attr('rel') );
                 entry.removeClass('collapsed').addClass('expanded');
             }
             else {

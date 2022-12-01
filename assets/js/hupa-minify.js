@@ -130,7 +130,20 @@ jQuery(document).ready(function ($) {
             });
     });
 
-
+    $(document).on('click', '.clear-cache', function () {
+        $.post(minify_ajax_obj.ajax_url, {
+                'action': 'HupaMinifyHandle',
+                '_ajax_nonce': minify_ajax_obj.nonce,
+                'method': 'minify_clear_cache',
+            },
+            function (data) {
+                if (data.status) {
+                    success_message(data.msg);
+                } else {
+                    warning_message(data.msg);
+                }
+            });
+    });
 
     $(document).on('change', '#inputSelectCache', function () {
         $(this).trigger('blur');

@@ -67,6 +67,9 @@ delete_option('minify_scss_compiler_aktiv');
 delete_option('minify_scss_map_option');
 delete_option('scss_login_aktiv');
 delete_option('compiler_aktiv');
+delete_option('minify_enqueue_aktiv');
+delete_option('minify_cache_aktiv');
+delete_option('minify_cache_path');
 
 // SERVER STATUS
 delete_option('minify_aktiv');
